@@ -1,4 +1,4 @@
-# CodeHeroes
+# CodeHeroes      [![Build Status](https://travis-ci.org/taateli/CodeHeroes.svg?branch=master)](https://travis-ci.org/taateli/CodeHeroes)
 
 Mini-project repo for course Ohjelmistotuotanto for University of Helsinki
 
