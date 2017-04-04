@@ -6,4 +6,4 @@ deploy:
   provider: heroku
   api_key:
     secure: "d11dcc23-39fd-4020-b00a-2b25b10db3af"
-  app: my-app-codeheroes
+  app: codeheroes
