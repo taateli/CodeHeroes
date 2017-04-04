@@ -6,7 +6,9 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-
+/**
+ * This class is to create different proceedings objects.
+ */
 @Entity
 @DiscriminatorValue(value = "Inproceedings")
 public class Inproceedings extends Reference {
@@ -14,27 +16,44 @@ public class Inproceedings extends Reference {
     @Id
     private Long id;
 
-//    private List<String> authors;  //Mikäli kirjoittajalista on ArrayList-muodossa
-
-    private String author;    //Mikäli kirjoittajalista on String-muodossa
+    /**
+     * There are two possibilities of storing authors: String and
+     * ArrayList<String>. It depends on the implementation, which of those will
+     * remain.
+     */
+//    private List<String> authors;  
+    private String author;
 
     private String title;
     private String booktitle;
     private int year;
-    private int startingPage;  //Laitetaan sivunumerot pakollisiksi, vaikka yhdessä BibTex-malliviitteessä
-    private int endingPage;    //ei ollutkaan.
+    private int startingPage;
+    private int endingPage;
     private String publisher;
     private String address;
 
-    //Laitan vain yhden konstruktorivaihtoehdon, koska mikäli joku kenttä jää tyhjäksi, sen voi alustaa "".
-    //Kontruktorissa on kohtalaisen paljon muuttujia, mutta asialle ei voi mitään. Author-authors-valinta 
-    //poistaa yhden muuttujan.
-
-   
+    
+    /**
+     * This constructor contains all the possible knowledge fields of a book.
+     *
+     * @param publisher is not compulsory.
+     * @param address is not compulsory.
+     */
+//    public Inproceedings(List<String> authors, String author, String title, String booktitle, int year, int startingPage, int endingPage, String publisher, String address) {
+////        this.authors = authors;
+//        this.author = author;
+//        this.title = title;
+//        this.booktitle = booktitle;
+//        this.year = year;
+//        this.startingPage = startingPage;
+//        this.endingPage = endingPage;
+//        this.publisher = publisher;
+//        this.address = address;
+//    }
+    
     public String getTitle() {
         return this.title;
     }
-
 
     public String getBookTitle() {
         return this.booktitle;
@@ -43,18 +62,20 @@ public class Inproceedings extends Reference {
 //    public List<String> getAuthors() {
 //        return this.authors;
 //    }
-
-
+    /**
+     * The method returns the authors, if they are saved as a String.
+     */
     @Override
     public String getAuthor() {
         return this.author;
     }
 
-    //Tällä palautetaan n:s kirjoittaja.
+    /**
+     * The method returns the author at the position n on the list.
+     */
 //    public String getAuthor(int n) {
 //        return this.authors.get(n);
 //    }
-
     @Override
     public int getYear() {
         return this.year;
@@ -91,9 +112,10 @@ public class Inproceedings extends Reference {
         this.author = author;
     }
 
-    //Mikäli käytetään tekijöistä ArrayList-muotoa, tällä voi lisätä listaan kirjan n:nnen kirjoittajan.
-
-
+    /**
+     * The method inserts an author at the place n on the list. The possible
+     * previous author at the place n is shifted to the rigth.
+     */
     @Override
     public void setYear(int year) {
         this.year = year;
@@ -116,13 +138,13 @@ public class Inproceedings extends Reference {
         this.endingPage = page;
     }
 
-    //Tällä on tarkoitus tulostaa koko viite String-muodossa.
-    //Tässä oletan, että tekijät ovat listana valmiiksi String-muodossa.
-    // Mikäli tekijät talletetaan ArrayList-muodossa, voi tehdä oman metodin,
-    //jolla tekijät muutetaan String-muotoon.
-    //Katsoin viitteen mallia tehtävänannosta.
-    //Jossain viitteistä oli osoite, muttei kaikissa, sen tähden if-lause.
-    //Elina on ekspertti viitteen oikean muodon suhteen...
+    /**
+     * This method returns all the information of the book referenced.
+     *
+     * The if -sentences allow the publisher- and address fields to be empty.
+     *
+     * @return The reference information of a book as a String.
+     */
     @Override
     public String toString() {
         String tulostus = this.author + ". " + this.title + ". In " + this.booktitle + ", pages " + this.startingPage + " - " + this.endingPage + ".";
@@ -136,10 +158,15 @@ public class Inproceedings extends Reference {
         return tulostus;
     }
 
+    /**
+     * This method returns all the information of the book referenced as a
+     * BibTex String.
+     *
+     * @return The BibTex-reference information of a book as a String.
+     */
     @Override
     public String toBibTex() {
-        return "";
+        return "Not supported yet";
     }
-
 
 }

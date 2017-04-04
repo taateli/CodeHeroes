@@ -9,6 +9,9 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
+/**
+ * This interface is the interface for the classes "Book", "Inproceedins" and "Article".
+ */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "ReferenceType")
