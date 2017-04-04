@@ -35,15 +35,15 @@ public class Book extends Reference {
      *
      * @param address is not compulsory.
      */
-    public Book(String author, ArrayList<String> authors, String title, int year, String publisher) {
-        
-//      this.authors = authors;
-        this.author = author;
-        this.title = title;
-        this.year = year;
-        this.publisher = publisher;
-        this.address = "";
-    }
+//    public Book(String author, ArrayList<String> authors, String title, int year, String publisher) {
+//        
+////      this.authors = authors;
+//        this.author = author;
+//        this.title = title;
+//        this.year = year;
+//        this.publisher = publisher;
+//        this.address = "";
+//    }
     
     @Override
     public String getTitle() {

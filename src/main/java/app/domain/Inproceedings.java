@@ -39,17 +39,17 @@ public class Inproceedings extends Reference {
      * @param publisher is not compulsory.
      * @param address is not compulsory.
      */
-    public Inproceedings(List<String> authors, String author, String title, String booktitle, int year, int startingPage, int endingPage, String publisher, String address) {
-//        this.authors = authors;
-        this.author = author;
-        this.title = title;
-        this.booktitle = booktitle;
-        this.year = year;
-        this.startingPage = startingPage;
-        this.endingPage = endingPage;
-        this.publisher = publisher;
-        this.address = address;
-    }
+//    public Inproceedings(List<String> authors, String author, String title, String booktitle, int year, int startingPage, int endingPage, String publisher, String address) {
+////        this.authors = authors;
+//        this.author = author;
+//        this.title = title;
+//        this.booktitle = booktitle;
+//        this.year = year;
+//        this.startingPage = startingPage;
+//        this.endingPage = endingPage;
+//        this.publisher = publisher;
+//        this.address = address;
+//    }
     
     public String getTitle() {
         return this.title;
