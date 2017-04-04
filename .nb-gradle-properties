@@ -19,7 +19,9 @@
       <task-names>
         <name must-exist="no">${project}:classes</name>
       </task-names>
-      <task-args/>
+      <task-args>
+        <arg>-PcmdLineArgs=${cmd-line-args}</arg>
+      </task-args>
       <task-jvm-args/>
     </task>
   </built-in-tasks>

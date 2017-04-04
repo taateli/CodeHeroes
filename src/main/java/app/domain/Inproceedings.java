@@ -1,8 +1,15 @@
 package app.domain;
 
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
-public class Inproceedings implements Reference {
+@Entity
+public class Inproceedings extends AbstractPersistable<Long> implements Reference {
+
+    @Id
+    private Long id;
 
     private List<String> authors;  //Mikäli kirjoittajalista on ArrayList-muodossa
     private String author;    //Mikäli kirjoittajalista on String-muodossa
@@ -38,7 +45,7 @@ public class Inproceedings implements Reference {
     public String getTitle() {
         return this.title;
     }
-    
+
     public String getBookTitle() {
         return this.booktitle;
     }
@@ -84,7 +91,7 @@ public class Inproceedings implements Reference {
     public void setTitle(String title) {
         this.title = title;
     }
-    
+
     public void setBookTitle(String booktitle) {
         this.booktitle = booktitle;
     }
@@ -93,9 +100,8 @@ public class Inproceedings implements Reference {
     public void setAuthor(String author) {
         this.author = author;
     }
-    
+
     //Mikäli käytetään tekijöistä ArrayList-muotoa, tällä voi lisätä listaan kirjan n:nnen kirjoittajan.
-   
     public void setAuthor(String author, int n) {
         this.authors.add(n, title);
     }
@@ -110,20 +116,18 @@ public class Inproceedings implements Reference {
         this.publisher = publisher;
     }
 
-    public void setAddress(String address){
+    public void setAddress(String address) {
         this.address = address;
     }
-    
+
     public void setStartingPage(int page) {
         this.startingPage = page;
     }
-    
+
     public void setEndingPage(int page) {
         this.endingPage = page;
     }
-    
-    
-    
+
     //Tällä on tarkoitus tulostaa koko viite String-muodossa.
     //Tässä oletan, että tekijät ovat listana valmiiksi String-muodossa.
     // Mikäli tekijät talletetaan ArrayList-muodossa, voi tehdä oman metodin,
@@ -131,23 +135,30 @@ public class Inproceedings implements Reference {
     //Katsoin viitteen mallia tehtävänannosta.
     //Jossain viitteistä oli osoite, muttei kaikissa, sen tähden if-lause.
     //Elina on ekspertti viitteen oikean muodon suhteen...
-    
     @Override
     public String toString() {
         String tulostus = this.author + ". " + this.title + ". In " + this.booktitle + ", pages " + this.startingPage + " - " + this.endingPage + ".";
-       if (!this.publisher.isEmpty()) {
-           tulostus = tulostus + " " + this.publisher + ",";
-       }
+        if (!this.publisher.isEmpty()) {
+            tulostus = tulostus + " " + this.publisher + ",";
+        }
         tulostus = " " + tulostus + this.year + ".";
         if (!this.address.isEmpty()) {
             tulostus = tulostus + " " + this.address + ".";
         }
         return tulostus;
     }
-    
+
     @Override
     public String toBibTex() {
         return "";
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }

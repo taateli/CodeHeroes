@@ -2,8 +2,15 @@ package app.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
-public class Book implements Reference {
+@Entity
+public class Book extends AbstractPersistable<Long> implements Reference {
+
+    @Id
+    private Long id;
 
     private List<String> authors;  //Mikäli kirjoittajalista on ArrayList-muodossa
     private String author;    //Mikäli kirjoittajalista on String-muodossa
@@ -69,7 +76,7 @@ public class Book implements Reference {
         return this.year;
     }
 
-    @Override
+    // @Override
     public String getPublisher() {
         return this.publisher;
     }
@@ -115,7 +122,6 @@ public class Book implements Reference {
     //Katsoin viitteen mallia tehtävänannosta.
     //Jossain viitteistä oli osoite, muttei kaikissa, sen tähden if-lause.
     //Elina on ekspertti viitteen oikean muodon suhteen...
-    
     @Override
     public String toString() {
         String tulostus = this.author + ". " + this.title + ". " + this.publisher + ", " + this.year + ".";
@@ -131,4 +137,11 @@ public class Book implements Reference {
         return "";
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
