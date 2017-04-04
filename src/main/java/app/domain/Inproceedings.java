@@ -10,18 +10,19 @@ public class Inproceedings implements Reference {
     private String title;
     private String booktitle;
     private int year;
-    private int startingPage;
-    private int endingPage;
+    private int startingPage;  //Laitetaan sivunumerot pakollisiksi, vaikka yhdessä BibTex-malliviitteessä
+    private int endingPage;    //ei ollutkaan.
     private String publisher;
     private String address;
 
     //Laitan vain yhden konstruktorivaihtoehdon, koska mikäli joku kenttä jää tyhjäksi, sen voi alustaa "".
     //Kontruktorissa on kohtalaisen paljon muuttujia, mutta asialle ei voi mitään. Author-authors-valinta 
     //poistaa yhden muuttujan.
-    public Inproceedings(List<String> authors, String author, String title, int year, int startingPage, int endingPage, String publisher, String address) {
+    public Inproceedings(List<String> authors, String author, String title, String booktitle, int year, int startingPage, int endingPage, String publisher, String address) {
         this.authors = authors;
         this.author = author;
         this.title = title;
+        this.booktitle = booktitle;
         this.year = year;
         this.startingPage = startingPage;
         this.endingPage = endingPage;
@@ -36,6 +37,10 @@ public class Inproceedings implements Reference {
     @Override
     public String getTitle() {
         return this.title;
+    }
+    
+    public String getBookTitle() {
+        return this.booktitle;
     }
 
     @Override
@@ -79,6 +84,10 @@ public class Inproceedings implements Reference {
     public void setTitle(String title) {
         this.title = title;
     }
+    
+    public void setBookTitle(String booktitle) {
+        this.booktitle = booktitle;
+    }
 
     @Override
     public void setAuthor(String author) {
@@ -112,10 +121,28 @@ public class Inproceedings implements Reference {
     public void setEndingPage(int page) {
         this.endingPage = page;
     }
-    //Tämä puuttuu vielä, koska ei olla päätetty, missä muodossa kirjoittajat ovat.
+    
+    
+    
+    //Tällä on tarkoitus tulostaa koko viite String-muodossa.
+    //Tässä oletan, että tekijät ovat listana valmiiksi String-muodossa.
+    // Mikäli tekijät talletetaan ArrayList-muodossa, voi tehdä oman metodin,
+    //jolla tekijät muutetaan String-muotoon.
+    //Katsoin viitteen mallia tehtävänannosta.
+    //Jossain viitteistä oli osoite, muttei kaikissa, sen tähden if-lause.
+    //Elina on ekspertti viitteen oikean muodon suhteen...
+    
     @Override
     public String toString() {
-        return "";
+        String tulostus = this.author + ". " + this.title + ". In " + this.booktitle + ", pages " + this.startingPage + " - " + this.endingPage + ".";
+       if (!this.publisher.isEmpty()) {
+           tulostus = tulostus + " " + this.publisher + ",";
+       }
+        tulostus = " " + tulostus + this.year + ".";
+        if (!this.address.isEmpty()) {
+            tulostus = tulostus + " " + this.address + ".";
+        }
+        return tulostus;
     }
     
     @Override

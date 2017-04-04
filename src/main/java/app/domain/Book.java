@@ -109,12 +109,20 @@ public class Book implements Reference {
     }
 
     //Tällä on tarkoitus tulostaa koko viite String-muodossa.
-    //En kirjoittanut tähän vielä mitään, koska en tiedä, minkä muotoisessa muuttujassa kirjoittajat
-    //ovat.
+    //Tässä oletan, että tekijät ovat listana valmiiksi String-muodossa.
+    // Mikäli tekijät talletetaan ArrayList-muodossa, voi tehdä oman metodin,
+    //jolla tekijät muutetaan String-muotoon.
+    //Katsoin viitteen mallia tehtävänannosta.
+    //Jossain viitteistä oli osoite, muttei kaikissa, sen tähden if-lause.
+    //Elina on ekspertti viitteen oikean muodon suhteen...
+    
     @Override
     public String toString() {
-
-        return "";
+        String tulostus = this.author + ". " + this.title + ". " + this.publisher + ", " + this.year + ".";
+        if (!this.address.isEmpty()) {
+            tulostus = tulostus + " " + this.address + ".";
+        }
+        return tulostus;
     }
 
     //Tällä on tarkoitus tulostaa koko viite BibTex-muodossa.
