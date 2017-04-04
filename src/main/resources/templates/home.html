@@ -9,16 +9,20 @@
 
     </head>
     <body>
+        
+        <header th:replace="fragments/header :: header">
+            <p>header with links etc</p>
+        </header>
 
         <div class="container">
             <h1>Reference manager</h1>
 
         </div>
 
-        <div class ="form">
+        <div class="form">
             <select th:field = "*{reference}">
                 <option th:each="reference : ${allReferences}"
-                        th:value =${reference}
+                        th:value ="${reference}"
                         th:text ="#{${reference}}"></option>
 
             </select>

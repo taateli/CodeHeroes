@@ -1,10 +1,15 @@
 package app.domain;
 
 import java.util.List;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
-public class Inproceedings implements Reference {
-
-    private List<String> authors;  //Mikäli kirjoittajalista on ArrayList-muodossa
+@Entity
+@DiscriminatorValue(value = "Inproceedings")
+public class Inproceedings extends Reference {
+    
+    
+//    private List<String> authors;  //Mikäli kirjoittajalista on ArrayList-muodossa
     private String author;    //Mikäli kirjoittajalista on String-muodossa
 
     private String title;
@@ -18,17 +23,7 @@ public class Inproceedings implements Reference {
     //Laitan vain yhden konstruktorivaihtoehdon, koska mikäli joku kenttä jää tyhjäksi, sen voi alustaa "".
     //Kontruktorissa on kohtalaisen paljon muuttujia, mutta asialle ei voi mitään. Author-authors-valinta 
     //poistaa yhden muuttujan.
-    public Inproceedings(List<String> authors, String author, String title, int year, int startingPage, int endingPage, String publisher, String address) {
-        this.authors = authors;
-        this.author = author;
-        this.title = title;
-        this.year = year;
-        this.startingPage = startingPage;
-        this.endingPage = endingPage;
-        this.publisher = publisher;
-        this.address = address;
-    }
-
+    
     /**
      *
      * @return
@@ -38,10 +33,10 @@ public class Inproceedings implements Reference {
         return this.title;
     }
 
-    @Override
-    public List<String> getAuthors() {
-        return this.authors;
-    }
+//    @Override
+//    public List<String> getAuthors() {
+//        return this.authors;
+//    }
 
     @Override
     public String getAuthor() {
@@ -49,9 +44,9 @@ public class Inproceedings implements Reference {
     }
 
     //Tällä palautetaan n:s kirjoittaja.
-    public String getAuthor(int n) {
-        return this.authors.get(n);
-    }
+//    public String getAuthor(int n) {
+//        return this.authors.get(n);
+//    }
 
     @Override
     public int getYear() {
@@ -87,9 +82,9 @@ public class Inproceedings implements Reference {
     
     //Mikäli käytetään tekijöistä ArrayList-muotoa, tällä voi lisätä listaan kirjan n:nnen kirjoittajan.
    
-    public void setAuthor(String author, int n) {
-        this.authors.add(n, title);
-    }
+//    public void setAuthor(String author, int n) {
+//        this.authors.add(n, title);
+//    }
 
     @Override
     public void setYear(int year) {
@@ -122,5 +117,7 @@ public class Inproceedings implements Reference {
     public String toBibTex() {
         return "";
     }
+
+   
 
 }

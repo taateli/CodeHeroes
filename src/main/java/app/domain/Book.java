@@ -2,10 +2,14 @@ package app.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
-public class Book implements Reference {
+@Entity
+@DiscriminatorValue(value = "Book")
+public class Book extends Reference {
 
-    private List<String> authors;  //Mikäli kirjoittajalista on ArrayList-muodossa
+//    private List<String> authors;  //Mikäli kirjoittajalista on ArrayList-muodossa
     private String author;    //Mikäli kirjoittajalista on String-muodossa
     private String title;
     private int year;
@@ -14,24 +18,13 @@ public class Book implements Reference {
 
     //Tässä kontruktorissa on kaikki mahdolliset kentät. Osoite-kenttä ei ollut pakollinen,
     //mutta se löytyi yhdestä viitteestä.
-    public Book(String author, ArrayList<String> authors, String title, int year, String publisher, String address) {
-        //Joko:
-        this.authors = authors;
-
-        //Tai:
-        this.author = author;
-
-        this.title = title;
-        this.year = year;
-        this.publisher = publisher;
-        this.address = address;
-    }
+   
 
     //Tämä konstruktori on sitä varten, että useimmiten malliviitteissä ei ollut osoitetta.
     //Tässä asetetaan vain pakolliset kentät.
     public Book(String author, ArrayList<String> authors, String title, int year, String publisher) {
         //Joko:
-        this.authors = authors;
+//        this.authors = authors;
         //Tai:
         this.author = author;
         this.title = title;
@@ -46,16 +39,12 @@ public class Book implements Reference {
     }
 
     //Mikäli halutaan palauttaa koko kirjoittajalista:
-    @Override
-    public List<String> getAuthors() {
-
-        return this.authors;
-    }
+  
 
     //Tällä palautetaan n:s kirjoittaja.
-    public String getAuthor(int n) {
-        return this.authors.get(n);
-    }
+//    public String getAuthor(int n) {
+//        return this.authors.get(n);
+//    }
 
     //Mikäli käytetään String-muotoista versiota, jossa kirjoittajat
     //ovat jo valmiiksi toString()-muodossa.
@@ -84,9 +73,9 @@ public class Book implements Reference {
     }
 
     //Mikäli käytetään tekijöistä ArrayList-muotoa, tällä voi lisätä listaan kirjan n:nnen kirjoittajan.
-    public void setAuthor(String author, int n) {
-        this.authors.add(n, title);
-    }
+//    public void setAuthor(String author, int n) {
+//        this.authors.add(n, title);
+//    }
 
     //Tällä voi asettaa kaikki kirjoittajat, mikäli ne on String-muodossa.
     @Override
