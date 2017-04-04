@@ -37,6 +37,13 @@ dependencies {
 }
 
 
+jacocoTestReport{
+	reports {
+		xml.enabled = true
+		html.enabled = true
+}
+}
+
 
 springBoot {
     mainClass = "app.App"
