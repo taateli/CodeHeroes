@@ -2,12 +2,19 @@ package app.domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.DiscriminatorValue;
+
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import org.springframework.data.jpa.domain.AbstractPersistable;
+import javax.persistence.DiscriminatorValue;
 
 @Entity
 @DiscriminatorValue(value = "Book")
-public class Book extends Reference {
+public class Book extends Reference  {
+
+    @Id
+    private Long id;
+
 
 //    private List<String> authors;  //Mikäli kirjoittajalista on ArrayList-muodossa
     private String author;    //Mikäli kirjoittajalista on String-muodossa
@@ -20,18 +27,18 @@ public class Book extends Reference {
     //mutta se löytyi yhdestä viitteestä.
    
 
-    //Tämä konstruktori on sitä varten, että useimmiten malliviitteissä ei ollut osoitetta.
-    //Tässä asetetaan vain pakolliset kentät.
-    public Book(String author, ArrayList<String> authors, String title, int year, String publisher) {
-        //Joko:
-//        this.authors = authors;
-        //Tai:
-        this.author = author;
-        this.title = title;
-        this.year = year;
-        this.publisher = publisher;
-        this.address = "";
-    }
+//    //Tämä konstruktori on sitä varten, että useimmiten malliviitteissä ei ollut osoitetta.
+//    //Tässä asetetaan vain pakolliset kentät.
+//    public Book(String author, ArrayList<String> authors, String title, int year, String publisher) {
+//        //Joko:
+////        this.authors = authors;
+//        //Tai:
+//        this.author = author;
+//        this.title = title;
+//        this.year = year;
+//        this.publisher = publisher;
+//        this.address = "";
+//    }
 
     @Override
     public String getTitle() {
@@ -58,7 +65,7 @@ public class Book extends Reference {
         return this.year;
     }
 
-    @Override
+    // @Override
     public String getPublisher() {
         return this.publisher;
     }
@@ -98,12 +105,19 @@ public class Book extends Reference {
     }
 
     //Tällä on tarkoitus tulostaa koko viite String-muodossa.
-    //En kirjoittanut tähän vielä mitään, koska en tiedä, minkä muotoisessa muuttujassa kirjoittajat
-    //ovat.
+    //Tässä oletan, että tekijät ovat listana valmiiksi String-muodossa.
+    // Mikäli tekijät talletetaan ArrayList-muodossa, voi tehdä oman metodin,
+    //jolla tekijät muutetaan String-muotoon.
+    //Katsoin viitteen mallia tehtävänannosta.
+    //Jossain viitteistä oli osoite, muttei kaikissa, sen tähden if-lause.
+    //Elina on ekspertti viitteen oikean muodon suhteen...
     @Override
     public String toString() {
-
-        return "";
+        String tulostus = this.author + ". " + this.title + ". " + this.publisher + ", " + this.year + ".";
+        if (!this.address.isEmpty()) {
+            tulostus = tulostus + " " + this.address + ".";
+        }
+        return tulostus;
     }
 
     //Tällä on tarkoitus tulostaa koko viite BibTex-muodossa.
@@ -112,4 +126,11 @@ public class Book extends Reference {
         return "";
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

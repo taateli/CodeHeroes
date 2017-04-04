@@ -7,11 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "ReferenceType")
-public abstract class Reference {
+public abstract class Reference extends AbstractPersistable<Long> {
     
     @Id
     private Long id;

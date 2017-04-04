@@ -2,41 +2,48 @@ package app.domain;
 
 import java.util.List;
 import javax.persistence.DiscriminatorValue;
+
 import javax.persistence.Entity;
+import javax.persistence.Id;
+
 
 @Entity
 @DiscriminatorValue(value = "Inproceedings")
 public class Inproceedings extends Reference {
-    
-    
+
+    @Id
+    private Long id;
+
 //    private List<String> authors;  //Mikäli kirjoittajalista on ArrayList-muodossa
+
     private String author;    //Mikäli kirjoittajalista on String-muodossa
 
     private String title;
     private String booktitle;
     private int year;
-    private int startingPage;
-    private int endingPage;
+    private int startingPage;  //Laitetaan sivunumerot pakollisiksi, vaikka yhdessä BibTex-malliviitteessä
+    private int endingPage;    //ei ollutkaan.
     private String publisher;
     private String address;
 
     //Laitan vain yhden konstruktorivaihtoehdon, koska mikäli joku kenttä jää tyhjäksi, sen voi alustaa "".
     //Kontruktorissa on kohtalaisen paljon muuttujia, mutta asialle ei voi mitään. Author-authors-valinta 
     //poistaa yhden muuttujan.
-    
-    /**
-     *
-     * @return
-     */
-    @Override
+
+   
     public String getTitle() {
         return this.title;
     }
 
-//    @Override
+
+    public String getBookTitle() {
+        return this.booktitle;
+    }
+
 //    public List<String> getAuthors() {
 //        return this.authors;
 //    }
+
 
     @Override
     public String getAuthor() {
@@ -75,16 +82,17 @@ public class Inproceedings extends Reference {
         this.title = title;
     }
 
+    public void setBookTitle(String booktitle) {
+        this.booktitle = booktitle;
+    }
+
     @Override
     public void setAuthor(String author) {
         this.author = author;
     }
-    
+
     //Mikäli käytetään tekijöistä ArrayList-muotoa, tällä voi lisätä listaan kirjan n:nnen kirjoittajan.
-   
-//    public void setAuthor(String author, int n) {
-//        this.authors.add(n, title);
-//    }
+
 
     @Override
     public void setYear(int year) {
@@ -96,28 +104,42 @@ public class Inproceedings extends Reference {
         this.publisher = publisher;
     }
 
-    public void setAddress(String address){
+    public void setAddress(String address) {
         this.address = address;
     }
-    
+
     public void setStartingPage(int page) {
         this.startingPage = page;
     }
-    
+
     public void setEndingPage(int page) {
         this.endingPage = page;
     }
-    //Tämä puuttuu vielä, koska ei olla päätetty, missä muodossa kirjoittajat ovat.
+
+    //Tällä on tarkoitus tulostaa koko viite String-muodossa.
+    //Tässä oletan, että tekijät ovat listana valmiiksi String-muodossa.
+    // Mikäli tekijät talletetaan ArrayList-muodossa, voi tehdä oman metodin,
+    //jolla tekijät muutetaan String-muotoon.
+    //Katsoin viitteen mallia tehtävänannosta.
+    //Jossain viitteistä oli osoite, muttei kaikissa, sen tähden if-lause.
+    //Elina on ekspertti viitteen oikean muodon suhteen...
     @Override
     public String toString() {
-        return "";
+        String tulostus = this.author + ". " + this.title + ". In " + this.booktitle + ", pages " + this.startingPage + " - " + this.endingPage + ".";
+        if (!this.publisher.isEmpty()) {
+            tulostus = tulostus + " " + this.publisher + ",";
+        }
+        tulostus = " " + tulostus + this.year + ".";
+        if (!this.address.isEmpty()) {
+            tulostus = tulostus + " " + this.address + ".";
+        }
+        return tulostus;
     }
-    
+
     @Override
     public String toBibTex() {
         return "";
     }
 
-   
 
 }
