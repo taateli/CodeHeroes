@@ -19,17 +19,12 @@
 
         </div>
 
-<<<<<<< HEAD
-        <div class="form">
-            <select th:field = "*{reference}">
-                <option th:each="reference : ${allReferences}"
-                        th:value ="${reference}"
-=======
+
         <div class ="form">
            <select th:field = "*{reference}">
                 <option th:each="reference : ${referencetypes}"
-                        th:value =${reference}
->>>>>>> 7c8401bfd1e7305df73ef265d2f3e58e76e1d6f4
+                        th:value ="${reference}"
+
                         th:text ="#{${reference}}"></option>
             </select>
             <select>
