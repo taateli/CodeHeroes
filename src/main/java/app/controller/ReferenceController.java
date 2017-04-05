@@ -2,6 +2,7 @@
 package app.controller;
 
 import app.domain.Book;
+import app.domain.Inproceedings;
 import app.service.ReferenceService;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,12 +20,7 @@ public class ReferenceController {
     @Autowired
     private ReferenceService refService;
     
-    @RequestMapping(value = "/book", method = RequestMethod.POST)
-    public void addBook(@ModelAttribute Book book){
-        refService.addBookReference(book);
-    }
-    
-        @RequestMapping(value = "/home", method = RequestMethod.GET)
+     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showReferenceTypes(Model model) {
         List<String> referencetypes = new ArrayList<>();
         referencetypes.add("Book");
@@ -32,5 +28,31 @@ public class ReferenceController {
         model.addAttribute("referencetypes", referencetypes);
         return "home";
     }
+    
+    @RequestMapping(value = "/books", method = RequestMethod.GET)
+    public String showBooksForm(Model model) {
+        Book b = new Book();
+        model.addAttribute(b);
+        return "books";
+    }
+    
+      @RequestMapping(value = "/inproceedings", method = RequestMethod.GET)
+    public String showInpForm(Model model) {
+        Inproceedings inp = new Inproceedings();
+        model.addAttribute(inp);
+        return "inproceedings";
+    }
+    
+    @RequestMapping(value = "/inproceedings", method = RequestMethod.POST)
+    public void addBook(@ModelAttribute Inproceedings inp){
+        refService.addReference(inp);
+    }
+    
+     @RequestMapping(value = "/books", method = RequestMethod.POST)
+    public void addInproceedings(@ModelAttribute Book book){
+        refService.addReference(book);
+    }
+    
+   
     
 }

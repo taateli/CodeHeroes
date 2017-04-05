@@ -13,7 +13,7 @@ public class ReferenceService {
     @Autowired
     private ReferenceRepository refRepository;
     
-    public Reference addBookReference(Reference b){
+    public Reference addReference(Reference b){
 
         return refRepository.save(b);
     }
