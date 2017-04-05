@@ -31,43 +31,49 @@
                         <label for="title">Title</label>
                         <input type="text" th:field="*{title}" class="form-control"/>
                     </div>
+                    <div class="form-group"> 
+                        <label for="bookTitle">BookTitle</label>
+                        <input type="text" th:field="*{bookTitle}" class="form-control"/>
+                    </div>
                     <div class="form-group">  
                         <label for="year">Year</label>
                         <input type="text" th:field="*{year}" class="form-control"/>
-                    </div>    
+                    </div>
                     <div class="form-group">     
                         <label for="publisher">Publisher</label>
                         <input type="text" th:field="*{publisher}" class="form-control"/>
                     </div>    
+                      <div class="form-group">     
+                        <label for="address">address</label>
+                        <input type="text" th:field="*{address}" class="form-control"/>
+                    </div>                        
+                      <div class="form-group"> 
+                        <label for="startingPage">Starting page</label>
+                        <input type="text" th:field="*{startingPage}" class="form-control"/>
+                    </div>
+                     <div class="form-group"> 
+                        <label for="endingPage">Ending page</label>
+                        <input type="text" th:field="*{endingPage}" class="form-control"/>
+                    </div> 
+                     
                     <div class="form-group">     
-                        <button type="submit" class="btn btn-succees" >Save</button>
+                        <button type="submit" class="btn btn-succees" th:text="Save" >Save</button>
                     </div>    
                 </form>
-                
+                  
+                <div th:if="${newReference != null}">
+                    <div th:replace="fragments/success :: success"></div>
+                </div>
             </div>
             
             <div class="col-md-4">
                 
+               
             </div>
 
         </div>
 
 
-        <div class ="form">
-       
-            <div th:if="${reference=='inproceedings'}">
-                <form action="#" th:action="@{/home}" method="POST">
-                    <p><label for="author">Author(s)</label>: <input type="text" name="author" id="author"/></p>
-                    <p><label for="title">Title</label>: <input type="text" name="title" id="title"/></p>
-                    <p><label for="booktitle">Book's title</label>: <input type="text" name="booktitle" id="booktitle"/></p>
-                    <p><label for="year">Year</label>: <input type="text" name="year" id="year"/></p>
-                    <p><label for="startpage">Start page</label>: <input type="text" name="startpage" id="startpage"/></p>
-                    <p><label for="endpage">End page</label>: <input type="text" name="endpage" id="endpage"/></p>
-                    <p><input type="submit" value="Save" /></p>
-                </form>
-            </div>
-
-        </div>
-
+        
     </body>    
 </html>

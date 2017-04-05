@@ -3,6 +3,7 @@ package app.controller;
 
 import app.domain.Book;
 import app.domain.Inproceedings;
+import app.domain.Reference;
 import app.service.ReferenceService;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,25 +33,31 @@ public class ReferenceController {
     @RequestMapping(value = "/books", method = RequestMethod.GET)
     public String showBooksForm(Model model) {
         Book b = new Book();
-        model.addAttribute(b);
+        model.addAttribute("book",b);
+        model.addAttribute("newReference",null);
         return "books";
     }
     
-      @RequestMapping(value = "/inproceedings", method = RequestMethod.GET)
+    @RequestMapping(value = "/inproceedings", method = RequestMethod.GET)
     public String showInpForm(Model model) {
         Inproceedings inp = new Inproceedings();
-        model.addAttribute(inp);
+        model.addAttribute("inproceedings",inp);
+        model.addAttribute("newReference",null);
         return "inproceedings";
     }
     
     @RequestMapping(value = "/inproceedings", method = RequestMethod.POST)
-    public void addBook(@ModelAttribute Inproceedings inp){
-        refService.addReference(inp);
+    public String addBook(Model model, @ModelAttribute Inproceedings inp){
+        Reference r = refService.addReference(inp);
+        model.addAttribute("newReference",r);
+        return "inproceedings";
     }
     
      @RequestMapping(value = "/books", method = RequestMethod.POST)
-    public void addInproceedings(@ModelAttribute Book book){
-        refService.addReference(book);
+    public String addInproceedings(Model model, @ModelAttribute Book book){
+        Reference r = refService.addReference(book);
+        model.addAttribute("newReference",r);
+        return "books";
     }
     
    
