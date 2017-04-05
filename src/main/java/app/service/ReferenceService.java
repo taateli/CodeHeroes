@@ -7,6 +7,11 @@ import app.repository.ReferenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/*
+    This class gives service to controller class and detachs database operations from controller
+
+*/
+
 @Service
 public class ReferenceService {
     

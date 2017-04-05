@@ -15,12 +15,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/*
+This class handles all requests related to Reference -classes
+
+*/
+
 @Controller
 public class ReferenceController {
     
+    
+    // To controller is given an instance of service class
     @Autowired
     private ReferenceService refService;
     
+    //This method handles get-request to home path and shows home.html file from folder resource/templates/ 
      @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showReferenceTypes(Model model) {
         List<String> referencetypes = new ArrayList<>();
@@ -29,7 +37,7 @@ public class ReferenceController {
         model.addAttribute("referencetypes", referencetypes);
         return "home";
     }
-    
+    //This method handles get-request to path /books and shows books.html file from folder resource/templates/ 
     @RequestMapping(value = "/books", method = RequestMethod.GET)
     public String showBooksForm(Model model) {
         Book b = new Book();
@@ -38,6 +46,7 @@ public class ReferenceController {
         return "books";
     }
     
+    //This method handles get-request to path /inproceedings and shows inproceedings.html file from folder resource/templates/ 
     @RequestMapping(value = "/inproceedings", method = RequestMethod.GET)
     public String showInpForm(Model model) {
         Inproceedings inp = new Inproceedings();
@@ -46,6 +55,11 @@ public class ReferenceController {
         return "inproceedings";
     }
     
+    /*  This method handles post-request to path /inproceedings
+        and takes Inproceedings type parameter. It uses @ModelAttribute annotation to render
+        th:field tags from view
+    
+    */
     @RequestMapping(value = "/inproceedings", method = RequestMethod.POST)
     public String addBook(Model model, @ModelAttribute Inproceedings inp){
         Reference r = refService.addReference(inp);
@@ -53,6 +67,11 @@ public class ReferenceController {
         return "inproceedings";
     }
     
+    /*  This method handles post-request to path /books
+        and takes Books type parameter. It uses @ModelAttribute annotation to render
+        th:field tags from view
+    
+    */
      @RequestMapping(value = "/books", method = RequestMethod.POST)
     public String addInproceedings(Model model, @ModelAttribute Book book){
         Reference r = refService.addReference(book);

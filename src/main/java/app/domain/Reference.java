@@ -10,7 +10,7 @@ import javax.persistence.InheritanceType;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 /**
- * This interface is the interface for the classes "Book", "Inproceedins" and "Article".
+ * This class is the abstract class for the subclasses "Book", "Inproceedins" and "Article".
  */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
