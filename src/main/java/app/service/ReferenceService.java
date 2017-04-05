@@ -1,7 +1,9 @@
 
 package app.service;
 
-import app.repository.BookRepository;
+
+import app.domain.Reference;
+import app.repository.ReferenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,11 +11,11 @@ import org.springframework.stereotype.Service;
 public class ReferenceService {
     
     @Autowired
-    private BookRepository bookRepository;
+    private ReferenceRepository refRepository;
     
-//    public boolean addBookReference(Book b){
-//
-//        return bookRepository.save(b);
-//    }
-//
+    public Reference addBookReference(Reference b){
+
+        return refRepository.save(b);
+    }
+
 }
