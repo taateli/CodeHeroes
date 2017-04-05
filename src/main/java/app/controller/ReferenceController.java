@@ -26,7 +26,7 @@ public class ReferenceController {
     
         @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String showReferenceTypes(Model model) {
-        List<String> referencetypes = new ArrayList<String>();
+        List<String> referencetypes = new ArrayList<>();
         referencetypes.add("Book");
         referencetypes.add("Inproceedings");
         model.addAttribute("referencetypes", referencetypes);

@@ -21,12 +21,12 @@
 
 
         <div class ="form">
-           <select th:field = "*{reference}">
+        <select th:field = "*{reference}">
                 <option th:each="reference : ${referencetypes}"
                         th:value ="${reference}"
 
                         th:text ="#{${reference}}"></option>
-            </select>
+            </select> 
             <select>
                 <option th:value ="book">Book</option>
                  <option th:value ="inproceedings">Inproceedings</option>
