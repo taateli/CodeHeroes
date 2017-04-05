@@ -9,6 +9,7 @@ apply plugin: "jacoco"
 
 repositories {
     jcenter()
+    mavenCentral()
 }
 
 dependencies {
@@ -33,7 +34,8 @@ dependencies {
    
     compile 'org.thymeleaf:thymeleaf-spring4'
 
-
+    testCompile 'info.cukes:cucumber-java:1.2.5'
+    testCompile 'info.cukes:cucumber-junit:1.2.5' 
     testCompile 'junit:junit:4.12'
 }
 
@@ -45,6 +47,10 @@ jacocoTestReport{
 }
 }
 
+test {
+    testLogging.showStandardStreams = true
+    systemProperties System.getProperties()
+}
 
 springBoot {
     mainClass = "app.App"
