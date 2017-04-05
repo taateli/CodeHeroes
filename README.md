@@ -1,4 +1,5 @@
-# CodeHeroes      [![Build Status](https://travis-ci.org/taateli/CodeHeroes.svg?branch=master)](https://travis-ci.org/taateli/CodeHeroes) [![Coverage Status](https://coveralls.io/repos/github/taateli/CodeHeroes/badge.svg?branch=master)](https://coveralls.io/github/taateli/CodeHeroes?branch=master)
+# CodeHeroes      [![Build Status](https://travis-ci.org/taateli/CodeHeroes.svg?branch=master)](https://travis-ci.org/taateli/CodeHeroes) <a href='https://coveralls.io/github/taateli/CodeHeroes?branch=master'><img src='https://coveralls.io/repos/github/taateli/CodeHeroes/badge.svg?branch=master' alt='Coverage Status' /></a>
+
 
 
 Mini-project repo for course Ohjelmistotuotanto for University of Helsinki
