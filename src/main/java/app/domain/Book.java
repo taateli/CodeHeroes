@@ -15,18 +15,28 @@ import javax.persistence.DiscriminatorValue;
 @DiscriminatorValue(value = "Book")
 public class Book extends Reference {
 
-   
     /**
      * There are two possibilities of storing authors: String and
      * ArrayList<String>. It depends on the implementation, which of those will
      * remain.
      */
-//    private List<String> authors;  
+//    private List<String> authors; 
+    /**
+     * Compulsory variables:
+     */
     private String author;
     private String title;
     private int year;
     private String publisher;
+    /**
+     * Optional variables:
+     */
+    private int vol;
+    private String series;
     private String address;
+    private String edition;
+    private int month;
+    private String key;
 
     /**
      * This constructor contains all the possible data fields of a book.
@@ -42,7 +52,6 @@ public class Book extends Reference {
 //        this.publisher = publisher;
 //        this.address = "";
 //    }
-    
     @Override
     public String getTitle() {
         return this.title;
@@ -83,7 +92,7 @@ public class Book extends Reference {
 
     /**
      * The method inserts an author at the place n on the list. The possible
-     * previous author at the place n is shifted to the rigth. 
+     * previous author at the place n is shifted to the rigth.
      */
 //    public void setAuthor(String author, int n) {
 //        this.authors.add(n, title);
@@ -111,8 +120,8 @@ public class Book extends Reference {
     }
 
     /**
-     * This method returns all the information of the book referenced.
-     * The if-sentence allows the address field to be empty.
+     * This method returns all the information of the book referenced. The
+     * if-sentence allows the address field to be empty.
      *
      * @return The reference information of a book as a String.
      */
@@ -136,5 +145,4 @@ public class Book extends Reference {
         return "Not supported yet";
     }
 
-  
 }
