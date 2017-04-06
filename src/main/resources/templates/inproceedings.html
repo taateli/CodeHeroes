@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Inproceedings</title>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+        <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="/webjars/jquery/3.2.0/js/jquery.min.js"></script>
+
+    </head>
+    <body>
+        
+        <header th:replace="fragments/header :: header">
+            <p>header with links etc</p>
+        </header>
+
+        
+        <div class="container">
+           
+            <div class="col-md-4 col-md-offset-2">
+                
+                 <h1>Add inproceedings reference</h1>   
+                
+                 <form th:action="@{/inproceedings}" th:method="POST" th:object="${inproceedings}">
+                     
+                     <div class="form-group">
+                        <label for="author">Author(s)</label>
+                        <input type="text" th:field="*{author}" class="form-control"/>
+                    </div>
+                    <div class="form-group"> 
+                        <label for="title">Title</label>
+                        <input type="text" th:field="*{title}" class="form-control"/>
+                    </div>
+                    <div class="form-group"> 
+                        <label for="bookTitle">BookTitle</label>
+                        <input type="text" th:field="*{bookTitle}" class="form-control"/>
+                    </div>
+                    <div class="form-group">  
+                        <label for="year">Year</label>
+                        <input type="text" th:field="*{year}" class="form-control"/>
+                    </div>
+                    <div class="form-group">     
+                        <label for="publisher">Publisher</label>
+                        <input type="text" th:field="*{publisher}" class="form-control"/>
+                    </div>    
+                      <div class="form-group">     
+                        <label for="address">address</label>
+                        <input type="text" th:field="*{address}" class="form-control"/>
+                    </div>                        
+                      <div class="form-group"> 
+                        <label for="startingPage">Starting page</label>
+                        <input type="text" th:field="*{startingPage}" class="form-control"/>
+                    </div>
+                     <div class="form-group"> 
+                        <label for="endingPage">Ending page</label>
+                        <input type="text" th:field="*{endingPage}" class="form-control"/>
+                    </div> 
+                     
+                    <div class="form-group">     
+                        <button type="submit" class="btn btn-succees" th:text="Save" >Save</button>
+                    </div>    
+                </form>
+                  
+                <div th:if="${newReference != null}">
+                    <div th:replace="fragments/success :: success"></div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                
+               
+            </div>
+
+        </div>
+
+
+        
+    </body>    
+</html>

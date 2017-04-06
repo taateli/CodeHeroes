@@ -15,9 +15,7 @@ import javax.persistence.DiscriminatorValue;
 @DiscriminatorValue(value = "Book")
 public class Book extends Reference {
 
-    @Id
-    private Long id;
-
+   
     /**
      * There are two possibilities of storing authors: String and
      * ArrayList<String>. It depends on the implementation, which of those will
@@ -138,11 +136,5 @@ public class Book extends Reference {
         return "Not supported yet";
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+  
 }

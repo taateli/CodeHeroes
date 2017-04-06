@@ -10,16 +10,11 @@
     </head>
     <body>
         
-        <header  th:fragment="header">
-            <ul class="nav navbar-default nav-pills">
-                <li><a th:href="@{/}">Front page</a></li>
-                <li ><a th:href="@{/books}">Books</a></li>
-                <li ><a th:href="@{/inproceedings}">Inproceedings</a></li>
-                <!--
-                <li class="pull-right"><a  th:href="@{/logout}">Kirjaudu ulos</a></li>
-                -->
-            </ul>
-        </header>
+        <div th:fragment="success">
+            <p class="alert-success">
+                Reference added succesfully!
+            </p>
+        </div>
        
     </body>    
 </html>

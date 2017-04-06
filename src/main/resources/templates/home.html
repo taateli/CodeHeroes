@@ -3,9 +3,11 @@
     <head>
         <title>Home</title>
         <meta charset="UTF-8" />
-        <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css"></link>
-        <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="/webjars/jquery/3.2.0/js/jquery.min.js"></script>
+        <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+        
+        
 
     </head>
     <body>
@@ -15,44 +17,29 @@
         </header>
 
         <div class="container">
-            <h1>Reference manager</h1>
+            <div class="col-md-4 col-md-offset-2">
+                <h1>Reference manager</h1>
+                
+                <div class="dropdown">   
 
-        </div>
+                 <button class="btn btn-lg dropdown-toggle" type="button" data-toggle="dropdown" >
+                    Choose reference type
+                    <span class="caret"></span>
+                </button>
+
+                <ul class="dropdown-menu">
+                     <li><a class="dropdown-item" th:href="@{/books}">Book</a></li>
+                    <li><a class="dropdown-item" th:href="@{/inproceedings}">Inproceedings</a></li>
+                    
+                </ul>
 
 
-        <div class ="form">
-        <select th:field = "*{reference}">
-                <option th:each="reference : ${referencetypes}"
-                        th:value ="${reference}"
-
-                        th:text ="#{${reference}}"></option>
-            </select> 
-            <select>
-                <option th:value ="book">Book</option>
-                 <option th:value ="inproceedings">Inproceedings</option>
-            </select>
-            <div th:if="${reference=='book'}">
-                <form action="#" th:action="@{/home}" method="POST">
-                    <p><label for="author">Author(s)</label>: <input type="text" name="author" id="author"/></p>
-                    <p><label for="title">Title</label>: <input type="text" name="title" id="title"/></p>
-                    <p><label for="year">Year</label>: <input type="text" name="year" id="year"/></p>
-                    <p><label for="publisher">Publisher</label>: <input type="text" name="publisher" id="publisher"/></p>
-                    <p><input type="submit" value="Save" /></p>
-                </form>
-            </div>
-            <div th:if="${reference=='inproceedings'}">
-                <form action="#" th:action="@{/home}" method="POST">
-                    <p><label for="author">Author(s)</label>: <input type="text" name="author" id="author"/></p>
-                    <p><label for="title">Title</label>: <input type="text" name="title" id="title"/></p>
-                    <p><label for="booktitle">Book's title</label>: <input type="text" name="booktitle" id="booktitle"/></p>
-                    <p><label for="year">Year</label>: <input type="text" name="year" id="year"/></p>
-                    <p><label for="startpage">Start page</label>: <input type="text" name="startpage" id="startpage"/></p>
-                    <p><label for="endpage">End page</label>: <input type="text" name="endpage" id="endpage"/></p>
-                    <p><input type="submit" value="Save" /></p>
-                </form>
             </div>
 
+                
+            </div>    
         </div>
-
+        
+       
     </body>    
 </html>

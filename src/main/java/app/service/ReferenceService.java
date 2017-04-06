@@ -7,13 +7,18 @@ import app.repository.ReferenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/*
+    This class gives service to controller class and detachs database operations from controller
+
+*/
+
 @Service
 public class ReferenceService {
     
     @Autowired
     private ReferenceRepository refRepository;
     
-    public Reference addBookReference(Reference b){
+    public Reference addReference(Reference b){
 
         return refRepository.save(b);
     }

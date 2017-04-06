@@ -36,7 +36,6 @@ public class BookTest {
         instance = new Book();
         instance.setAddress("address");
         instance.setAuthor("author");
-        instance.setId(null);
         instance.setPublisher("publisher");
         instance.setTitle("title");
         instance.setYear(2017);
@@ -180,16 +179,6 @@ public class BookTest {
 
     }
 
-    /**
-     * Test of setId method, of class Book.
-     */
-    @Test
-    public void testSetId() {
-        System.out.println("setId");
-        Long id = null;
-        Book instance1 = new Book();
-        instance1.setId(null);
-        assertEquals(null, instance1.getId());
-    }
+    
 
 }
