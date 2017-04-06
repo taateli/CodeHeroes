@@ -41,7 +41,7 @@ public class ReferenceController {
     @RequestMapping(value = "/books", method = RequestMethod.GET)
     public String showBooksForm(Model model) {
         Book b = new Book();
-        model.addAttribute("book",b);
+        model.addAttribute("Book",b);
         model.addAttribute("newReference",null);
         return "books";
     }
@@ -50,7 +50,7 @@ public class ReferenceController {
     @RequestMapping(value = "/inproceedings", method = RequestMethod.GET)
     public String showInpForm(Model model) {
         Inproceedings inp = new Inproceedings();
-        model.addAttribute("inproceedings",inp);
+        model.addAttribute("Inproceedings",inp);
         model.addAttribute("newReference",null);
         return "inproceedings";
     }
