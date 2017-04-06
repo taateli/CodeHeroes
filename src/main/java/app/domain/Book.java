@@ -29,7 +29,7 @@ public class Book extends Reference {
     private String address;
 
     /**
-     * This constructor contains all the possible knowledge fields of a book.
+     * This constructor contains all the possible data fields of a book.
      *
      * @param address is not compulsory.
      */
