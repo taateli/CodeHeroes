@@ -31,12 +31,11 @@ public class ReferenceController {
     //This method handles get-request to home path and shows home.html file from folder resource/templates/ 
      @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showReferenceTypes(Model model) {
-        List<String> referencetypes = new ArrayList<>();
-        referencetypes.add("Book");
-        referencetypes.add("Inproceedings");
-        model.addAttribute("referencetypes", referencetypes);
+        List<Reference> refs = refService.getReferences();
+        model.addAttribute("references", refs);
         return "home";
     }
+    
     //This method handles get-request to path /books and shows books.html file from folder resource/templates/ 
     @RequestMapping(value = "/books", method = RequestMethod.GET)
     public String showBooksForm(Model model) {
@@ -54,7 +53,7 @@ public class ReferenceController {
         model.addAttribute("newReference",null);
         return "inproceedings";
     }
-    
+
     /*  This method handles post-request to path /inproceedings
         and takes Inproceedings type parameter. It uses @ModelAttribute annotation to render
         th:field tags from view

@@ -6,12 +6,12 @@
         <script src="/webjars/jquery/3.2.0/js/jquery.min.js"></script>
         <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css"></link>
-        
-        
+
+
 
     </head>
     <body>
-        
+
         <header th:replace="fragments/header :: header">
             <p>header with links etc</p>
         </header>
@@ -19,27 +19,58 @@
         <div class="container">
             <div class="col-md-4 col-md-offset-2">
                 <h1>Reference manager</h1>
-                
+
                 <div class="dropdown">   
 
-                 <button class="btn btn-lg dropdown-toggle" type="button" data-toggle="dropdown" >
-                    Choose reference type
-                    <span class="caret"></span>
-                </button>
+                    <button class="btn btn-lg dropdown-toggle" type="button" data-toggle="dropdown" >
+                        Choose reference type
+                        <span class="caret"></span>
+                    </button>
 
-                <ul class="dropdown-menu">
-                     <li><a class="dropdown-item" th:href="@{/books}">Book</a></li>
-                    <li><a class="dropdown-item" th:href="@{/inproceedings}">Inproceedings</a></li>
-                    
-                </ul>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-toggle" th:href="@{/books}">Book</a></li>
+                        <li><a class="dropdown-toggle" th:href="@{/inproceedings}">Inproceedings</a></li>
+
+                    </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose refererence type
+                            <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/books}">Book</a></li>
+                            <li class="active"><a th:href="@{/inproceedings}">Inproceedings</a></li>
+                        </ul>
+                    </div>
 
 
-            </div>
+               
 
-                
+                <h1> All references </h1>
+
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Reference</th>       
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr th:each="reference : ${references}">
+                            <td><a th:href="@{/references/{id} (id=${reference.id})}" th:text="${reference}"></a></td>
+
+
+                            <th><form th:method="DELETE" th:action="@{/references/{id} (id=${reference.id})} "><input type="submit" class="btn btn-danger btn-sm" value="Delete"/></form></th>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+
+
             </div>    
         </div>
-        
-       
+
+
     </body>    
 </html>
