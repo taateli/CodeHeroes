@@ -21,20 +21,40 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "ReferenceType")
 public abstract class Reference extends AbstractPersistable<Long> {
-    
+
     @Id
     private Long id;
-    
+
+    // this field is common with all Reference types
+
+    private String key;
+
+    // this field is common with all Reference types
+
     @NotEmpty(message = "Field can not be empty!")
     private String title;
-    
-    @Min(value = 1000, message = "Year must be at least 1000!")    
+
+    // this field is common with all Reference types
+
+    @Min(value = 1000, message = "Year must be at least 1000!")
     private int year;
-    
+
+    // this field is common with all Reference types
+
     @ElementCollection
     @CollectionTable(name="authors")
     private List<String> authors;
 
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+    
+    
+    
     public Long getId() {
         return id;
     }
@@ -46,9 +66,9 @@ public abstract class Reference extends AbstractPersistable<Long> {
     public void setAuthors(List<String> authors) {
         this.authors = authors;
     }
-    
-    
-    
+
+
+
     public String getTitle() {
         return title;
     }
@@ -65,15 +85,15 @@ public abstract class Reference extends AbstractPersistable<Long> {
         this.year = year;
     }
 
-        
-    
+
+
     abstract String getPublisher();
-      
-    
+
+
     abstract void setPublisher(String publisher);
-    
+
     @Override
     public abstract String toString();
-    
+
     abstract String toBibTex();
 }

@@ -4,8 +4,8 @@
         <title>Books</title>
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css"></link>
-        <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="/webjars/jquery/3.2.0/js/jquery.min.js"></script>
+        <script th:src="@{/webjars/jquery/3.2.0/jquery.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
 
     </head>
     <body>
@@ -24,23 +24,41 @@
                 
                  <form th:action="@{/books}" th:method="POST" th:object="${book}">
                      
-                     <div th:replace="fragments/mandatoryFields :: mandatory">
+                     <div th:replace="fragments/commonFields :: common">
                          
-                     </div>    
+                     </div>
+                     
+                    
                     <div class="form-group">
                         <span >*</span>
                         <label for="publisher">Publisher</label>
-                        <input type="text" th:field="*{publisher}" class="form-control"/>
+                        <input type="text" th:field="*{publisher}" class="form-control" name="publisher"/>
                         <p class="alert-danger" th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}">Virheviesti</p>
-                    </div>    
+                    </div>
+                     
                       <div class="form-group">     
-                        <label for="address">address</label>
-                        <input type="text" th:field="*{address}" class="form-control"/>
+                        <label for="address">Address</label>
+                        <input type="text" th:field="*{address}" class="form-control" name="address"/>
                         <p class="alert-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Virheviesti</p>
-                    </div>    
+                    </div>
+                     
+                                      
+                     <div class="form-group">     
+                        <label for="series">Series</label>
+                        <input type="text" th:field="*{series}" class="form-control" name="series"/>
+                        <p class="alert-danger" th:if="${#fields.hasErrors('series')}" th:errors="*{series}">Virheviesti</p>
+                    </div>
+                     
+                    <div class="form-group">     
+                        <label for="edition">Edition</label>
+                        <input type="text" th:field="*{edition}" class="form-control" name="edition"/>
+                        <p class="alert-danger" th:if="${#fields.hasErrors('edition')}" th:errors="*{edition}">Virheviesti</p>
+                    </div>   
+                     
                     <div class="form-group">     
                         <button type="submit" class="btn btn-success">Save</button>
-                    </div>    
+                    </div>
+                     
                 </form>
                 
                 <div th:if="${newReference != null}">

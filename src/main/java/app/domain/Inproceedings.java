@@ -3,7 +3,7 @@ package app.domain;
 import javax.persistence.DiscriminatorValue;
 
 import javax.persistence.Entity;
-
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * This class is to create different proceedings objects.
@@ -12,61 +12,71 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = "Inproceedings")
 public class Inproceedings extends Reference {
 
+
     /**
-     * There are two possibilities of storing authors: String and
-     * ArrayList<String>. It depends on the implementation, which of those will
-     * remain.
+     * Compulsory variables:
      */
-//    private List<String> authors;  
-       
+    @NotEmpty(message = "Field can not be empty!")
     private String bookTitle;
-    
+
+    /**
+     * Optional variables:
+     */
+
+    private String editor;
+    private int vol;
+    private String series;
     private int startingPage;
     private int endingPage;
-    private String publisher;
     private String address;
+    private int month;
+    private String organization;
+    private String publisher;
 
-    /**
-     * This constructor contains all the possible data fields of an inproceedings.
-     *
-     * @param publisher is not compulsory.
-     * @param address is not compulsory.
-     * @return 
-     */
-//    public Inproceedings(List<String> authors, String author, String title, String booktitle, int year, int startingPage, int endingPage, String publisher, String address) {
-////        this.authors = authors;
-//        this.author = author;
-//        this.title = title;
-//        this.booktitle = booktitle;
-//        this.year = year;
-//        this.startingPage = startingPage;
-//        this.endingPage = endingPage;
-//        this.publisher = publisher;
-//        this.address = address;
-//    }
+    public String getEditor() {
+        return editor;
+    }
+
+    public void setEditor(String editor) {
+        this.editor = editor;
+    }
+
+    public int getVol() {
+        return vol;
+    }
+
+    public void setVol(int vol) {
+        this.vol = vol;
+    }
+
+    public String getSeries() {
+        return series;
+    }
+
+    public void setSeries(String series) {
+        this.series = series;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public String getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
+  
+
     
- 
 
-    //    public List<String> getAuthors() {
-//        return this.authors;
-//    }
-    /**
-     * The method returns the authors, if they are saved as a String.
-     * @return 
-     */
-//    @Override
-//    public String getAuthor() {
-//        return this.author;
-//    }
 
-    /**
-     * The method returns the author at the position n on the list.
-     * @return 
-     */
-//    public String getAuthor(int n) {
-//        return this.authors.get(n);
-//    }
-   
 
     @Override
     public String getPublisher() {
@@ -85,12 +95,12 @@ public class Inproceedings extends Reference {
         return this.address;
     }
 
-  
+
 
     public void setBookTitle(String booktitle) {
         this.bookTitle = booktitle;
     }
-    
+
     public String getBookTitle() {
         return this.bookTitle;
     }
@@ -103,9 +113,10 @@ public class Inproceedings extends Reference {
     /**
      * The method inserts an author at the place n on the list. The possible
      * previous author at the place n is shifted to the rigth.
+     *
      * @param year
      */
-   
+
 
     @Override
     public void setPublisher(String publisher) {

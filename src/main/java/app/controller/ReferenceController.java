@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,6 +68,12 @@ public class ReferenceController {
         if(bindingresult.hasErrors()){
             return "inproceedings";
         }
+        
+        if(inp.getEndingPage() < inp.getStartingPage()){
+            bindingresult.addError(new FieldError("Inproceedings","endingPage","Ending page cannot be before starting page!"));
+            return "inproceedings";
+        }
+        
         Reference r = refService.addReference(inp);
         model.addAttribute("newReference",r);
         return "inproceedings";
