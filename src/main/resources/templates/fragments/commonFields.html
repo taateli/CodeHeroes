@@ -14,6 +14,13 @@
             
             <div class="form-group">
                  <span >*</span>
+                <label for="key">Key</label>
+                <input type="text" th:field="*{key}" class="form-control" name="key"/>
+                <p class="alert-danger" th:if="${#fields.hasErrors('key')}" th:errors="*{key}">Virheviesti</p>
+            </div>
+            
+            <div class="form-group">
+                 <span >*</span>
                 <label for="author">Author(s)</label>
                 <input type="text" th:field="*{authors}" class="form-control" />
                 <p class="alert-danger" th:if="${#fields.hasErrors('authors')}" th:errors="*{author}">Virheviesti</p>
