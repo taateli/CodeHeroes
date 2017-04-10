@@ -19,30 +19,25 @@
            
             <div class="col-md-4 col-md-offset-2">
                 
-                 <h1>Add inproceedings reference</h1>   
+                 <h1>Add inproceedings reference</h1>
+                 <span>* = mandatory field</span>   
                 
                  <form th:action="@{/inproceedings}" th:method="POST" th:object="${inproceedings}">
                      
-                     <div class="form-group">
-                        <label for="author">Author(s)</label>
-                        <input type="text" th:field="*{author}" class="form-control"/>
-                    </div>
-                    <div class="form-group"> 
-                        <label for="title">Title</label>
-                        <input type="text" th:field="*{title}" class="form-control"/>
-                    </div>
-                    <div class="form-group"> 
-                        <label for="bookTitle">BookTitle</label>
-                        <input type="text" th:field="*{bookTitle}" class="form-control"/>
-                    </div>
-                    <div class="form-group">  
-                        <label for="year">Year</label>
-                        <input type="text" th:field="*{year}" class="form-control"/>
-                    </div>
+                     <div th:replace="fragments/mandatoryFields :: mandatory">
+                         
+                     </div>
+                     
                     <div class="form-group">     
                         <label for="publisher">Publisher</label>
                         <input type="text" th:field="*{publisher}" class="form-control"/>
-                    </div>    
+                        <p class="alert-danger" th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}">Virheviesti</p>
+                    </div>
+                     <div class="form-group"> 
+                        <label for="bookTitle">BookTitle</label>
+                        <input type="text" th:field="*{bookTitle}" class="form-control"/>
+                        <p class="alert-danger" th:if="${#fields.hasErrors('bookTitle')}" th:errors="*{bookTitle}">Virheviesti</p>
+                    </div>
                       <div class="form-group">     
                         <label for="address">address</label>
                         <input type="text" th:field="*{address}" class="form-control"/>
@@ -63,6 +58,7 @@
                   
                 <div th:if="${newReference != null}">
                     <div th:replace="fragments/success :: success"></div>
+                    <div th:text="${newReference}"></div>
                 </div>
             </div>
             

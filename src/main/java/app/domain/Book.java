@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 import javax.persistence.DiscriminatorValue;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * This class is to create different book objects.
@@ -21,10 +21,10 @@ public class Book extends Reference {
      * ArrayList<String>. It depends on the implementation, which of those will
      * remain.
      */
-//    private List<String> authors;  
-    private String author;
-    private String title;
-    private int year;
+//    private List<String> authors;
+    
+    
+    @NotEmpty(message = "Field can not be empty!")
     private String publisher;
     private String address;
 
@@ -43,11 +43,7 @@ public class Book extends Reference {
 //        this.address = "";
 //    }
     
-    @Override
-    public String getTitle() {
-        return this.title;
-    }
-
+  
     /**
      * The method returns the author at the position n on the list.
      */
@@ -57,15 +53,12 @@ public class Book extends Reference {
     /**
      * The method returns the authors, if they are saved as a String.
      */
-    @Override
-    public String getAuthor() {
-        return this.author;
-    }
+//    @Override
+//    public String getAuthor() {
+//        return this.author;
+//    }
 
-    @Override
-    public int getYear() {
-        return this.year;
-    }
+   
 
     // @Override
     public String getPublisher() {
@@ -76,10 +69,7 @@ public class Book extends Reference {
         return this.address;
     }
 
-    @Override
-    public void setTitle(String title) {
-        this.title = title;
-    }
+   
 
     /**
      * The method inserts an author at the place n on the list. The possible
@@ -91,15 +81,12 @@ public class Book extends Reference {
     /**
      * The method sets the authors, if the authors are saved as a String..
      */
-    @Override
-    public void setAuthor(String author) {
-        this.author = author;
-    }
+//    @Override
+//    public void setAuthor(String author) {
+//        this.author = author;
+//    }
 
-    @Override
-    public void setYear(int year) {
-        this.year = year;
-    }
+   
 
     @Override
     public void setPublisher(String publisher) {
@@ -118,7 +105,7 @@ public class Book extends Reference {
      */
     @Override
     public String toString() {
-        String tulostus = this.author + ". " + this.title + ". " + this.publisher + ", " + this.year + ".";
+        String tulostus = super.getAuthors() + ". " + super.getTitle() + ". " + this.publisher + ", " + super.getYear() + ".";
         if (!this.address.isEmpty()) {
             tulostus = tulostus + " " + this.address + ".";
         }

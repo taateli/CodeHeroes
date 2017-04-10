@@ -18,10 +18,9 @@ public class Inproceedings extends Reference {
      * remain.
      */
 //    private List<String> authors;  
-    private String author;
-    private String title;
+       
     private String bookTitle;
-    private int year;
+    
     private int startingPage;
     private int endingPage;
     private String publisher;
@@ -46,10 +45,7 @@ public class Inproceedings extends Reference {
 //        this.address = address;
 //    }
     
-    @Override
-    public String getTitle() {
-        return this.title;
-    }
+ 
 
     //    public List<String> getAuthors() {
 //        return this.authors;
@@ -58,10 +54,10 @@ public class Inproceedings extends Reference {
      * The method returns the authors, if they are saved as a String.
      * @return 
      */
-    @Override
-    public String getAuthor() {
-        return this.author;
-    }
+//    @Override
+//    public String getAuthor() {
+//        return this.author;
+//    }
 
     /**
      * The method returns the author at the position n on the list.
@@ -70,10 +66,7 @@ public class Inproceedings extends Reference {
 //    public String getAuthor(int n) {
 //        return this.authors.get(n);
 //    }
-    @Override
-    public int getYear() {
-        return this.year;
-    }
+   
 
     @Override
     public String getPublisher() {
@@ -92,10 +85,7 @@ public class Inproceedings extends Reference {
         return this.address;
     }
 
-    @Override
-    public void setTitle(String title) {
-        this.title = title;
-    }
+  
 
     public void setBookTitle(String booktitle) {
         this.bookTitle = booktitle;
@@ -105,20 +95,17 @@ public class Inproceedings extends Reference {
         return this.bookTitle;
     }
 
-    @Override
-    public void setAuthor(String author) {
-        this.author = author;
-    }
+//    @Override
+//    public void setAuthor(String author) {
+//        this.author = author;
+//    }
 
     /**
      * The method inserts an author at the place n on the list. The possible
      * previous author at the place n is shifted to the rigth.
      * @param year
      */
-    @Override
-    public void setYear(int year) {
-        this.year = year;
-    }
+   
 
     @Override
     public void setPublisher(String publisher) {
@@ -146,11 +133,11 @@ public class Inproceedings extends Reference {
      */
     @Override
     public String toString() {
-        String tulostus = this.author + ". " + this.title + ". In " + this.bookTitle + ", pages " + this.startingPage + " - " + this.endingPage + ".";
+        String tulostus = super.getAuthors() + ". " + super.getTitle() + ". In " + this.bookTitle + ", pages " + this.startingPage + " - " + this.endingPage + ".";
         if (!this.publisher.isEmpty()) {
             tulostus = tulostus + " " + this.publisher + ",";
         }
-        tulostus = " " + tulostus + this.year + ".";
+        tulostus = " " + tulostus + super.getYear() + ".";
         if (!this.address.isEmpty()) {
             tulostus = tulostus + " " + this.address + ".";
         }
