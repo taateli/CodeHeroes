@@ -4,7 +4,6 @@ import javax.persistence.DiscriminatorValue;
 
 import javax.persistence.Entity;
 
-
 /**
  * This class is to create different proceedings objects.
  */
@@ -18,21 +17,35 @@ public class Inproceedings extends Reference {
      * remain.
      */
 //    private List<String> authors;  
+    /**
+     * Compulsory variables:
+     */
     private String author;
     private String title;
     private String bookTitle;
     private int year;
-    private int startingPage;
-    private int endingPage;
-    private String publisher;
-    private String address;
 
     /**
-     * This constructor contains all the possible knowledge fields of a book.
+     * Optional variables:
+     */
+    private String editor;
+    private int vol;
+    private String series;
+    private int startingPage;
+    private int endingPage;
+    private String address;
+    private int month;
+    private String organization;
+    private String publisher;
+    private String key;
+
+    /**
+     * This constructor contains all the possible data fields of an
+     * inproceedings.
      *
      * @param publisher is not compulsory.
      * @param address is not compulsory.
-     * @return 
+     * @return
      */
 //    public Inproceedings(List<String> authors, String author, String title, String booktitle, int year, int startingPage, int endingPage, String publisher, String address) {
 ////        this.authors = authors;
@@ -45,7 +58,6 @@ public class Inproceedings extends Reference {
 //        this.publisher = publisher;
 //        this.address = address;
 //    }
-    
     @Override
     public String getTitle() {
         return this.title;
@@ -56,7 +68,8 @@ public class Inproceedings extends Reference {
 //    }
     /**
      * The method returns the authors, if they are saved as a String.
-     * @return 
+     *
+     * @return
      */
     @Override
     public String getAuthor() {
@@ -65,7 +78,8 @@ public class Inproceedings extends Reference {
 
     /**
      * The method returns the author at the position n on the list.
-     * @return 
+     *
+     * @return
      */
 //    public String getAuthor(int n) {
 //        return this.authors.get(n);
@@ -100,7 +114,7 @@ public class Inproceedings extends Reference {
     public void setBookTitle(String booktitle) {
         this.bookTitle = booktitle;
     }
-    
+
     public String getBookTitle() {
         return this.bookTitle;
     }
@@ -113,6 +127,7 @@ public class Inproceedings extends Reference {
     /**
      * The method inserts an author at the place n on the list. The possible
      * previous author at the place n is shifted to the rigth.
+     *
      * @param year
      */
     @Override
