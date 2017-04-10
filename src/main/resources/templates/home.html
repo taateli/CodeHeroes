@@ -6,14 +6,7 @@
         <script th:src="@{/webjars/jquery/3.2.0/jquery.min.js}"></script>
         <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
         <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css"></link>
-<<<<<<< HEAD
-
-
-=======
-      
->>>>>>> cda2f4bcf64a9bb614c21ae600f55f1a2dbbe8e3
-
-    </head>
+</head>
     <body>
 
         <header th:replace="fragments/header :: header">
@@ -34,18 +27,9 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-toggle" th:href="@{/books}">Book</a></li>
                         <li><a class="dropdown-toggle" th:href="@{/inproceedings}">Inproceedings</a></li>
-
+                        <li class="disabled"><a class ="dropdown-toggle" th:href="@{/articles}">Articles</a></li>
                     </ul>
                     </div>
-                    <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose refererence type
-                            <span class="caret"></span></button>
-                        <ul class="dropdown-menu">
-                            <li><a th:href="@{/books}">Book</a></li>
-                            <li class="active"><a th:href="@{/inproceedings}">Inproceedings</a></li>
-                        </ul>
-                    </div>
-
 
                
 
@@ -54,14 +38,15 @@
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th>Reference</th>       
+                            <th>Reference</th>
+                            
                         </tr>
                     </thead>
 
                     <tbody>
 
                         <tr th:each="reference : ${references}">
-                            <td><a th:href="@{/references/{id} (id=${reference.id})}" th:text="${reference}"></a></td>
+                            <td><a  th:href="@{/references/{id} (id=${reference.id})}" th:text="${reference}"></a></td>
 
 
                             <th><form th:method="DELETE" th:action="@{/references/{id} (id=${reference.id})} "><input type="submit" class="btn btn-danger btn-sm" value="Delete"/></form></th>
