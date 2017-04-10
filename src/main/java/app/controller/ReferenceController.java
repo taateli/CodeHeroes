@@ -7,9 +7,12 @@ import app.domain.Reference;
 import app.service.ReferenceService;
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,7 +63,16 @@ public class ReferenceController {
     
     */
     @RequestMapping(value = "/inproceedings", method = RequestMethod.POST)
-    public String addBook(Model model, @ModelAttribute Inproceedings inp){
+    public String addBook(Model model, @Valid @ModelAttribute Inproceedings inp, BindingResult bindingresult){
+        if(bindingresult.hasErrors()){
+            return "inproceedings";
+        }
+        
+        if(inp.getEndingPage() < inp.getStartingPage()){
+            bindingresult.addError(new FieldError("Inproceedings","endingPage","Ending page cannot be before starting page!"));
+            return "inproceedings";
+        }
+        
         Reference r = refService.addReference(inp);
         model.addAttribute("newReference",r);
         return "inproceedings";
@@ -72,7 +84,10 @@ public class ReferenceController {
     
     */
      @RequestMapping(value = "/books", method = RequestMethod.POST)
-    public String addInproceedings(Model model, @ModelAttribute Book book){
+    public String addInproceedings(Model model, @Valid @ModelAttribute Book book, BindingResult bindingresult){
+        if(bindingresult.hasErrors()){
+            return "books";
+        }
         Reference r = refService.addReference(book);
         model.addAttribute("newReference",r);
         return "books";
