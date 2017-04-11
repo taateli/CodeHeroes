@@ -38,9 +38,9 @@ public class InproceedingsTest {
         instance.setAddress("address");
 //        instance.setAuthor("author");
         instance.setBookTitle("bookTitle");
-        instance.setEndingPage(100);
+        instance.setEndingPage("100");
         instance.setPublisher("publisher");
-        instance.setStartingPage(1);
+        instance.setStartingPage("1");
         instance.setTitle("title");
         instance.setYear(2017);
 
@@ -205,10 +205,10 @@ public class InproceedingsTest {
     @Test
     public void testSetStartingPage() {
         System.out.println("setStartingPage");
-        int page = 11;
+        String page = "11";
         Inproceedings instance1 = new Inproceedings();
         instance1.setStartingPage(page);
-        assertEquals(11, instance1.getStartingPage());
+        assertEquals("11", instance1.getStartingPage());
     }
 
     /**
@@ -217,10 +217,10 @@ public class InproceedingsTest {
     @Test
     public void testSetEndingPage() {
         System.out.println("setEndingPage");
-        int page = 60;
+        String page = "60";
         Inproceedings instance1 = new Inproceedings();
         instance1.setEndingPage(page);
-        assertEquals(60, instance1.getEndingPage());
+        assertEquals("60", instance1.getEndingPage());
     }
 
     /**
