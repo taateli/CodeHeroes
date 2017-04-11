@@ -24,7 +24,7 @@ public class Book extends Reference {
     private String edition;
     private Integer month;
 
-    public int getVol() {
+    public Integer getVol() {
         return vol;
     }
 
@@ -48,7 +48,7 @@ public class Book extends Reference {
         this.edition = edition;
     }
 
-    public int getMonth() {
+    public Integer getMonth() {
         return month;
     }
 

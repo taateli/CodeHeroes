@@ -41,7 +41,7 @@ public class Inproceedings extends Reference {
         this.editor = editor;
     }
 
-    public int getVol() {
+    public Integer getVol() {
         return vol;
     }
 
@@ -57,7 +57,7 @@ public class Inproceedings extends Reference {
         this.series = series;
     }
 
-    public int getMonth() {
+    public Integer getMonth() {
         return month;
     }
 
