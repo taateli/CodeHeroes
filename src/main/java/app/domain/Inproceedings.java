@@ -3,6 +3,7 @@ package app.domain;
 import javax.persistence.DiscriminatorValue;
 
 import javax.persistence.Entity;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * This class is to create different proceedings objects.
@@ -11,23 +12,17 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = "Inproceedings")
 public class Inproceedings extends Reference {
 
-    /**
-     * There are two possibilities of storing authors: String and
-     * ArrayList<String>. It depends on the implementation, which of those will
-     * remain.
-     */
-//    private List<String> authors;  
+
     /**
      * Compulsory variables:
      */
-    private String author;
-    private String title;
+    @NotEmpty(message = "Field can not be empty!")
     private String bookTitle;
-    private int year;
 
     /**
      * Optional variables:
      */
+
     private String editor;
     private int vol;
     private String series;
@@ -37,57 +32,51 @@ public class Inproceedings extends Reference {
     private int month;
     private String organization;
     private String publisher;
-    private String key;
 
-    /**
-     * This constructor contains all the possible data fields of an
-     * inproceedings.
-     *
-     * @param publisher is not compulsory.
-     * @param address is not compulsory.
-     * @return
-     */
-//    public Inproceedings(List<String> authors, String author, String title, String booktitle, int year, int startingPage, int endingPage, String publisher, String address) {
-////        this.authors = authors;
-//        this.author = author;
-//        this.title = title;
-//        this.booktitle = booktitle;
-//        this.year = year;
-//        this.startingPage = startingPage;
-//        this.endingPage = endingPage;
-//        this.publisher = publisher;
-//        this.address = address;
-//    }
-    @Override
-    public String getTitle() {
-        return this.title;
+    public String getEditor() {
+        return editor;
     }
 
-    //    public List<String> getAuthors() {
-//        return this.authors;
-//    }
-    /**
-     * The method returns the authors, if they are saved as a String.
-     *
-     * @return
-     */
-    @Override
-    public String getAuthor() {
-        return this.author;
+    public void setEditor(String editor) {
+        this.editor = editor;
     }
 
-    /**
-     * The method returns the author at the position n on the list.
-     *
-     * @return
-     */
-//    public String getAuthor(int n) {
-//        return this.authors.get(n);
-//    }
-    @Override
-    public int getYear() {
-        return this.year;
+    public int getVol() {
+        return vol;
     }
+
+    public void setVol(int vol) {
+        this.vol = vol;
+    }
+
+    public String getSeries() {
+        return series;
+    }
+
+    public void setSeries(String series) {
+        this.series = series;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public String getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
+  
+
+    
+
+
 
     @Override
     public String getPublisher() {
@@ -106,10 +95,7 @@ public class Inproceedings extends Reference {
         return this.address;
     }
 
-    @Override
-    public void setTitle(String title) {
-        this.title = title;
-    }
+
 
     public void setBookTitle(String booktitle) {
         this.bookTitle = booktitle;
@@ -119,10 +105,10 @@ public class Inproceedings extends Reference {
         return this.bookTitle;
     }
 
-    @Override
-    public void setAuthor(String author) {
-        this.author = author;
-    }
+//    @Override
+//    public void setAuthor(String author) {
+//        this.author = author;
+//    }
 
     /**
      * The method inserts an author at the place n on the list. The possible
@@ -130,10 +116,7 @@ public class Inproceedings extends Reference {
      *
      * @param year
      */
-    @Override
-    public void setYear(int year) {
-        this.year = year;
-    }
+
 
     @Override
     public void setPublisher(String publisher) {
@@ -161,11 +144,11 @@ public class Inproceedings extends Reference {
      */
     @Override
     public String toString() {
-        String tulostus = this.author + ". " + this.title + ". In " + this.bookTitle + ", pages " + this.startingPage + " - " + this.endingPage + ".";
+        String tulostus = super.getAuthors() + ". " + super.getTitle() + ". In " + this.bookTitle + ", pages " + this.startingPage + " - " + this.endingPage + ".";
         if (!this.publisher.isEmpty()) {
             tulostus = tulostus + " " + this.publisher + ",";
         }
-        tulostus = " " + tulostus + this.year + ".";
+        tulostus = " " + tulostus + super.getYear() + ".";
         if (!this.address.isEmpty()) {
             tulostus = tulostus + " " + this.address + ".";
         }

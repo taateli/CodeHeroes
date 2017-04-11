@@ -4,6 +4,7 @@ package app.service;
 
 import app.domain.Reference;
 import app.repository.ReferenceRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +23,11 @@ public class ReferenceService {
 
         return refRepository.save(b);
     }
+    
+    
+    public List<Reference> getReferences() {
+        
+        return refRepository.findAll();  
+    } 
 
 }
