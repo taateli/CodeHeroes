@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /*
 This class handles all requests related to Reference -classes
@@ -33,6 +34,7 @@ public class ReferenceController {
     public String showReferenceTypes(Model model) {
         List<Reference> refs = refService.getReferences();
         model.addAttribute("references", refs);
+        model.addAttribute("newReference", model.asMap().get("newReference"));
         return "home";
     }
 
@@ -41,7 +43,7 @@ public class ReferenceController {
     public String showBooksForm(Model model) {
         Book b = new Book();
         model.addAttribute("book", b);
-        model.addAttribute("newReference", null);
+        
         return "books";
     }
 
@@ -50,7 +52,7 @@ public class ReferenceController {
     public String showInpForm(Model model) {
         Inproceedings inp = new Inproceedings();
         model.addAttribute("inproceedings", inp);
-        model.addAttribute("newReference", null);
+        ;
         return "inproceedings";
     }
 
@@ -60,7 +62,9 @@ public class ReferenceController {
     
      */
     @RequestMapping(value = "/inproceedings", method = RequestMethod.POST)
-    public String addBook(Model model, @Valid @ModelAttribute Inproceedings inp, BindingResult bindingresult) {
+    public String addInproceedings(Model model, @Valid @ModelAttribute Inproceedings inp, BindingResult bindingresult,
+                                    RedirectAttributes redirectAttrs) {
+        
         if (bindingresult.hasErrors()) {
             return "inproceedings";
         }
@@ -71,8 +75,9 @@ public class ReferenceController {
         }
 
         Reference r = refService.addReference(inp);
-        model.addAttribute("newReference", r);
-        return "inproceedings";
+        redirectAttrs.addFlashAttribute("newReference", r);
+        
+        return "redirect:/";
     }
 
     /*  This method handles post-request to path /books
@@ -81,13 +86,15 @@ public class ReferenceController {
     
      */
     @RequestMapping(value = "/books", method = RequestMethod.POST)
-    public String addInproceedings(Model model, @Valid @ModelAttribute Book book, BindingResult bindingresult) {
+    public String addBook(Model model, @Valid @ModelAttribute Book book, BindingResult bindingresult,
+                            RedirectAttributes redirectAttrs) {
+        
         if (bindingresult.hasErrors()) {
             return "books";
         }
         Reference r = refService.addReference(book);
-        model.addAttribute("newReference", r);
-        return "books";
+        redirectAttrs.addFlashAttribute("newReference", r);
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/references/{id}", method = RequestMethod.DELETE)

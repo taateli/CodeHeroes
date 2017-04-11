@@ -83,11 +83,11 @@ public class Inproceedings extends Reference {
         return this.publisher;
     }
 
-    public int getStartingPage() {
+    public Integer getStartingPage() {
         return this.startingPage;
     }
 
-    public int getEndingPage() {
+    public Integer getEndingPage() {
         return this.endingPage;
     }
 

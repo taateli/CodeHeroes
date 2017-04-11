@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Home</title>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+        <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="/webjars/jquery/3.2.0/js/jquery.min.js"></script>
+
+    </head>
+    <body>
+        
+        <header  th:fragment="header">
+            <ul class="nav navbar-default nav-pills">
+                <li><a th:href="@{/}">Front page</a></li>
+                <li ><a th:href="@{/books}">Books</a></li>
+                <li ><a th:href="@{/inproceedings}">Inproceedings</a></li>
+                <!--
+                <li class="pull-right"><a  th:href="@{/logout}">Kirjaudu ulos</a></li>
+                -->
+            </ul>
+        </header>
+       
+    </body>    
+</html>
