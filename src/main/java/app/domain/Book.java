@@ -18,11 +18,11 @@ public class Book extends Reference {
     /**
      * Optional variables:
      */
-    private int vol;
+    private Integer vol;
     private String series;
     private String address;
     private String edition;
-    private int month;
+    private Integer month;
 
     public int getVol() {
         return vol;
