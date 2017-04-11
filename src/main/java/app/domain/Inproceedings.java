@@ -24,12 +24,12 @@ public class Inproceedings extends Reference {
      */
 
     private String editor;
-    private int vol;
+    private Integer vol;
     private String series;
-    private int startingPage;
-    private int endingPage;
+    private Integer startingPage;
+    private Integer endingPage;
     private String address;
-    private int month;
+    private Integer month;
     private String organization;
     private String publisher;
 
@@ -41,7 +41,7 @@ public class Inproceedings extends Reference {
         this.editor = editor;
     }
 
-    public int getVol() {
+    public Integer getVol() {
         return vol;
     }
 
@@ -57,7 +57,7 @@ public class Inproceedings extends Reference {
         this.series = series;
     }
 
-    public int getMonth() {
+    public Integer getMonth() {
         return month;
     }
 

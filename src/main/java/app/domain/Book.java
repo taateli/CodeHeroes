@@ -18,13 +18,13 @@ public class Book extends Reference {
     /**
      * Optional variables:
      */
-    private int vol;
+    private Integer vol;
     private String series;
     private String address;
     private String edition;
-    private int month;
+    private Integer month;
 
-    public int getVol() {
+    public Integer getVol() {
         return vol;
     }
 
@@ -48,7 +48,7 @@ public class Book extends Reference {
         this.edition = edition;
     }
 
-    public int getMonth() {
+    public Integer getMonth() {
         return month;
     }
 
