@@ -29,5 +29,9 @@ public class ReferenceService {
         
         return refRepository.findAll();  
     } 
+    
+    public void delete(Long id) {
+        refRepository.delete(id);
+    }
 
 }

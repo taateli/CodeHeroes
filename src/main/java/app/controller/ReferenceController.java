@@ -1,4 +1,3 @@
-
 package app.controller;
 
 import app.domain.Book;
@@ -21,39 +20,37 @@ import org.springframework.web.bind.annotation.RequestMethod;
 /*
 This class handles all requests related to Reference -classes
 
-*/
-
+ */
 @Controller
 public class ReferenceController {
-    
-    
+
     // To controller is given an instance of service class
     @Autowired
     private ReferenceService refService;
-    
+
     //This method handles get-request to home path and shows home.html file from folder resource/templates/ 
-     @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showReferenceTypes(Model model) {
         List<Reference> refs = refService.getReferences();
         model.addAttribute("references", refs);
         return "home";
     }
-    
+
     //This method handles get-request to path /books and shows books.html file from folder resource/templates/ 
     @RequestMapping(value = "/books", method = RequestMethod.GET)
     public String showBooksForm(Model model) {
         Book b = new Book();
-        model.addAttribute("book",b);
-        model.addAttribute("newReference",null);
+        model.addAttribute("book", b);
+        model.addAttribute("newReference", null);
         return "books";
     }
-    
+
     //This method handles get-request to path /inproceedings and shows inproceedings.html file from folder resource/templates/ 
     @RequestMapping(value = "/inproceedings", method = RequestMethod.GET)
     public String showInpForm(Model model) {
         Inproceedings inp = new Inproceedings();
-        model.addAttribute("inproceedings",inp);
-        model.addAttribute("newReference",null);
+        model.addAttribute("inproceedings", inp);
+        model.addAttribute("newReference", null);
         return "inproceedings";
     }
 
@@ -61,38 +58,46 @@ public class ReferenceController {
         and takes Inproceedings type parameter. It uses @ModelAttribute annotation to render
         th:field tags from view
     
-    */
+     */
     @RequestMapping(value = "/inproceedings", method = RequestMethod.POST)
-    public String addBook(Model model, @Valid @ModelAttribute Inproceedings inp, BindingResult bindingresult){
-        if(bindingresult.hasErrors()){
+    public String addBook(Model model, @Valid @ModelAttribute Inproceedings inp, BindingResult bindingresult) {
+        if (bindingresult.hasErrors()) {
             return "inproceedings";
         }
-        
-        if(inp.getEndingPage() < inp.getStartingPage()){
-            bindingresult.addError(new FieldError("Inproceedings","endingPage","Ending page cannot be before starting page!"));
+
+        if (inp.getEndingPage() < inp.getStartingPage()) {
+            bindingresult.addError(new FieldError("Inproceedings", "endingPage", "Ending page cannot be before starting page!"));
             return "inproceedings";
         }
-        
+
         Reference r = refService.addReference(inp);
-        model.addAttribute("newReference",r);
+        model.addAttribute("newReference", r);
         return "inproceedings";
     }
-    
+
     /*  This method handles post-request to path /books
         and takes Books type parameter. It uses @ModelAttribute annotation to render
         th:field tags from view
     
-    */
-     @RequestMapping(value = "/books", method = RequestMethod.POST)
-    public String addInproceedings(Model model, @Valid @ModelAttribute Book book, BindingResult bindingresult){
-        if(bindingresult.hasErrors()){
+     */
+    @RequestMapping(value = "/books", method = RequestMethod.POST)
+    public String addInproceedings(Model model, @Valid @ModelAttribute Book book, BindingResult bindingresult) {
+        if (bindingresult.hasErrors()) {
             return "books";
         }
         Reference r = refService.addReference(book);
-        model.addAttribute("newReference",r);
+        model.addAttribute("newReference", r);
         return "books";
     }
-    
-   
+
+    @RequestMapping(value = "/references/{id}", method = RequestMethod.DELETE)
+    public String deleteReference(@PathVariable Long id) {
+
+        refService.delete(id);
+
+        
+        return "redirect:/home";
+
+    }
     
 }
