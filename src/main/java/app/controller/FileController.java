@@ -33,8 +33,8 @@ public class FileController {
     @Autowired
     private FileService fileService;
     
-       @RequestMapping(value = "/references/{id}", method = RequestMethod.GET)
-    public ResponseEntity<byte[]> viewFile(@PathVariable Long id) {
+       @RequestMapping(value = "/download", method = RequestMethod.GET)
+    public ResponseEntity<byte[]> viewFile() {
         FileObject fo = fileService.createFile(referenceService.getReferences());
 
         final HttpHeaders headers = new HttpHeaders();
