@@ -69,7 +69,7 @@ public class ReferenceController {
             return "inproceedings";
         }
 
-        if (inp.getEndingPage() < inp.getStartingPage()) {
+        if (Integer.parseInt(inp.getEndingPage()) < Integer.parseInt(inp.getStartingPage())) {
             bindingresult.addError(new FieldError("Inproceedings", "endingPage", "Ending page cannot be before starting page!"));
             return "inproceedings";
         }

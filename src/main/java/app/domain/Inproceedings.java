@@ -24,12 +24,12 @@ public class Inproceedings extends Reference {
      */
 
     private String editor;
-    private Integer vol;
+    private String vol;
     private String series;
-    private Integer startingPage;
-    private Integer endingPage;
+    private String startingPage;
+    private String endingPage;
     private String address;
-    private Integer month;
+    private String month;
     private String organization;
     private String publisher;
 
@@ -41,11 +41,11 @@ public class Inproceedings extends Reference {
         this.editor = editor;
     }
 
-    public Integer getVol() {
+    public String getVol() {
         return vol;
     }
 
-    public void setVol(int vol) {
+    public void setVol(String vol) {
         this.vol = vol;
     }
 
@@ -57,11 +57,11 @@ public class Inproceedings extends Reference {
         this.series = series;
     }
 
-    public Integer getMonth() {
+    public String getMonth() {
         return month;
     }
 
-    public void setMonth(int month) {
+    public void setMonth(String month) {
         this.month = month;
     }
 
@@ -83,11 +83,11 @@ public class Inproceedings extends Reference {
         return this.publisher;
     }
 
-    public Integer getStartingPage() {
+    public String getStartingPage() {
         return this.startingPage;
     }
 
-    public Integer getEndingPage() {
+    public String getEndingPage() {
         return this.endingPage;
     }
 
@@ -127,11 +127,11 @@ public class Inproceedings extends Reference {
         this.address = address;
     }
 
-    public void setStartingPage(int page) {
+    public void setStartingPage(String page) {
         this.startingPage = page;
     }
 
-    public void setEndingPage(int page) {
+    public void setEndingPage(String page) {
         this.endingPage = page;
     }
 
