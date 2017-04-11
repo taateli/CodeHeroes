@@ -38,7 +38,7 @@ public class BookTest {
 //        instance.setAuthor("author");
         instance.setPublisher("publisher");
         instance.setTitle("title");
-        instance.setYear(2017);
+        instance.setYear("2017");
     }
 
     @After
@@ -70,7 +70,7 @@ public class BookTest {
     @Test
     public void testGetYear() {
         System.out.println("getYear");
-        assertEquals(2017, instance.getYear());
+        assertEquals("2017", instance.getYear());
     }
 
     /**
@@ -120,8 +120,8 @@ public class BookTest {
     public void testSetYear() {
         System.out.println("setYear");
         Book instance1 = new Book();
-        instance1.setYear(2017);
-        assertEquals(2017, instance1.getYear());
+        instance1.setYear("2017");
+        assertEquals("2017", instance1.getYear());
     }
 
     /**

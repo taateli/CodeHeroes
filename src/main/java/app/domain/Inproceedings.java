@@ -3,6 +3,7 @@ package app.domain;
 import javax.persistence.DiscriminatorValue;
 
 import javax.persistence.Entity;
+import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -24,12 +25,22 @@ public class Inproceedings extends Reference {
      */
 
     private String editor;
+    
+    @Pattern(regexp = "^([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9])*$", message ="Field must contain number between 1 and 199999")
     private String vol;
     private String series;
+    
+    @Pattern(regexp = "^([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9])*$", message ="Field must contain number between 1 and 199999")
     private String startingPage;
+    
+    @Pattern(regexp = "^([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9])*$", message ="Field must contain number between 1 and 199999")
     private String endingPage;
+    
     private String address;
+    
+    @Pattern(regexp = "^([1-9]|[1][0-2])*$", message ="Field must contain number between 1 and 12")
     private String month;
+    
     private String organization;
     private String publisher;
 

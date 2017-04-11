@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
@@ -35,9 +36,9 @@ public abstract class Reference extends AbstractPersistable<Long> {
     private String title;
 
     // this field is common with all Reference types
-
-    @Min(value = 1000, message = "Year must be at least 1000!")
-    private int year;
+    @Pattern(regexp = "^([1-9]|[1-9][0-9]|[1-9][0-9][0-9])*$", message = "Year must contain only numbers and be at least 1000!")
+    @NotEmpty(message = "Field can not be empty!")
+    private String year;
 
     // this field is common with all Reference types
 
@@ -77,14 +78,15 @@ public abstract class Reference extends AbstractPersistable<Long> {
         this.title = title;
     }
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
+    
 
 
     abstract String getPublisher();

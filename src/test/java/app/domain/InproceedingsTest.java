@@ -42,7 +42,7 @@ public class InproceedingsTest {
         instance.setPublisher("publisher");
         instance.setStartingPage("1");
         instance.setTitle("title");
-        instance.setYear(2017);
+        instance.setYear("2017");
 
     }
 
@@ -86,7 +86,7 @@ public class InproceedingsTest {
     @Test
     public void testGetYear() {
         System.out.println("getYear");
-        assertEquals(2017, instance.getYear());
+        assertEquals("2017", instance.getYear());
     }
 
     /**
@@ -169,10 +169,10 @@ public class InproceedingsTest {
     @Test
     public void testSetYear() {
         System.out.println("setYear");
-        int year = 0;
+        String year = "2017";
         Inproceedings instance1 = new Inproceedings();
-        instance1.setYear(year);
-        assertEquals(0, instance1.getYear());
+        instance1.setYear("year");
+        assertEquals("2017", instance1.getYear());
     }
 
     /**

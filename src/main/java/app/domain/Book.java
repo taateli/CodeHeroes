@@ -3,6 +3,7 @@ package app.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.DiscriminatorValue;
+import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -18,10 +19,13 @@ public class Book extends Reference {
     /**
      * Optional variables:
      */
+    @Pattern(regexp = "^([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9])*$", message ="Field must contain number between 1 and 199999")
     private String vol;
     private String series;
     private String address;
     private String edition;
+    
+    @Pattern(regexp = "^([1-9]|[1][0-2])*$", message ="Field must contain number between 1 and 12")
     private String month;
 
     public String getVol() {
