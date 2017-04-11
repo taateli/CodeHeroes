@@ -96,7 +96,7 @@ public class ReferenceController {
         refService.delete(id);
 
         
-        return "home";
+        return "redirect:/";
 
     }
     

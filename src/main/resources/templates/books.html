@@ -45,7 +45,7 @@
                                       
                      <div class="form-group">     
                         <label for="series">Series</label>
-                        <input type="text" th:field="*{series}" class="form-control" name="series"/>
+                        <input type="text" th:field="*{series}" class="form-control"  name="series"/>
                         <p class="alert-danger" th:if="${#fields.hasErrors('series')}" th:errors="*{series}">Virheviesti</p>
                     </div>
                      
