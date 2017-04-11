@@ -149,12 +149,12 @@ public class BookTest {
     /**
      * Test of toString method, of class Book.
      */
-    @Test
-    public void testToString() {
-        System.out.println("toString");
-        String expResult = "author. title. publisher, 2017. address.";
-        assertEquals(expResult, instance.toString());
-    }
+//    @Test
+//    public void testToString() {
+//        System.out.println("toString");
+//        String expResult = "author. title. publisher, 2017. address.";
+//        assertEquals(expResult, instance.toString());
+//    }
 
     /**
      * Test of toBibTex method, of class Book.

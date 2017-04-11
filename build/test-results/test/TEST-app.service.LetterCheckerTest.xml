@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="app.service.LetterCheckerTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2017-04-11T12:23:15" hostname="kaisa-T410" time="0.012">
+  <properties/>
+  <testcase name="testChangeSmallOsToBibTextForm" classname="app.service.LetterCheckerTest" time="0.004"/>
+  <testcase name="testChangeSmallOAsToBibTextForm" classname="app.service.LetterCheckerTest" time="0.001"/>
+  <testcase name="testChangeBigOsToBibTextForm" classname="app.service.LetterCheckerTest" time="0.0"/>
+  <testcase name="hasSwedishOsTest" classname="app.service.LetterCheckerTest" time="0.0"/>
+  <testcase name="testChangeSmallAsToBibTextForm" classname="app.service.LetterCheckerTest" time="0.0"/>
+  <testcase name="testChangeBigAsToBibTextForm" classname="app.service.LetterCheckerTest" time="0.0"/>
+  <testcase name="hasScandinavianAsTest" classname="app.service.LetterCheckerTest" time="0.0"/>
+  <testcase name="inputIsAnEmptyString" classname="app.service.LetterCheckerTest" time="0.0"/>
+  <testcase name="hasScandinavianOsTest" classname="app.service.LetterCheckerTest" time="0.0"/>
+  <testcase name="dontModifyNormalALetters" classname="app.service.LetterCheckerTest" time="0.0"/>
+  <testcase name="testChangeBigOAsToBibTextForm" classname="app.service.LetterCheckerTest" time="0.0"/>
+  <testcase name="justATest" classname="app.service.LetterCheckerTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
