@@ -104,7 +104,7 @@ public class InproceedingsTest {
     @Test
     public void testGetStartingPage() {
         System.out.println("getStartingPage");
-        assertEquals(1, instance.getStartingPage());
+        assertEquals("1", instance.getStartingPage());
     }
 
     /**
@@ -113,7 +113,7 @@ public class InproceedingsTest {
     @Test
     public void testGetEndingPage() {
         System.out.println("getEndingPage");
-        assertEquals(100, instance.getEndingPage());
+        assertEquals("100", instance.getEndingPage());
     }
 
     /**
