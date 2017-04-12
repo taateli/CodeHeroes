@@ -1,7 +1,9 @@
 package app.service;
 
+import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class LetterCheckerTest {
@@ -9,15 +11,17 @@ public class LetterCheckerTest {
     LetterChecker checker;
     String scandinavian;
 
+    @BeforeClass
+    public static void setUpClass() {
+    }
+
+    @AfterClass
+    public static void tearDownClass() {
+    }
+
     @Before
     public void setUp() {
         checker = new LetterChecker();
-
-    }
-
-    @Test
-    public void justATest() {
-        assertEquals(true, true);
 
     }
 
@@ -46,47 +50,71 @@ public class LetterCheckerTest {
     public void inputIsAnEmptyString() {
         assertEquals(false, checker.hasScandinavians(""));
     }
-    
-     @Test
+
+    @Test
     public void testChangeBigOsToBibTextForm() {
         String scandiLetter = "Ö";
-        assertEquals("{\\\"O}", checker.changeBigOsToBibTextForm(scandiLetter));
+        assertEquals("{\\\"O}", checker.changeScandisToBibTextForm(scandiLetter));
     }
 
     @Test
     public void testChangeSmallOsToBibTextForm() {
         String scandiLetter = "ö";
-        assertEquals("{\\\"o}", checker.changeSmallOsToBibTextForm(scandiLetter));
+        assertEquals("{\\\"o}", checker.changeScandisToBibTextForm(scandiLetter));
     }
-    
+
     @Test
     public void testChangeBigAsToBibTextForm() {
         String scandiLetter = "Ä";
-        assertEquals("{\\\"A}", checker.changeBigAsToBibTextForm(scandiLetter));
+        assertEquals("{\\\"A}", checker.changeScandisToBibTextForm(scandiLetter));
     }
 
     @Test
     public void testChangeSmallAsToBibTextForm() {
         String scandiLetter = "ä";
-        assertEquals("{\\\"a}", checker.changeSmallAsToBibTextForm(scandiLetter));
+        assertEquals("{\\\"a}", checker.changeScandisToBibTextForm(scandiLetter));
     }
 
     @Test
     public void testChangeBigOAsToBibTextForm() {
         String scandiLetter = "Å";
-        assertEquals("{\\AA}", checker.changeBigOAsToBibTextForm(scandiLetter));
+        assertEquals("{\\AA}", checker.changeScandisToBibTextForm(scandiLetter));
     }
-    
-     @Test
+
+    @Test
     public void testChangeSmallOAsToBibTextForm() {
         String scandiLetter = "å";
-        assertEquals("{\\aa}", checker.changeSmallOAsToBibTextForm(scandiLetter));
+        assertEquals("{\\aa}", checker.changeScandisToBibTextForm(scandiLetter));
+    }
+
+    @Test
+    public void testChangeSmallOOsToBibTextForm() {
+        String scandiLetter = "ø";
+        assertEquals("{\\o}", checker.changeScandisToBibTextForm(scandiLetter));
+    }
+
+    @Test
+    public void testChangeBigOOsToBibTextForm() {
+        String scandiLetter = "Ø";
+        assertEquals("{\\O}", checker.changeScandisToBibTextForm(scandiLetter));
+    }
+
+    @Test
+    public void testChangeSmallAEsToBibTextForm() {
+        String scandiLetter = "æ";
+        assertEquals("{\\ae}", checker.changeScandisToBibTextForm(scandiLetter));
+    }
+
+    @Test
+    public void testChangeBigAEsToBibTextForm() {
+        String scandiLetter = "Æ";
+        assertEquals("{\\AE}", checker.changeScandisToBibTextForm(scandiLetter));
     }
 
     @Test
     public void dontModifyNormalALetters() {
-        String letter = "a";
-        assertEquals("a", checker.changeSmallAsToBibTextForm(letter));
+        String letter = "abcd";
+        assertEquals("abcd", checker.changeScandisToBibTextForm(letter));
     }
 
 }

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="app.domain.BookTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2017-04-11T16:03:16" hostname="dhcp-asv-87" time="0.012">
+<testsuite name="app.domain.BookTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2017-04-12T16:19:31" hostname="Elinas-MacBook-Pro.local" time="0.009">
   <properties/>
-  <testcase name="testGetPublisher" classname="app.domain.BookTest" time="0.005"/>
-  <testcase name="testGetTitle" classname="app.domain.BookTest" time="0.001"/>
+  <testcase name="testGetPublisher" classname="app.domain.BookTest" time="0.004"/>
+  <testcase name="testGetTitle" classname="app.domain.BookTest" time="0.0"/>
   <testcase name="testGetId" classname="app.domain.BookTest" time="0.0"/>
   <testcase name="testGetAddress" classname="app.domain.BookTest" time="0.001"/>
-  <testcase name="testGetYear" classname="app.domain.BookTest" time="0.001"/>
-  <testcase name="testSetPublisher" classname="app.domain.BookTest" time="0.0"/>
+  <testcase name="testGetYear" classname="app.domain.BookTest" time="0.0"/>
+  <testcase name="testSetPublisher" classname="app.domain.BookTest" time="0.001"/>
   <testcase name="testSetAddress" classname="app.domain.BookTest" time="0.0"/>
-  <testcase name="testSetYear" classname="app.domain.BookTest" time="0.001"/>
+  <testcase name="testSetYear" classname="app.domain.BookTest" time="0.0"/>
   <testcase name="testSetTitle" classname="app.domain.BookTest" time="0.0"/>
   <system-out><![CDATA[getPublisher
 getTitle
