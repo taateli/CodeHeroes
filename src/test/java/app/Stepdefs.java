@@ -25,7 +25,7 @@ public class Stepdefs {
     }
 
     @When("^title \"([^\"]*)\" author \"([^\"]*)\" publisher \"([^\"]*)\" year \"([^\"]*)\" are insterted$")
-    public void title_authro_publisher_year_are_insterted(String arg1, String arg2, String arg3, String arg4) throws Throwable {
+    public void title_authro_publisher_year_are_inserted(String title, String author, String publisher, String year) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }

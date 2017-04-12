@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="app.domain.InproceedingsTest" tests="14" skipped="0" failures="1" errors="0" timestamp="2017-04-12T16:19:31" hostname="Elinas-MacBook-Pro.local" time="0.012">
+<testsuite name="app.domain.InproceedingsTest" tests="14" skipped="0" failures="1" errors="0" timestamp="2017-04-12T16:47:34" hostname="Elinas-MacBook-Pro.local" time="0.015">
   <properties/>
   <testcase name="testGetPublisher" classname="app.domain.InproceedingsTest" time="0.001"/>
-  <testcase name="testSetStartingPage" classname="app.domain.InproceedingsTest" time="0.0"/>
+  <testcase name="testSetStartingPage" classname="app.domain.InproceedingsTest" time="0.001"/>
   <testcase name="testGetTitle" classname="app.domain.InproceedingsTest" time="0.001"/>
-  <testcase name="testSetEndingPage" classname="app.domain.InproceedingsTest" time="0.0"/>
-  <testcase name="testGetBookTitle" classname="app.domain.InproceedingsTest" time="0.0"/>
+  <testcase name="testSetEndingPage" classname="app.domain.InproceedingsTest" time="0.001"/>
+  <testcase name="testGetBookTitle" classname="app.domain.InproceedingsTest" time="0.001"/>
   <testcase name="testGetAddress" classname="app.domain.InproceedingsTest" time="0.0"/>
   <testcase name="testGetYear" classname="app.domain.InproceedingsTest" time="0.001"/>
-  <testcase name="testSetPublisher" classname="app.domain.InproceedingsTest" time="0.0"/>
+  <testcase name="testSetPublisher" classname="app.domain.InproceedingsTest" time="0.001"/>
   <testcase name="testSetBookTitle" classname="app.domain.InproceedingsTest" time="0.001"/>
   <testcase name="testSetAddress" classname="app.domain.InproceedingsTest" time="0.0"/>
-  <testcase name="testSetYear" classname="app.domain.InproceedingsTest" time="0.004">
+  <testcase name="testSetYear" classname="app.domain.InproceedingsTest" time="0.003">
     <failure message="org.junit.ComparisonFailure: expected:&lt;[2017]&gt; but was:&lt;[year]&gt;" type="org.junit.ComparisonFailure">org.junit.ComparisonFailure: expected:&lt;[2017]&gt; but was:&lt;[year]&gt;
 	at org.junit.Assert.assertEquals(Assert.java:115)
 	at org.junit.Assert.assertEquals(Assert.java:144)

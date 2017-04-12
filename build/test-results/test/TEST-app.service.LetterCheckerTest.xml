@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="app.service.LetterCheckerTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2017-04-12T16:19:31" hostname="Elinas-MacBook-Pro.local" time="0.011">
+<testsuite name="app.service.LetterCheckerTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2017-04-12T16:47:35" hostname="Elinas-MacBook-Pro.local" time="0.015">
   <properties/>
-  <testcase name="testChangeSmallOOsToBibTextForm" classname="app.service.LetterCheckerTest" time="0.0"/>
+  <testcase name="testChangeSmallOOsToBibTextForm" classname="app.service.LetterCheckerTest" time="0.001"/>
   <testcase name="testChangeSmallOsToBibTextForm" classname="app.service.LetterCheckerTest" time="0.0"/>
-  <testcase name="testChangeSmallOAsToBibTextForm" classname="app.service.LetterCheckerTest" time="0.0"/>
+  <testcase name="testChangeSmallOAsToBibTextForm" classname="app.service.LetterCheckerTest" time="0.001"/>
   <testcase name="testChangeBigOsToBibTextForm" classname="app.service.LetterCheckerTest" time="0.001"/>
   <testcase name="testChangeSmallAEsToBibTextForm" classname="app.service.LetterCheckerTest" time="0.0"/>
-  <testcase name="hasSwedishOsTest" classname="app.service.LetterCheckerTest" time="0.0"/>
+  <testcase name="hasSwedishOsTest" classname="app.service.LetterCheckerTest" time="0.001"/>
   <testcase name="testChangeSmallAsToBibTextForm" classname="app.service.LetterCheckerTest" time="0.0"/>
-  <testcase name="testChangeBigAsToBibTextForm" classname="app.service.LetterCheckerTest" time="0.0"/>
-  <testcase name="hasScandinavianAsTest" classname="app.service.LetterCheckerTest" time="0.0"/>
-  <testcase name="inputIsAnEmptyString" classname="app.service.LetterCheckerTest" time="0.0"/>
-  <testcase name="hasScandinavianOsTest" classname="app.service.LetterCheckerTest" time="0.001"/>
+  <testcase name="testChangeBigAsToBibTextForm" classname="app.service.LetterCheckerTest" time="0.001"/>
+  <testcase name="hasScandinavianAsTest" classname="app.service.LetterCheckerTest" time="0.001"/>
+  <testcase name="inputIsAnEmptyString" classname="app.service.LetterCheckerTest" time="0.001"/>
+  <testcase name="hasScandinavianOsTest" classname="app.service.LetterCheckerTest" time="0.0"/>
   <testcase name="dontModifyNormalALetters" classname="app.service.LetterCheckerTest" time="0.0"/>
   <testcase name="testChangeBigOOsToBibTextForm" classname="app.service.LetterCheckerTest" time="0.0"/>
   <testcase name="testChangeBigOAsToBibTextForm" classname="app.service.LetterCheckerTest" time="0.0"/>
-  <testcase name="testChangeBigAEsToBibTextForm" classname="app.service.LetterCheckerTest" time="0.0"/>
+  <testcase name="testChangeBigAEsToBibTextForm" classname="app.service.LetterCheckerTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

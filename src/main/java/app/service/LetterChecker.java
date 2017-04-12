@@ -55,7 +55,6 @@ public class LetterChecker {
                 case "ø":
                     letter = "{\\o}";
                     break;
-
                 case "Ø":
                     letter = "{\\O}";
                     break;

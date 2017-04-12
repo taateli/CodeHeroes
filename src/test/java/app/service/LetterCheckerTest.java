@@ -43,7 +43,18 @@ public class LetterCheckerTest {
     public void hasSwedishOsTest() {
         scandinavian = "Åke ån åikein mukava";
         assertEquals(true, checker.hasScandinavians(scandinavian));
+    }
 
+    @Test
+    public void hasNorwegianOsTest() {
+        scandinavian = "Øøooø";
+        assertEquals(true, checker.hasScandinavians(scandinavian));
+    }
+
+    @Test
+    public void hasAEsTest() {
+        scandinavian = "æÆ";
+        assertEquals(true, checker.hasScandinavians(scandinavian));
     }
 
     @Test
