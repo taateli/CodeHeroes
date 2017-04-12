@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Scenario: user can add a book reference" tests="5" skipped="4" failures="0" errors="0" timestamp="2017-04-12T17:58:00" hostname="dhcp-asv-87" time="0.087">
+  <properties/>
+  <testcase name="Given form book is selected" classname="Scenario: user can add a book reference" time="0.002">
+    <skipped/>
+  </testcase>
+  <testcase name="When title &quot;Sinuhe&quot; authro &quot;Mika Waltari&quot; publisher &quot;Otava&quot; year &quot;1934&quot; are insterted" classname="Scenario: user can add a book reference" time="0.001">
+    <skipped/>
+  </testcase>
+  <testcase name="And submit is pressed" classname="Scenario: user can add a book reference" time="0.002">
+    <skipped/>
+  </testcase>
+  <testcase name="Then system will respond with &quot;new book insterted&quot;" classname="Scenario: user can add a book reference" time="0.003">
+    <skipped/>
+  </testcase>
+  <testcase name="classMethod" classname="Scenario: user can add a book reference" time="1.166"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

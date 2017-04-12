@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="app.RunCukesTest" tests="0" skipped="0" failures="0" errors="0" timestamp="1970-01-01T00:00:00" hostname="dhcp-asv-87" time="0.0">
+  <properties/>
+  <system-out><![CDATA[Feature: User can add a book reference to reference database by
+
+  Scenario: user can add a book reference                                                 ?[90m# app/addingBook.feature:3?[0m
+    ?[33mGiven ?[0m?[33mform book is selected?[0m                                                           ?[90m# Stepdefs.form_book_is_selected()?[0m
+      ?[31mcucumber.api.PendingException: TODO: implement me
+      	at app.Stepdefs.form_book_is_selected(Stepdefs.java:24)
+      	at ✽.Given form book is selected(app/addingBook.feature:4)
+      ?[0m
+    ?[33mWhen ?[0m?[33mtitle "Sinuhe" authro "Mika Waltari" publisher "Otava" year "1934" are insterted?[0m
+    ?[36mAnd ?[0m?[36msubmit is pressed?[0m                                                                 ?[90m# Stepdefs.submit_is_pressed()?[0m
+    ?[36mThen ?[0m?[36msystem will respond with "?[0m?[36m?[1mnew book insterted?[0m?[36m"?[0m                                    ?[90m# Stepdefs.system_will_respond_with(String)?[0m
+
+1 Scenarios (?[33m1 undefined?[0m)
+4 Steps (?[36m2 skipped?[0m, ?[33m1 pending?[0m, ?[33m1 undefined?[0m)
+0m1.031s
+
+cucumber.api.PendingException: TODO: implement me
+	at app.Stepdefs.form_book_is_selected(Stepdefs.java:24)
+	at ✽.Given form book is selected(app/addingBook.feature:4)
+
+
+You can implement missing steps with the snippets below:
+
+@When("^title \"([^\"]*)\" authro \"([^\"]*)\" publisher \"([^\"]*)\" year \"([^\"]*)\" are insterted$")
+public void title_authro_publisher_year_are_insterted(String arg1, String arg2, String arg3, String arg4) throws Throwable {
+    // Write code here that turns the phrase above into concrete actions
+    throw new PendingException();
+}
+
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
