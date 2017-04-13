@@ -171,7 +171,7 @@ public class InproceedingsTest {
         System.out.println("setYear");
         String year = "2017";
         Inproceedings instance1 = new Inproceedings();
-        instance1.setYear("year");
+        instance1.setYear(year);
         assertEquals("2017", instance1.getYear());
     }
 
