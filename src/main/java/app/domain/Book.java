@@ -1,6 +1,5 @@
 package app.domain;
 
-
 import javax.persistence.Entity;
 import javax.persistence.DiscriminatorValue;
 import javax.validation.constraints.Pattern;
@@ -19,49 +18,19 @@ public class Book extends Reference {
     /**
      * Optional variables:
      */
-    @Pattern(regexp = "^([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9])*$", message ="Field must contain number between 1 and 199999")
-    private String vol;
-    private String series;
     private String address;
     private String edition;
+
+//     @Pattern(regexp = "^([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9])*$", message ="Field must contain number between 1 and 199999")
+//    private String vol;
+//    private String series;
+//    @Pattern(regexp = "^([1-9]|[1][0-2])*$", message ="Field must contain number between 1 and 12")
+//    private String month;
     
-    @Pattern(regexp = "^([1-9]|[1][0-2])*$", message ="Field must contain number between 1 and 12")
-    private String month;
-
-    public String getVol() {
-        return vol;
-    }
-
-    public void setVol(String vol) {
-        this.vol = vol;
-    }
-
-    public String getSeries() {
-        return series;
-    }
-
-    public void setSeries(String series) {
-        this.series = series;
-    }
-
     public String getEdition() {
         return edition;
     }
 
-    public void setEdition(String edition) {
-        this.edition = edition;
-    }
-
-    public String getMonth() {
-        return month;
-    }
-
-    public void setMonth(String month) {
-        this.month = month;
-    }
-    
-    
-    
     public String getPublisher() {
         return this.publisher;
     }
@@ -70,10 +39,10 @@ public class Book extends Reference {
         return this.address;
     }
 
+    public void setEdition(String edition) {
+        this.edition = edition;
+    }
 
-
-   
-    @Override
     public void setPublisher(String publisher) {
         this.publisher = publisher;
     }
@@ -81,6 +50,30 @@ public class Book extends Reference {
     public void setAddress(String address) {
         this.address = address;
     }
+//
+//    public String getVol() {
+//        return vol;
+//    }
+//
+//    public void setVol(String vol) {
+//        this.vol = vol;
+//    }
+//
+//    public String getSeries() {
+//        return series;
+//    }
+//
+//    public void setSeries(String series) {
+//        this.series = series;
+//    }
+//    public String getMonth() {
+//        return month;
+//    }
+//
+//    public void setMonth(String month) {
+//        this.month = month;
+//    }
+   
 
     /**
      * This method returns all the information of the book referenced. The
@@ -90,11 +83,15 @@ public class Book extends Reference {
      */
     @Override
     public String toString() {
-        String tulostus = super.getAuthors() + ". " + super.getTitle() + ". " + this.publisher + ", " + super.getYear() + ".";
-        if (!this.address.isEmpty()) {
-            tulostus = tulostus + " " + this.address + ".";
+        String output = super.authorsToString() + ". " + super.getTitle() + ". " + this.publisher + ", ";
+        if (!this.edition.isEmpty()) {
+            output = output + this.edition + ", ";
         }
-        return tulostus;
+        output = output + super.getYear() + ".";
+        if (!this.address.isEmpty()) {
+            output = output + " " + this.address + ".";
+        }
+        return output;
     }
 
     /**
@@ -105,7 +102,22 @@ public class Book extends Reference {
      */
     @Override
     public String toBibTex() {
-        return "Not supported yet";
+        String output = "@book{" + super.getKey() + ",\n";
+        output = output + "author = {" + super.authorsToBibTex() + "},\n";
+        output = output + "title = {" + super.getTitle() + "},\n";
+        output = output + "year = {" + super.getYear() + "},\n";
+        output = output + "publisher = {" + this.publisher + "},\n";
+
+        if (!this.address.isEmpty()) {
+            output = output + "address = {" + this.address + "},\n";
+        }
+        if (!this.edition.isEmpty()) {
+            output = output + "edition = {" + this.edition + "},\n";
+        }
+
+        output = output + "}";
+
+        return output;
     }
 
 }
