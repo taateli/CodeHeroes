@@ -3,12 +3,13 @@ plugins {
     id 'com.github.kt3k.coveralls' version '2.8.1'
 }
 
+
 apply plugin: 'java'
 apply plugin: "jacoco"
 // Versions added for Selenium
 project.ext {
     cucumberVersion = '1.2.5'
-    seleniumVersion = '2.41.0'
+    seleniumVersion = '3.3.1'
 }
 repositories {
     jcenter()
@@ -16,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.google.guava:guava:20.0'  
+    compile 'com.google.guava:guava:21.0'  
     compile 'org.slf4j:slf4j-api:1.7.21'
 
     //Webjars for bootstrap and jquery
@@ -30,10 +31,21 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.boot:spring-boot-devtools'
     compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    compile 'org.springframework.boot:spring-boot-starter-test'
+    
+    // Selenium
+    
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-api', version:seleniumVersion
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version:seleniumVersion   
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-server', version:seleniumVersion
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-remote-driver', version:seleniumVersion
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-firefox-driver', version:seleniumVersion
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version:seleniumVersion
+    
+    
     
     // Springin testien lisäämistä: cucumberin kanssa
     testCompile 'org.springframework.boot:spring-boot-starter-test'
+    testCompile 'org.springframework:spring-test'
     
     compile 'com.h2database:h2'
     
@@ -46,18 +58,17 @@ dependencies {
     
 
     // Cucumber and JUnit
-    testCompile 'info.cukes:cucumber-java:1.2.5'
-    testCompile 'info.cukes:cucumber-junit:1.2.5' 
-    testCompile 'junit:junit:4.12'
-    // Cucumber and Spring 
-    testCompile "info.cukes:cucumber-spring:1.2.5"
+    testCompile "info.cukes:cucumber-core:"+cucumberVersion
+    testCompile "info.cukes:cucumber-java:" +cucumberVersion
+    testCompile "info.cukes:cucumber-junit:"+cucumberVersion
+    testCompile "info.cukes:cucumber-spring:"+cucumberVersion
+    testCompile "junit:junit:4.12"
     
-    // Selenium
-    compile group: 'org.seleniumhq.selenium', name: 'selenium-firefox-driver', version:seleniumVersion
-    compile group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version:seleniumVersion
-    compile group: 'org.seleniumhq.selenium', name: 'selenium-api', version:seleniumVersion
-    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version:seleniumVersion   
     
+    
+    
+
+
 }
 
 
@@ -73,7 +84,10 @@ test {
     testLogging {
         events "PASSED", "STARTED", "FAILED", "SKIPPED"
     }
+
+
 }
+
 
 springBoot {
     mainClass = "app.App"

@@ -21,9 +21,9 @@
             
             <div class="form-group">
                  <span >*</span>
-                <label for="author">Author(s)</label>
-                <input type="text" th:field="*{authors}" class="form-control" />
-                <p class="alert-danger" th:if="${#fields.hasErrors('authors')}" th:errors="*{author}">Virheviesti</p>
+                <label for="authors">Author(s)</label>
+                <input type="text" th:field="*{authors}"  class="form-control"  name="authors"/>
+                <p class="alert-danger" th:if="${#fields.hasErrors('authors')}" th:errors="*{authors}">Virheviesti</p>
             </div>
             <div class="form-group">
                 <span >*</span>
@@ -46,7 +46,7 @@
             
              <div class="form-group">     
                 <label for="vol">Volume</label>
-                <input type="text" th:field="*{vol}" class="form-control" name="volume" value="0"/>
+                <input type="text" th:field="*{vol}" class="form-control" name="vol" value="0"/>
                 <p class="alert-danger" th:if="${#fields.hasErrors('vol')}" th:errors="*{vol}" >Virheviesti</p>
             </div>
                      

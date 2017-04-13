@@ -10,9 +10,10 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 // Lainattu
 class ServerRule extends ExternalResource{
-
-    private final int port;
+    
     ConfigurableApplicationContext app;
+    private final int port;
+    
 
     public ServerRule(int port) {
         this.port = port;
