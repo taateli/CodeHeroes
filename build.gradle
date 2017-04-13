@@ -73,8 +73,10 @@ jacocoTestReport{
 }
 
 test {
-    testLogging.showStandardStreams = true
-    systemProperties System.getProperties()
+	//we want display the following test events
+    testLogging {
+        events "PASSED", "STARTED", "FAILED", "SKIPPED"
+    }
 }
 
 springBoot {
