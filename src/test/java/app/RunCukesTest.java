@@ -15,7 +15,7 @@ import org.junit.ClassRule;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(plugin = {"pretty"})
+@CucumberOptions(plugin = {"pretty"}, glue="app.Stepdefs")
 public class RunCukesTest {
 
     @ClassRule
