@@ -241,4 +241,14 @@ public class ArticleTest {
         instance1.setEndingPage(page);
         assertEquals("70", instance1.getEndingPage());
     }
+    
+     /**
+     * Test of toString method, of class Article.
+     */
+//    @Test
+//    public void testToString() {
+//        System.out.println("toString");
+//        String expResult = "author. title. journal, 4(2): 1-100, publisher, 2017. address.";
+//        assertEquals(expResult, instance.toString());
+//    }
 }
