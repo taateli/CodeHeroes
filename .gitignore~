@@ -1,5 +1,5 @@
-/build
+build/
 gradle.properties
-/.nb-gradle/
-/.gradle/
+.nb-gradle/
+.gradle/
 

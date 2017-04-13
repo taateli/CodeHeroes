@@ -30,10 +30,10 @@ public class Inproceedings extends Reference {
     private String vol;
     private String series;
     
-    @Pattern(regexp = "^([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9])*$", message ="Field must contain number between 1 and 199999")
+    @Pattern(regexp = "^([1-9]|[1-9][0-9][0-9])*$", message ="Field must contain number between 1 and 199999")
     private String startingPage;
     
-    @Pattern(regexp = "^([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9])*$", message ="Field must contain number between 1 and 199999")
+    @Pattern(regexp = "^([1-9]|[1-9][0-9][0-9])*$", message ="Field must contain number between 1 and 199999")
     private String endingPage;
     
     private String address;

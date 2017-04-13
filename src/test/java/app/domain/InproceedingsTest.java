@@ -16,6 +16,7 @@ import static org.junit.Assert.*;
  *
  * @author bensatu
  */
+
 public class InproceedingsTest {
 
     Inproceedings instance;
