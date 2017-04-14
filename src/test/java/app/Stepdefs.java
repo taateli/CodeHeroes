@@ -31,11 +31,11 @@ public class Stepdefs {
      }
     
      
-     public void setUp(){
-        driver = new ChromeDriver();
-        baseUrl = "http://localhost:8080";
-     }
-    
+//     public void setUp(){
+//        driver = new ChromeDriver();
+//        baseUrl = "http://localhost:8080";
+//     }
+//    
     
 
     @Given("^form book is selected$")
