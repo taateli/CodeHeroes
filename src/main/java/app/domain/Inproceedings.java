@@ -13,7 +13,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 @DiscriminatorValue(value = "Inproceedings")
 public class Inproceedings extends Reference {
 
-
     /**
      * Compulsory variables:
      */
@@ -23,73 +22,61 @@ public class Inproceedings extends Reference {
     /**
      * Optional variables:
      */
-
     private String editor;
-    
-    @Pattern(regexp = "^([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9])*$", message ="Field must contain number between 1 and 199999")
-    private String vol;
-    private String series;
-    
-    @Pattern(regexp = "^([1-9]|[1-9][0-9][0-9])*$", message ="Field must contain number between 1 and 199999")
-    private String startingPage;
-    
-    @Pattern(regexp = "^([1-9]|[1-9][0-9][0-9])*$", message ="Field must contain number between 1 and 199999")
-    private String endingPage;
-    
-    private String address;
-    
-    @Pattern(regexp = "^([1-9]|[1][0-2])*$", message ="Field must contain number between 1 and 12")
-    private String month;
-    
-    private String organization;
     private String publisher;
 
+    @Pattern(regexp = "^([1-9]|[1-9][0-9][0-9])*$", message = "Field must contain number between 1 and 199999")
+    private String startingPage;
+
+    @Pattern(regexp = "^([1-9]|[1-9][0-9][0-9])*$", message = "Field must contain number between 1 and 199999")
+    private String endingPage;
+
+    private String address;
+
+//      @Pattern(regexp = "^([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9])*$", message ="Field must contain number between 1 and 199999")
+//    private String vol;
+//    private String series;
+//    @Pattern(regexp = "^([1-9]|[1][0-2])*$", message ="Field must contain number between 1 and 12")
+//    private String month;
+//    private String organization;
+//    public String getVol() {
+//        return vol;
+//    }
+//
+//    public void setVol(String vol) {
+//        this.vol = vol;
+//    }
+//
+//    public String getSeries() {
+//        return series;
+//    }
+//
+//    public void setSeries(String series) {
+//        this.series = series;
+//    }
+//    public String getMonth() {
+//        return month;
+//    }
+//
+//    public void setMonth(String month) {
+//        this.month = month;
+//    }
+//
+//    public String getOrganization() {
+//        return organization;
+//    }
+//
+//    public void setOrganization(String organization) {
+//        this.organization = organization;
+//    }
     public String getEditor() {
         return editor;
     }
 
-    public void setEditor(String editor) {
-        this.editor = editor;
+    public String getBookTitle() {
+        return this.bookTitle;
     }
 
-    public String getVol() {
-        return vol;
-    }
-
-    public void setVol(String vol) {
-        this.vol = vol;
-    }
-
-    public String getSeries() {
-        return series;
-    }
-
-    public void setSeries(String series) {
-        this.series = series;
-    }
-
-    public String getMonth() {
-        return month;
-    }
-
-    public void setMonth(String month) {
-        this.month = month;
-    }
-
-    public String getOrganization() {
-        return organization;
-    }
-
-    public void setOrganization(String organization) {
-        this.organization = organization;
-    }
-  
-
-    
-
-
-
-    @Override
     public String getPublisher() {
         return this.publisher;
     }
@@ -106,36 +93,16 @@ public class Inproceedings extends Reference {
         return this.address;
     }
 
-
+    public void setEditor(String editor) {
+        this.editor = editor;
+    }
 
     public void setBookTitle(String booktitle) {
         this.bookTitle = booktitle;
     }
 
-    public String getBookTitle() {
-        return this.bookTitle;
-    }
-
-//    @Override
-//    public void setAuthor(String author) {
-//        this.author = author;
-//    }
-
-    /**
-     * The method inserts an author at the place n on the list. The possible
-     * previous author at the place n is shifted to the rigth.
-     *
-     * @param year
-     */
-
-
-    @Override
     public void setPublisher(String publisher) {
         this.publisher = publisher;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public void setStartingPage(String page) {
@@ -144,6 +111,10 @@ public class Inproceedings extends Reference {
 
     public void setEndingPage(String page) {
         this.endingPage = page;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     /**
@@ -155,15 +126,24 @@ public class Inproceedings extends Reference {
      */
     @Override
     public String toString() {
-        String tulostus = super.getAuthors() + ". " + super.getTitle() + ". In " + this.bookTitle + ", pages " + this.startingPage + " - " + this.endingPage + ".";
+        String output = super.authorsToString() + ". " + super.getTitle() + ". In ";
+        if (!this.editor.isEmpty()) {
+            output = output + this.editor + ", editor, ";
+        }
+        output = output + this.bookTitle;
+        if (!this.startingPage.isEmpty() && !this.endingPage.isEmpty()) {
+            output = output + ", pages " + this.startingPage + " - " + this.endingPage;
+        } 
         if (!this.publisher.isEmpty()) {
-            tulostus = tulostus + " " + this.publisher + ",";
+            output = output + ". " + this.publisher + ",";
+        } else {
+            output = output + ",";
         }
-        tulostus = " " + tulostus + super.getYear() + ".";
+        output = output + " " + super.getYear() + ".";
         if (!this.address.isEmpty()) {
-            tulostus = tulostus + " " + this.address + ".";
+            output = output + " " + this.address + ".";
         }
-        return tulostus;
+        return output;
     }
 
     /**
@@ -174,7 +154,26 @@ public class Inproceedings extends Reference {
      */
     @Override
     public String toBibTex() {
-        return "Not supported yet";
+        
+        String output = "@inproceedings{" + super.getKey() + ",\n";
+        output = output + "author = {" + super.authorsToBibTex() + "},\n";
+        output = output + "title = {" + super.getTitle() + "},\n";
+        output = output + "booktitle = {" + this.bookTitle + "},\n";
+        output = output + "year = {" + super.getYear() + "},\n";
+        if (!this.startingPage.isEmpty() && !this.endingPage.isEmpty()) {
+            output = output + "pages = {" + this.startingPage + "--" + this.endingPage + "},\n";
+        }
+        if (!this.publisher.isEmpty()) {
+            output = output + "publisher = {" + this.publisher + "},\n";
+        }
+        if (!this.address.isEmpty()) {
+            output = output + "address = {" + this.address + "},\n";
+        }
+        if (!this.editor.isEmpty()) {
+            output = output + "editor = {" + this.editor + "},\n";
+        }
+        output = output + "}";
+        return output;
     }
 
 }

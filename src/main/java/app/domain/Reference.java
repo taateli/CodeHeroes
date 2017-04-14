@@ -1,6 +1,4 @@
-
 package app.domain;
-
 
 import java.util.List;
 import javax.persistence.CollectionTable;
@@ -16,7 +14,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 /**
- * This class is the abstract class for the subclasses "Book", "Inproceedins" and "Article".
+ * This class is the abstract class for the subclasses "Book", "Inproceedins"
+ * and "Article".
  */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -27,11 +26,9 @@ public abstract class Reference extends AbstractPersistable<Long> {
     private Long id;
 
     // this field is common with all Reference types
-
     private String key;
 
     // this field is common with all Reference types
-
     @NotEmpty(message = "Field can not be empty!")
     private String title;
 
@@ -41,9 +38,8 @@ public abstract class Reference extends AbstractPersistable<Long> {
     private String year;
 
     // this field is common with all Reference types
-
     @ElementCollection
-    @CollectionTable(name="authors")
+    @CollectionTable(name = "authors")
     private List<String> authors;
 
     public String getKey() {
@@ -53,9 +49,7 @@ public abstract class Reference extends AbstractPersistable<Long> {
     public void setKey(String key) {
         this.key = key;
     }
-    
-    
-    
+
     public Long getId() {
         return id;
     }
@@ -67,8 +61,6 @@ public abstract class Reference extends AbstractPersistable<Long> {
     public void setAuthors(List<String> authors) {
         this.authors = authors;
     }
-
-
 
     public String getTitle() {
         return title;
@@ -86,16 +78,41 @@ public abstract class Reference extends AbstractPersistable<Long> {
         this.year = year;
     }
 
-    
+    public String authorsToBibTex() {
+        String output = "";
+        int length = this.authors.size();
+        for (int i = 0; i < length - 1; i++) {
+            output = output + this.authors.get(i) + " and ";
+        }
+        output = output + this.authors.get(length - 1);
 
+        return output;
+    }
 
-    abstract String getPublisher();
+    public String authorsToString() {
+        String output = "";
+        int length = this.authors.size();
 
+        if (length == 1) {
+            output = this.authors.get(0);
+        }
 
-    abstract void setPublisher(String publisher);
+        if (length == 2) {
+            output = this.authors.get(0) + " and " + this.authors.get(1);
+        }
+
+        if (length > 2) {
+            for (int i = 0; i < length - 1; i++) {
+                output = output + this.authors.get(i) + ", ";
+            }
+            output = output + "and " + this.authors.get(length - 1);
+        }
+
+        return output;
+    }
 
     @Override
     public abstract String toString();
 
-    abstract String toBibTex();
+    public abstract String toBibTex();
 }
