@@ -47,9 +47,9 @@ public class Stepdefs {
         
     }
 
-    @When("^key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" publisher \"([^\"]*)\" month \"([^\"]*)\" volume \"([^\"]*)\" are inserted$")
-    public void key_author_title_year_publisher_month_volume_are_inserted(String key, String author, String title, String year, String publisher, String month, String volume) throws Throwable {
-        createBookWithMandatoryFields(key,author,title,year,publisher, month,volume);
+    @When("^key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" publisher \"([^\"]*)\" are inserted$")
+    public void key_author_title_year_publisher_month_volume_are_inserted(String key, String author, String title, String year, String publisher) throws Throwable {
+        createBookWithMandatoryFields(key,author,title,year,publisher);
         
 
     }
@@ -76,7 +76,7 @@ public class Stepdefs {
     
     // this method fills the book form with mandatory fields and submits.
     
-    private void createBookWithMandatoryFields(String key, String author, String title, String year, String publisher, String month, String volume) throws InterruptedException{
+    private void createBookWithMandatoryFields(String key, String author, String title, String year, String publisher) throws InterruptedException{
         assertTrue(driver.getPageSource().contains("Add book reference"));
         WebElement element = driver.findElement(By.name("key"));
         element.sendKeys(key);
@@ -87,12 +87,7 @@ public class Stepdefs {
         Thread.sleep(2000);
         element = driver.findElement(By.name("year"));
         element.sendKeys(year);
-        element = driver.findElement(By.name("month"));
-        element.sendKeys(month);
-        Thread.sleep(2000);
-        element = driver.findElement(By.name("vol"));
-        element.sendKeys(volume);
-        
+                
         element = driver.findElement(By.name("publisher"));
         element.sendKeys(publisher);
         Thread.sleep(2000);

@@ -33,7 +33,7 @@ public abstract class Reference extends AbstractPersistable<Long> {
     private String title;
 
     // this field is common with all Reference types
-    @Pattern(regexp = "^([1-9]|[1-9][0-9]|[1-9][0-9][0-9])*$", message = "Year must contain only numbers and be at least 1000!")
+    @Pattern(regexp = "^([1-9][0-9][0-9][0-9])*$", message = "Year must contain only numbers and be at least 1000!")
     @NotEmpty(message = "Field can not be empty!")
     private String year;
 

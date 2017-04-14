@@ -66,9 +66,9 @@ public class ArticleTest {
      */
     @Test
     public void testGetJournal() {
-        System.out.println("getTitle");
+        System.out.println("getJourna");
         String result = instance.getJournal();
-        assertEquals("title", result);
+        assertEquals("journal", result);
     }
 
     /**
@@ -178,7 +178,7 @@ public class ArticleTest {
         System.out.println("setNumber");
         String number = "3";
         Article instance1 = new Article();
-        instance1.setVol(number);
+        instance1.setNumber(number);
         assertEquals("3", instance1.getNumber());
     }
 
