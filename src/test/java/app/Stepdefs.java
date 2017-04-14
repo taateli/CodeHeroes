@@ -22,21 +22,16 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class Stepdefs {
 
-     WebDriver driver;
-     String baseUrl;
+     WebDriver driver = new ChromeDriver();
+     String baseUrl = "http://localhost:8080";
      
-     public Stepdefs(){
-        driver = new ChromeDriver();
-        baseUrl = "http://localhost:8080";
-     }
-    
-     
-//     public void setUp(){
+//     public Stepdefs(){
 //        driver = new ChromeDriver();
 //        baseUrl = "http://localhost:8080";
 //     }
 //    
-    
+     
+
 
     @Given("^form book is selected$")
     public void form_book_is_selected() throws Throwable {

@@ -1,6 +1,19 @@
 language: java
+
+# this will make travis use java 1.8.xxx
 jdk:
 - oraclejdk8
+
+
+# google chrome for cucumber-selenium testing
+addons:
+    apt:
+    sources:
+       - google-chrome
+    packages:
+    - google-chrome-stable
+
+
 after_success:
 - ./gradlew jacocoTestReport coveralls
 

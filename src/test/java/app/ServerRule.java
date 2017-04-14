@@ -1,12 +1,10 @@
 package app;
 
-//import static app.RunCukesTest.server;
-//import cucumber.api.cli.Main;
+
 import org.junit.rules.ExternalResource;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-////import spark.Spark;
+
 
 // Lainattu
 class ServerRule extends ExternalResource{
