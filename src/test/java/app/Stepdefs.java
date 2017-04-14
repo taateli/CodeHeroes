@@ -18,18 +18,22 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 
 public class Stepdefs {
 
-     WebDriver driver = new ChromeDriver();
-     String baseUrl = "http://localhost:8080";
+     WebDriver driver;
+     String baseUrl;
      
-//     public Stepdefs(){
-//        driver = new ChromeDriver();
-//        baseUrl = "http://localhost:8080";
-//     }
-//    
+     public Stepdefs(){
+//        WebDriver driver = new ChromeDriver();
+//        String baseUrl = "http://localhost:8080"; 
+         
+        driver = new FirefoxDriver();
+        baseUrl = "http://localhost:8080";
+     }
+    
      
 
 
@@ -59,6 +63,7 @@ public class Stepdefs {
     
     @Then("^system will respond with \"([^\"]*)\"$")
     public void system_will_respond_with(String arg1) throws Throwable {
+        Thread.sleep(1000);
         pageHasContent(arg1);
     }
     
@@ -72,6 +77,7 @@ public class Stepdefs {
     // this method fills the book form with mandatory fields and submits.
     
     private void createBookWithMandatoryFields(String key, String author, String title, String year, String publisher) throws InterruptedException{
+       Thread.sleep(2000);
         assertTrue(driver.getPageSource().contains("Add book reference"));
         WebElement element = driver.findElement(By.name("key"));
         element.sendKeys(key);
@@ -85,7 +91,7 @@ public class Stepdefs {
                 
         element = driver.findElement(By.name("publisher"));
         element.sendKeys(publisher);
-        Thread.sleep(2000);
+        
         
         
         element = driver.findElement(By.name("save"));
