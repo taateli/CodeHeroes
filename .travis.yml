@@ -4,6 +4,20 @@ language: java
 jdk:
 - oraclejdk8
 
+
+# google chrome for cucumber-selenium testing
+addons:
+    apt:
+    sources:
+       - google-chrome
+    packages:
+    - google-chrome-stable
+
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
+
 after_success:
 - ./gradlew jacocoTestReport coveralls
 
