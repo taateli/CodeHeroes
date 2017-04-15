@@ -11,7 +11,11 @@
     <body>
         
         <div  th:fragment="editor">
-            
+             <div class="form-group"> 
+                <label for="editor">Editor</label>
+                <input type="text" th:field="*{editor}" class="form-control" name="editor"/>
+                <p class="alert-danger" th:if="${#fields.hasErrors('editor')}" th:errors="*{editor}">Virheviesti</p>
+            </div>   
             
             
         </div>
