@@ -21,7 +21,7 @@
             
             <div class="form-group">
                  <span >*</span>
-                <label for="authors">Author(s)</label>
+                 <label for="authors">Author(s) <span>(separate multiple authors with 'and')</span></label>
                 <input type="text" th:field="*{authors}"  class="form-control"  name="authors"/>
                 <p class="alert-danger" th:if="${#fields.hasErrors('authors')}" th:errors="*{authors}">Virheviesti</p>
             </div>
@@ -37,20 +37,9 @@
                 <input type="text" th:field="*{year}" class="form-control" name="year"/>
                 <p class="alert-danger" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Virheviesti</p>
             </div>
-            <!--
-            <div class="form-group">
-                <label for="month">Month</label>
-                <input type="text" th:field="*{month}" class="form-control" name="month"/>
-                <p class="alert-danger" th:if="${#fields.hasErrors('month')}" th:errors="*{month}">Virheviesti</p> 
-            </div>
-            -->
-            <!--
-             <div class="form-group">     
-                <label for="vol">Volume</label>
-                <input type="text" th:field="*{vol}" class="form-control" name="vol" value="0"/>
-                <p class="alert-danger" th:if="${#fields.hasErrors('vol')}" th:errors="*{vol}" >Virheviesti</p>
-            </div>
-            -->         
+           
+            
+                     
             
         </div>
        

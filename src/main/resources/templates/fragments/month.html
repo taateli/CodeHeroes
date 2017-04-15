@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Home</title>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+        <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="/webjars/jquery/3.2.0/js/jquery.min.js"></script>
+
+    </head>
+    <body>
+        
+        <div  th:fragment="month">
+            
+            <div class="form-group">
+                <label for="month">Month</label>
+                <input type="text" th:field="*{month}" class="form-control" name="month"/>
+                <p class="alert-danger" th:if="${#fields.hasErrors('month')}" th:errors="*{month}">Virheviesti</p> 
+            </div> 
+            
+        </div>
+       
+    </body>    
+</html>
+
+ 

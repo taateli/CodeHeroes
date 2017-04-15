@@ -26,44 +26,47 @@
                 <div class="container-fluid-bordered" >    
                     <span>* = mandatory field</span>
 
-                     <form th:action="@{/books}" th:method="POST" th:object="${book}">
+                     <form th:action="@{/article}" th:method="POST" th:object="${article}">
 
                          <div th:replace="fragments/commonFields :: common">
 
                          </div>
 
-                        
+
                         <div class="form-group">
                             <span >*</span>
-                            <label for="publisher">Publisher</label>
-                            <input type="text" th:field="*{publisher}" class="form-control" name="publisher"/>
-                            <p class="alert-danger" th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}">Virheviesti</p>
+                            <label for="journal">Juornal</label>
+                            <input type="text" th:field="*{journal}" class="form-control" name="journal"/>
+                            <p class="alert-danger" th:if="${#fields.hasErrors('journal')}" th:errors="*{journal}">Virheviesti</p>
                         </div>
                         
-                        <div th:replace="fragments/address :: address">
+                         <div th:replace="fragments/publisher :: publisher">
+                             
+                        </div> 
+                         
+                         <div th:replace="fragments/volume :: volume">
 
                         </div>
                         
-                        <div th:replace="fragments/series :: series">
+                        <div th:replace="fragments/number :: number">
 
-                        </div>
+                        </div>                        
                         
-                        <div th:replace="fragments/edition :: edition">
+                        <div th:replace="fragments/pages :: pages">
 
                         </div>
                          
                         <div th:replace="fragments/month :: month">
 
                         </div>
-                        
-                         <div th:replace="fragments/volume :: volume">
-
-                         </div> 
                          
+                         <div th:replace="fragments/address :: address">
+
+                        </div> 
+                        
                         <div th:replace="fragments/save :: save">
 
-                         </div> 
-                         
+                         </div>
 
                     </form>
                 </div>
@@ -78,5 +81,8 @@
 
 
        
-    </body>    
+    </body>  
+   
+
 </html>
+

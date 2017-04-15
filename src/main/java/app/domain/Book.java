@@ -21,11 +21,40 @@ public class Book extends Reference {
     private String address;
     private String edition;
 
-//     @Pattern(regexp = "^([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9])*$", message ="Field must contain number between 1 and 199999")
-//    private String vol;
-//    private String series;
-//    @Pattern(regexp = "^([1-9]|[1][0-2])*$", message ="Field must contain number between 1 and 12")
-//    private String month;
+     @Pattern(regexp = "^([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9])*$", message ="Field must contain number between 1 and 199999")
+    private String volume;
+     
+    private String series;
+    
+    @Pattern(regexp = "^([1-9]|[1][0-2])*$", message ="Field must contain number between 1 and 12")
+    private String month;
+
+    public String getVolume() {
+        return volume;
+    }
+
+    public void setVolume(String vol) {
+        this.volume = vol;
+    }
+
+    public String getSeries() {
+        return series;
+    }
+
+    public void setSeries(String series) {
+        this.series = series;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+    
+    
+    
     
     public String getEdition() {
         return edition;
@@ -50,30 +79,8 @@ public class Book extends Reference {
     public void setAddress(String address) {
         this.address = address;
     }
-//
-//    public String getVol() {
-//        return vol;
-//    }
-//
-//    public void setVol(String vol) {
-//        this.vol = vol;
-//    }
-//
-//    public String getSeries() {
-//        return series;
-//    }
-//
-//    public void setSeries(String series) {
-//        this.series = series;
-//    }
-//    public String getMonth() {
-//        return month;
-//    }
-//
-//    public void setMonth(String month) {
-//        this.month = month;
-//    }
-   
+
+    
 
     /**
      * This method returns all the information of the book referenced. The

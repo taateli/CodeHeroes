@@ -39,7 +39,7 @@ public class ArticleTest {
         instance.setTitle("title");
         instance.setJournal("journal");
         instance.setPublisher("publisher");
-        instance.setVol("4");
+        instance.setVolume("4");
         instance.setNumber("2");
         instance.setYear("2017");
         instance.setStartingPage("1");
@@ -95,7 +95,7 @@ public class ArticleTest {
     @Test
     public void testGetVol() {
         System.out.println("getVol");
-        assertEquals("4", instance.getVol());
+        assertEquals("4", instance.getVolume());
     }
 
     /**
@@ -166,8 +166,8 @@ public class ArticleTest {
         System.out.println("setVol");
         String vol = "5";
         Article instance1 = new Article();
-        instance1.setVol(vol);
-        assertEquals("5", instance1.getVol());
+        instance1.setVolume(vol);
+        assertEquals("5", instance1.getVolume());
     }
 
     /**

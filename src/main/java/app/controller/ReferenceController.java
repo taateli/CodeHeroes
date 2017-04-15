@@ -1,9 +1,11 @@
 package app.controller;
 
+import app.domain.Article;
 import app.domain.Book;
 import app.domain.Inproceedings;
 import app.domain.Reference;
 import app.service.ReferenceService;
+import app.service.ValidatorService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /*
@@ -28,6 +31,9 @@ public class ReferenceController {
     // To controller is given an instance of service class
     @Autowired
     private ReferenceService refService;
+    
+     @Autowired
+    private ValidatorService validator;
 
     //This method handles get-request to home path and shows home.html file from folder resource/templates/ 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -40,10 +46,10 @@ public class ReferenceController {
 
     //This method handles get-request to path /books and shows books.html file from folder resource/templates/ 
     @RequestMapping(value = "/books", method = RequestMethod.GET)
-    public String showBooksForm(Model model) {
+    public String showBooksForm(Model model, @RequestParam String header1) {
         Book b = new Book();
         model.addAttribute("book", b);
-        
+        model.addAttribute("header1", header1);
         return "books";
     }
 
@@ -55,6 +61,16 @@ public class ReferenceController {
         ;
         return "inproceedings";
     }
+    
+     //This method handles get-request to path /article and shows books.html file from folder resource/templates/ 
+    @RequestMapping(value = "/article", method = RequestMethod.GET)
+    public String showArticleForm(Model model) {
+        Article article = new Article();
+        model.addAttribute("article", article);
+        
+        return "article";
+    }
+
 
     /*  This method handles post-request to path /inproceedings
         and takes Inproceedings type parameter. It uses @ModelAttribute annotation to render
@@ -69,11 +85,13 @@ public class ReferenceController {
             return "inproceedings";
         }
 
-        if (Integer.parseInt(inp.getEndingPage()) < Integer.parseInt(inp.getStartingPage())) {
-            bindingresult.addError(new FieldError("Inproceedings", "endingPage", "Ending page cannot be before starting page!"));
-            return "inproceedings";
+        if (validator.fieldNotEmpty(inp.getEndingPage()) && validator.fieldNotEmpty(inp.getStartingPage())) {
+                if(validator.endingPageBeforeStartingPage(inp.getEndingPage(), inp.getStartingPage())){
+                    bindingresult.addError(new FieldError("Inproceedings", "endingPage", "Ending page cannot be before starting page!"));
+                    return "inproceedings";
+                }    
         }
-
+        inp.setAuthors(validator.splitAuthors(inp.getAuthors().get(0)));
         Reference r = refService.addReference(inp);
         redirectAttrs.addFlashAttribute("newReference", r);
         
@@ -92,7 +110,32 @@ public class ReferenceController {
         if (bindingresult.hasErrors()) {
             return "books";
         }
+        book.setAuthors(validator.splitAuthors(book.getAuthors().get(0)));
         Reference r = refService.addReference(book);
+        redirectAttrs.addFlashAttribute("newReference", r);
+        return "redirect:/";
+    }
+    
+    /*  This method handles post-request to path /article
+        and takes Article type parameter. It uses @ModelAttribute annotation to render
+        th:field tags from view
+    
+     */
+    @RequestMapping(value = "/article", method = RequestMethod.POST)
+    public String addArticle(Model model, @Valid @ModelAttribute Article article, BindingResult bindingresult,
+                            RedirectAttributes redirectAttrs) {
+        
+        if (bindingresult.hasErrors()) {
+            return "article";
+        }
+        if (validator.fieldNotEmpty(article.getEndingPage()) && validator.fieldNotEmpty(article.getStartingPage())) {
+                if(validator.endingPageBeforeStartingPage(article.getEndingPage(), article.getStartingPage())){
+                    bindingresult.addError(new FieldError("Article", "endingPage", "Ending page cannot be before starting page!"));
+                    return "article";
+                }    
+        }
+        article.setAuthors(validator.splitAuthors(article.getAuthors().get(0)));
+        Reference r = refService.addReference(article);
         redirectAttrs.addFlashAttribute("newReference", r);
         return "redirect:/";
     }

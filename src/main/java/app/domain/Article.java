@@ -25,7 +25,7 @@ public class Article extends Reference {
     
     @NotEmpty(message = "Field can not be empty!")
     @Pattern(regexp = "^([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9])*$", message ="Field must contain number between 1 and 199999")
-    private String vol;
+    private String volume;
     
     @Pattern(regexp = "^([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9])*$", message ="Field must contain number between 1 and 199999")
     private String number;
@@ -35,6 +35,19 @@ public class Article extends Reference {
     
     @Pattern(regexp = "^([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9])*$", message ="Field must contain number between 1 and 199999")
     private String endingPage;
+    
+    @Pattern(regexp = "^([1-9]|[1][0-2])*$", message ="Field must contain number between 1 and 12")
+    private String month;
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+    
+    
 
     
     public String getPublisher() {
@@ -53,12 +66,12 @@ public class Article extends Reference {
         return this.journal;
     }
     
-    public void setVol(String vol) {
-        this.vol = vol;
+    public void setVolume(String vol) {
+        this.volume = vol;
     }
     
-    public String getVol() {
-        return this.vol;
+    public String getVolume() {
+        return this.volume;
     }
     
     public void setNumber(String number) {
@@ -102,7 +115,7 @@ public class Article extends Reference {
      */
     @Override
     public String toString() {
-        String output = super.authorsToString() + ". " + super.getTitle() + ". " + this.journal + ", " + this.vol;
+        String output = super.authorsToString() + ". " + super.getTitle() + ". " + this.journal + ", " + this.volume;
         if (!this.number.isEmpty()) {
             output = output + "(" + this.number + ")";
         }
@@ -134,7 +147,7 @@ public class Article extends Reference {
         output = output + "author = {" + super.authorsToBibTex() + "},\n";
         output = output + "title = {" + super.getTitle() + "},\n";
         output = output + "journal = {" + this.journal + "},\n";
-        output = output + "vol = {" + this.vol + "},\n";
+        output = output + "vol = {" + this.volume + "},\n";
         if (!this.number.isEmpty()) {
             output = output + "number = {" + this.number + "},\n";
         }
