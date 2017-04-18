@@ -84,7 +84,7 @@ public class ReferenceController {
             return "inproceedings";
         }
 
-        if (validator.fieldNotEmpty(inp.getEndingPage()) && validator.fieldNotEmpty(inp.getStartingPage())) {
+        if(validator.fieldNotEmpty(inp.getEndingPage()) && validator.fieldNotEmpty(inp.getStartingPage())) {
                 if(validator.endingPageBeforeStartingPage(inp.getEndingPage(), inp.getStartingPage())){
                     bindingresult.addError(new FieldError("Inproceedings", "endingPage", "Ending page cannot be before starting page!"));
                     return "inproceedings";

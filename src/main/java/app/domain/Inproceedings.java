@@ -25,18 +25,18 @@ public class Inproceedings extends Reference {
     private String editor;
     private String publisher;
 
-    @Pattern(regexp = "^([1-9]|[1-9][0-9][0-9])*$", message = "Field must contain number between 1 and 199999")
+    @Pattern(regexp = "^([1-9][0-9]{0,4})*$", message = "Field must contain number between 1 and 19999")
     private String startingPage;
 
-    @Pattern(regexp = "^([1-9]|[1-9][0-9][0-9])*$", message = "Field must contain number between 1 and 199999")
+    @Pattern(regexp = "^([1-9][0-9]{0,4})*$", message = "Field must contain number between 1 and 199999")
     private String endingPage;
 
     private String address;
 
-    @Pattern(regexp = "^([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9])*$", message ="Field must contain number between 1 and 199999")
+    @Pattern(regexp = "^([1-9][0-9]{0,4})*$", message ="Field must contain number between 1 and 19999")
     private String volume;
     private String series;
-    @Pattern(regexp = "^([1-9]|[1][0-2])*$", message ="Field must contain number between 1 and 12")
+    @Pattern(regexp = "^([1-9][0-2]{0,1})*$", message ="Field must contain number between 1 and 12")
     private String month;
     private String organization;
     

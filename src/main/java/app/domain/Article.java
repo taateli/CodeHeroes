@@ -24,10 +24,10 @@ public class Article extends Reference {
     private String address;
     
     @NotEmpty(message = "Field can not be empty!")
-    @Pattern(regexp = "^([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9])*$", message ="Field must contain number between 1 and 199999")
+    @Pattern(regexp = "^([1-9][0-9]{0,4})*$", message ="Field must contain number between 1 and 19999")
     private String volume;
     
-    @Pattern(regexp = "^([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9])*$", message ="Field must contain number between 1 and 199999")
+    @Pattern(regexp = "^([1-9][0-9]{0,4})*$", message ="Field must contain number between 1 and 19999")
     private String number;
     
     @Pattern(regexp = "^([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9])*$", message ="Field must contain number between 1 and 199999")
@@ -36,7 +36,7 @@ public class Article extends Reference {
     @Pattern(regexp = "^([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9])*$", message ="Field must contain number between 1 and 199999")
     private String endingPage;
     
-    @Pattern(regexp = "^([1-9]|[1][0-2])*$", message ="Field must contain number between 1 and 12")
+    @Pattern(regexp = "^([1-9][0-2]{0,1})*$", message ="Field must contain number between 1 and 12")
     private String month;
 
     public String getMonth() {

@@ -13,8 +13,8 @@
         <div  th:fragment="common">
             
             <div class="form-group">
-                 <span >*</span>
-                <label for="key">Key</label>
+                 
+                <label for="key">Key</label><span >(if this field is empty, the KEY will be generated)</span>
                 <input type="text" th:field="*{key}" class="form-control" name="key"/>
                 <p class="alert-danger" th:if="${#fields.hasErrors('key')}" th:errors="*{key}">Virheviesti</p>
             </div>
