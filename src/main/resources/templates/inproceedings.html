@@ -20,7 +20,7 @@
            
             <div class="col-md-6 col-md-offset-2">
                 
-                <h1 th:text="${header1}">Form header</h1>
+                <h1>Add inproceedings reference</h1>
                  
                 <div class="container-fluid-bordered" >     
                  
@@ -28,55 +28,11 @@
 
                      <form th:action="@{/inproceedings}" th:method="POST" th:object="${inproceedings}">
 
-                         <div th:replace="fragments/commonFields :: common">
-
-                         </div>
-
-                        <div th:replace="fragments/publisher :: publisher">
-
-                        </div> 
-                         
-                        <div th:replace="fragments/editor :: editor">
-
-                        </div> 
-                         
-                         <div class="form-group">
-                             <span >*</span>
-                            <label for="bookTitle">BookTitle</label>
-                            <input type="text" th:field="*{bookTitle}" class="form-control" name="bookTitle"/>
-                            <p class="alert-danger" th:if="${#fields.hasErrors('bookTitle')}" th:errors="*{bookTitle}">Virheviesti</p>
-                        </div>
-                        
-                        <div th:replace="fragments/address :: address">
-
-                        </div>  
-                        
-                        <div th:replace="fragments/series :: series">
-
-                        </div>  
-                         
-                        <div th:replace="fragments/pages :: pages">
+                         <div th:replace="fragments/inproceedingsForm :: inproceedingsForm">
 
                         </div>
-                         
-                        <div th:replace="fragments/month :: month">
-
-                        </div> 
-                         
-                        <div th:replace="fragments/organization :: organization">
-
-                        </div>
-                         
-                        <div th:replace="fragments/save :: save">
-
-                         </div>
-                         
-                        
-
-
-
-
-                    </form>
+        
+                     </form>
                 </div>  
                
             </div>

@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Home</title>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+        <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="/webjars/jquery/3.2.0/js/jquery.min.js"></script>
+
+    </head>
+    <body>
+        
+        <div  th:fragment="articleForm">
+            
+            <div th:replace="fragments/commonFields :: common">
+
+             </div>
+
+
+            <div class="form-group">
+                <span >*</span>
+                <label for="journal">Juornal</label>
+                <input type="text" th:field="*{journal}" class="form-control" name="journal"/>
+                <p class="alert-danger" th:if="${#fields.hasErrors('journal')}" th:errors="*{journal}">Virheviesti</p>
+            </div>
+
+             <div th:replace="fragments/publisher :: publisher">
+
+            </div> 
+
+             <div th:replace="fragments/volume :: volume">
+
+            </div>
+
+            <div th:replace="fragments/number :: number">
+
+            </div>                        
+
+            <div th:replace="fragments/pages :: pages">
+
+            </div>
+
+            <div th:replace="fragments/month :: month">
+
+            </div>
+
+             <div th:replace="fragments/address :: address">
+
+            </div> 
+
+            <div th:replace="fragments/save :: save">
+
+             </div>
+            
+        </div>
+       
+    </body>    
+</html>

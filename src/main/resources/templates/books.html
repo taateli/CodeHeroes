@@ -20,7 +20,7 @@
            
             <div class="col-md-6 col-md-offset-2">
                 
-                <h1 th:text="${header1}">Form header</h1>
+                <h1>Add book reference</h1>
 
                 
                 <div class="container-fluid-bordered" >    
@@ -28,41 +28,9 @@
 
                      <form th:action="@{/books}" th:method="POST" th:object="${book}">
 
-                         <div th:replace="fragments/commonFields :: common">
-
-                         </div>
-
-                        
-                        <div class="form-group">
-                            <span >*</span>
-                            <label for="publisher">Publisher</label>
-                            <input type="text" th:field="*{publisher}" class="form-control" name="publisher"/>
-                            <p class="alert-danger" th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}">Virheviesti</p>
-                        </div>
-                        
-                        <div th:replace="fragments/address :: address">
+                        <div th:replace="fragments/bookForm :: bookForm">
 
                         </div>
-                        
-                        <div th:replace="fragments/series :: series">
-
-                        </div>
-                        
-                        <div th:replace="fragments/edition :: edition">
-
-                        </div>
-                         
-                        <div th:replace="fragments/month :: month">
-
-                        </div>
-                        
-                         <div th:replace="fragments/volume :: volume">
-
-                         </div> 
-                         
-                        <div th:replace="fragments/save :: save">
-
-                         </div> 
                          
 
                     </form>

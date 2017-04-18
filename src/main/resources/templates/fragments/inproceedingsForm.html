@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Home</title>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+        <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="/webjars/jquery/3.2.0/js/jquery.min.js"></script>
+
+    </head>
+    <body>
+        
+        <div  th:fragment="inproceedingsForm">
+            
+            <div th:replace="fragments/commonFields :: common">
+
+                 </div>
+
+                <div th:replace="fragments/publisher :: publisher">
+
+                </div> 
+
+                <div th:replace="fragments/editor :: editor">
+
+                </div> 
+
+                 <div class="form-group">
+                     <span >*</span>
+                    <label for="bookTitle">BookTitle</label>
+                    <input type="text" th:field="*{bookTitle}" class="form-control" name="bookTitle"/>
+                    <p class="alert-danger" th:if="${#fields.hasErrors('bookTitle')}" th:errors="*{bookTitle}">Virheviesti</p>
+                </div>
+
+                <div th:replace="fragments/address :: address">
+
+                </div>  
+
+                <div th:replace="fragments/series :: series">
+
+                </div>  
+
+                <div th:replace="fragments/pages :: pages">
+
+                </div>
+
+                <div th:replace="fragments/month :: month">
+
+                </div> 
+
+                <div th:replace="fragments/organization :: organization">
+
+                </div>
+
+                <div th:replace="fragments/save :: save">
+
+                 </div>
+            
+        </div>
+       
+    </body>    
+</html>

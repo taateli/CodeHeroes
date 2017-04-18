@@ -32,7 +32,7 @@ public class ReferenceController {
     @Autowired
     private ReferenceService refService;
     
-     @Autowired
+    @Autowired
     private ValidatorService validator;
 
     //This method handles get-request to home path and shows home.html file from folder resource/templates/ 
@@ -46,10 +46,9 @@ public class ReferenceController {
 
     //This method handles get-request to path /books and shows books.html file from folder resource/templates/ 
     @RequestMapping(value = "/books", method = RequestMethod.GET)
-    public String showBooksForm(Model model, @RequestParam String header1) {
+    public String showBooksForm(Model model) {
         Book b = new Book();
         model.addAttribute("book", b);
-        model.addAttribute("header1", header1);
         return "books";
     }
 
@@ -58,7 +57,7 @@ public class ReferenceController {
     public String showInpForm(Model model) {
         Inproceedings inp = new Inproceedings();
         model.addAttribute("inproceedings", inp);
-        ;
+        
         return "inproceedings";
     }
     
@@ -94,7 +93,6 @@ public class ReferenceController {
         inp.setAuthors(validator.splitAuthors(inp.getAuthors().get(0)));
         Reference r = refService.addReference(inp);
         redirectAttrs.addFlashAttribute("newReference", r);
-        
         return "redirect:/";
     }
 

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Home</title>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+        <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="/webjars/jquery/3.2.0/js/jquery.min.js"></script>
+
+    </head>
+    <body>
+        
+        <div  th:fragment="bookForm">
+            
+            <div th:replace="fragments/commonFields :: common">
+
+             </div>
+
+
+            <div class="form-group">
+                <span >*</span>
+                <label for="publisher">Publisher</label>
+                <input type="text" th:field="*{publisher}" class="form-control" name="publisher"/>
+                <p class="alert-danger" th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}">Virheviesti</p>
+            </div>
+
+            <div th:replace="fragments/address :: address">
+
+            </div>
+
+            <div th:replace="fragments/series :: series">
+
+            </div>
+
+            <div th:replace="fragments/edition :: edition">
+
+            </div>
+
+            <div th:replace="fragments/month :: month">
+
+            </div>
+
+             <div th:replace="fragments/volume :: volume">
+
+             </div> 
+
+            <div th:replace="fragments/save :: save">
+
+             </div> 
+            
+        </div>
+       
+    </body>    
+</html>
