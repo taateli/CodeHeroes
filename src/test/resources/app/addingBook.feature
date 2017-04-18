@@ -1,17 +1,11 @@
-Feature: User can add a book reference to reference database by 
+Feature: User can add a book reference to reference database by filling mandatory fields
 
-     Scenario: user can add a book reference with mandatory fields
+     Scenario: user can add a book reference with mandatory fields filled
         Given form book is selected
         When key "MW34" author "Mika Waltari" title "Sinuhe" year "1934" publisher "Otava" are inserted
         Then system will respond with "Reference added succesfully!"
 
-#
-#    Scenario: user can not login with incorrect password
-#        Given command login is selected
-#        When  username "pekka" and password "asd" are entered
-#        Then  system will respond with "wrong username or password"
-#
-#    Scenario: nonexistent user can not login to 
-#        Given command login is selected
-#        When  username "heikki" and password "moi" are entered
-#        Then  system will respond with "wrong username or password"
+        Scenario: user cannot add a book reference without mandatory fields filled
+        Given form book is selected
+        When key "MW34" author "Mika Waltari" title "" year "1934" publisher "Otava" are inserted
+        Then system will respond with "Field can not be empty!"

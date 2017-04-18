@@ -10,6 +10,7 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import java.io.File;
 
 import static org.junit.Assert.assertTrue;
 
@@ -18,18 +19,19 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
 
 
 public class Stepdefs {
 
      WebDriver driver;
-     String baseUrl;
-     
+    String baseUrl;
+        
      public Stepdefs(){
 //        WebDriver driver = new ChromeDriver();
 //        String baseUrl = "http://localhost:8080"; 
-         
         driver = new FirefoxDriver();
         baseUrl = "http://localhost:8080";
      }
@@ -47,17 +49,17 @@ public class Stepdefs {
     }
 
     @When("^key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" publisher \"([^\"]*)\" are inserted$")
-    public void key_author_title_year_publisher_month_volume_are_inserted(String key, String author, String title, String year, String publisher) throws Throwable {
+    public void key_author_title_year_publisher_are_inserted(String key, String author, String title, String year, String publisher) throws Throwable {
         createBookWithMandatoryFields(key,author,title,year,publisher);
         
 
     }
-
-    @When("^submit is pressed$")
-    public void submit_is_pressed() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-//        throw new PendingException();
-    }
+//
+//    @When("^submit is pressed$")
+//    public void submit_is_pressed() throws Throwable {
+//        // Write code here that turns the phrase above into concrete actions
+////        throw new PendingException();
+//    }
 
     
     
