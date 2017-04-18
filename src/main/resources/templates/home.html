@@ -7,6 +7,7 @@
         <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
         <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css"></link>
         <link rel="stylesheet" th:href="@{/css/site.css}"/>
+        <script type="text/javascript" th:src="@{/js/site.js}"></script>
 </head>
     <body>
 
@@ -58,9 +59,9 @@
                 <h1> All references </h1>
                 <div class="container-fluid" th:if="${newReference != null}">
                     
-                        <p class="alert-success">
+                        <p class="alert-success" id="hideSuccess">
                             Reference added succesfully!
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <button type="button" class="close" id="hideSuccessButton">&times;</button>
                         </p>
                     
                 </div>
