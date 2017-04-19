@@ -163,4 +163,12 @@ public class ReferenceController {
 
     }
     
+    @RequestMapping(value = "/references/{id}", method = RequestMethod.GET)
+    public String editReference(Model model, @PathVariable Long id) {
+        List<Reference> refs = refService.getReferences();
+        model.addAttribute("references", refs);
+        model.addAttribute("newReference", model.asMap().get("newReference"));
+        return "home";
+    }
+    
 }

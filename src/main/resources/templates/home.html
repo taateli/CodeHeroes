@@ -56,7 +56,14 @@
             </div>
             
             <div class="col-md-4">
-                <h1> All references </h1>
+                <h1> All references </h1>  
+                <div class="container-fluid">   
+                    <form th:method="GET" th:action="@{/download} ">
+                        <label>Anna tiedoston nimi:</label>
+                        <input type="text" name="fileName"/>
+                        <input type="submit" class="btn btn-primary btn-sm" value="Download.bib"/>
+                    </form>
+                </div> 
                 <div class="container-fluid" th:if="${newReference != null}">
                     
                         <p class="alert-success" id="hideSuccess">
@@ -86,7 +93,7 @@
                     </tbody>
                 </table>
                 
-                <form th:method="GET" th:action="@{/download} "><input type="submit" class="btn btn-primary btn-sm" value="Download .bib"/></form>
+               
             </div>
         </div>
 

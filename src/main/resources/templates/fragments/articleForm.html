@@ -19,19 +19,23 @@
 
             <div class="form-group">
                 <span >*</span>
-                <label for="journal">Juornal</label>
+                <label for="journal">Journal</label>
                 <input type="text" th:field="*{journal}" class="form-control" name="journal"/>
                 <p class="alert-danger" th:if="${#fields.hasErrors('journal')}" th:errors="*{journal}">Virheviesti</p>
             </div>
 
-             <div th:replace="fragments/publisher :: publisher">
+             <div class="form-group">
+                 <span>*</span>
+                <label for="volume">Volume</label>
+                <input type="text" th:field="*{volume}" class="form-control" name="volume" value="0"/>
+                <p class="alert-danger" th:if="${#fields.hasErrors('volume')}" th:errors="*{volume}" >Virheviesti</p>
+            </div>
+            
+            <div th:replace="fragments/publisher :: publisher">
 
             </div> 
 
-             <div th:replace="fragments/volume :: volume">
-
-            </div>
-
+            
             <div th:replace="fragments/number :: number">
 
             </div>                        

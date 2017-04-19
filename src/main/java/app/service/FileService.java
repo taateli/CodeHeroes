@@ -8,6 +8,7 @@ package app.service;
 import app.domain.FileObject;
 import app.domain.Reference;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**Creates a file object of all references
@@ -17,16 +18,23 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class FileService {
-
-    public FileObject createFile(List<Reference> references) {
+    
+    
+    @Autowired
+    private LetterChecker letterChecker;
+    
+    public FileObject createFile(List<Reference> references, String fileName) {
         
         String content = "";
+        String checked;
         for (Reference ref : references) {
-            content += ref.toString()+"\n";  //vaihdetaan kun bibtex-metodi toimii
+            checked = ref.toBibTex();
+            checked = letterChecker.changeScandisToBibTextForm(checked);
+            content += checked +"\n";  //vaihdetaan kun bibtex-metodi toimii
            //content += = ref.toBibtex()+"\n";
   
         }
-        return new FileObject(content.getBytes(),"testifile");
+        return new FileObject(content.getBytes(),fileName);
     }
     
 }

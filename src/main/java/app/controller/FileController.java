@@ -8,6 +8,7 @@ package app.controller;
 import app.domain.FileObject;
 import app.service.FileService;
 import app.service.ReferenceService;
+import app.service.ValidatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 /** This class handles all requests regarding to downloading references as a 
@@ -34,9 +36,16 @@ public class FileController {
     @Autowired
     private FileService fileService;
     
+    @Autowired
+    private ValidatorService validator;
+    
        @RequestMapping(value = "/download", method = RequestMethod.GET)
-    public ResponseEntity<byte[]> viewFile() {
-        FileObject fo = fileService.createFile(referenceService.getReferences());
+    public ResponseEntity<byte[]> viewFile(@RequestParam String fileName) {
+        String name = fileName;
+        if(!validator.fieldNotEmpty(fileName)){
+            name = null;
+        }
+        FileObject fo = fileService.createFile(referenceService.getReferences(),name);
 
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType("text/bib"));
