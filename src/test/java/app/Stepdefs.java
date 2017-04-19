@@ -26,17 +26,17 @@ public class Stepdefs {
 
     public Stepdefs() {
 
-        driver = new FirefoxDriver();
-        baseUrl = "http://localhost:8080";
-//        File file;
-//        if (System.getProperty("os.name").matches("Mac OS X")) {
-//            file = new File("lib/macgeckodriver");
-//        } else {
-//            file = new File("lib/geckodriver");
-//        }
-//
-////        String absolutePath = file.getAbsolutePath();
-//        System.setProperty("webdriver.gecko.driver", "/home/bensatu/Downloads/geckodriver");
+//        driver = new FirefoxDriver();
+//        baseUrl = "http://localhost:8080";
+        File file;
+        if (System.getProperty("os.name").matches("Mac OS X")) {
+            file = new File("lib/macgeckodriver");
+        } else {
+            file = new File("lib/geckodriver");
+        }
+
+//        String absolutePath = file.getAbsolutePath();
+        System.setProperty("webdriver.gecko.driver", "/home/bensatu/Downloads/geckodriver");
         this.driver = new FirefoxDriver();
     }
 
