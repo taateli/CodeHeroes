@@ -26,7 +26,7 @@ public class Stepdefs {
 
     public Stepdefs() {
 
-//        driver = new FirefoxDriver();
+
         baseUrl = "http://localhost:8080";
         File file;
         if (System.getProperty("os.name").matches("Mac OS X")) {
