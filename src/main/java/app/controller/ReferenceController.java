@@ -91,7 +91,13 @@ public class ReferenceController {
                 }    
         }
         inp.setAuthors(validator.splitAuthors(inp.getAuthors().get(0)));
-        Reference r = refService.addReference(inp);
+        Reference r = null;
+        if (!validator.fieldNotEmpty(inp.getKey())) {
+            r = refService.addReference(validator.getKey(inp));
+        } else {
+            r = refService.addReference(inp);
+        }
+        
         redirectAttrs.addFlashAttribute("newReference", r);
         return "redirect:/";
     }
@@ -109,7 +115,12 @@ public class ReferenceController {
             return "books";
         }
         book.setAuthors(validator.splitAuthors(book.getAuthors().get(0)));
-        Reference r = refService.addReference(book);
+        Reference r = null;
+        if (!validator.fieldNotEmpty(book.getKey())) {
+            r = refService.addReference(validator.getKey(book));
+        } else {
+            r = refService.addReference(book);
+        }
         redirectAttrs.addFlashAttribute("newReference", r);
         return "redirect:/";
     }
@@ -133,7 +144,12 @@ public class ReferenceController {
                 }    
         }
         article.setAuthors(validator.splitAuthors(article.getAuthors().get(0)));
-        Reference r = refService.addReference(article);
+        Reference r = null;
+        if (!validator.fieldNotEmpty(article.getKey())) {
+            r = refService.addReference(validator.getKey(article));
+        } else {
+            r = refService.addReference(article);
+        }
         redirectAttrs.addFlashAttribute("newReference", r);
         return "redirect:/";
     }
@@ -143,7 +159,6 @@ public class ReferenceController {
 
         refService.delete(id);
 
-        
         return "redirect:/";
 
     }

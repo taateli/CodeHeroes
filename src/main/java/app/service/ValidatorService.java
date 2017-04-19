@@ -5,6 +5,7 @@
  */
 package app.service;
 
+import app.domain.Reference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,4 +34,20 @@ public class ValidatorService {
         List authorList = new ArrayList<>(Arrays.asList(authors.split(" and ")));
         return authorList;
     }
+    
+    public Reference getKey(Reference ref) {
+        String key = "";
+        
+    
+            String[] auth = ref.getAuthors().get(0).split(" ");
+            key = key + auth[0].charAt(0) + auth[1].charAt(0) + ref.getYear();
+            
+            ref.setKey(key);
+        
+        
+        
+        return ref;
+    }
+    
+    
 }

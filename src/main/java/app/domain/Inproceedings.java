@@ -146,6 +146,7 @@ public class Inproceedings extends Reference {
         if (!this.address.isEmpty()) {
             output = output + " " + this.address + ".";
         }
+        output = output + " Key{" + super.getKey() + "}";
         return output;
     }
 
