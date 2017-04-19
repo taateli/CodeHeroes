@@ -15,8 +15,8 @@ import org.junit.ClassRule;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(plugin = {"pretty"}, glue = "app.Stepdefs")
-public class RunCukesTest {
+@CucumberOptions(plugin = {"pretty" })
+        public class RunCukesTest {
 
     @ClassRule
     public static ServerRule server = new ServerRule(8080);
