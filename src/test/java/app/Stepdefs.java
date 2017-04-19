@@ -26,18 +26,18 @@ public class Stepdefs {
 
     public Stepdefs() {
 
-        driver = new FirefoxDriver();
+//        driver = new FirefoxDriver();
         baseUrl = "http://localhost:8080";
-//        File file;
-//        if (System.getProperty("os.name").matches("Mac OS X")) {
-//            file = new File("lib/macgeckodriver");
-//        } else {
-//            file = new File("lib/geckodriver");
-//        }
+        File file;
+        if (System.getProperty("os.name").matches("Mac OS X")) {
+            file = new File("lib/macgeckodriver");
+        } else {
+            file = new File("lib/geckodriver");
+        }
 
-//        String absolutePath = file.getAbsolutePath();
-//        System.setProperty("webdriver.gecko.driver", "/home/bensatu/Downloads/geckodriver");
-//        this.driver = new FirefoxDriver();
+        String absolutePath = file.getAbsolutePath();
+        System.setProperty("webdriver.gecko.driver", absolutePath);
+        this.driver = new FirefoxDriver();
     }
 
     @Given("^form book is selected$")
