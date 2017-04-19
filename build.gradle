@@ -80,6 +80,8 @@ jacocoTestReport{
 }
 
 test {
+     // we want to get snippets out of cucumber tests
+    testLogging.showStandardStreams = true
 	//we want display the following test events
     testLogging {
         events "PASSED", "STARTED", "FAILED", "SKIPPED"
