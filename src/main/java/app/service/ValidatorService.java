@@ -38,10 +38,20 @@ public class ValidatorService {
     public Reference getKey(Reference ref) {
         String key = "";
         
-    
+            if (ref.getAuthors().get(0).contains(" ")) {
             String[] auth = ref.getAuthors().get(0).split(" ");
-            key = key + auth[0].charAt(0) + auth[1].charAt(0) + ref.getYear();
+            key = key + auth[0].charAt(0);
             
+            if (auth[1].length()>0) {
+                key = key + auth[1].charAt(0);
+            }
+            
+            
+            } else {
+                key = key + ref.getAuthors().get(0).charAt(0);
+            }
+            
+            key = key + ref.getYear();
             ref.setKey(key);
         
         
