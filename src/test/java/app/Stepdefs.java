@@ -35,8 +35,8 @@ public class Stepdefs {
             file = new File("lib/geckodriver");
         }
 
-        String absolutePath = file.getAbsolutePath();
-        System.setProperty("webdriver.gecko.driver", absolutePath);
+        String path = file.getAbsolutePath();
+        System.setProperty("webdriver.gecko.driver", path);
         this.driver = new FirefoxDriver();
     }
 
