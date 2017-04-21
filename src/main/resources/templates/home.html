@@ -72,6 +72,16 @@
                         </p>
                     
                 </div>
+                
+                 <div class="container-fluid" th:if="${delete != null}">
+                    
+                        <p class="alert-success" id="hideSuccess">
+                            Reference deleted!
+                            <button type="button" class="close" id="hideSuccessButton">&times;</button>
+                        </p>
+                    
+                </div>
+                
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr>

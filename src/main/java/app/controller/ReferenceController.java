@@ -155,10 +155,11 @@ public class ReferenceController {
     }
 
     @RequestMapping(value = "/references/{id}", method = RequestMethod.DELETE)
-    public String deleteReference(@PathVariable Long id) {
-
+    public String deleteReference(@PathVariable Long id, RedirectAttributes redirectAttrs) {
+        
         refService.delete(id);
-
+        
+        redirectAttrs.addFlashAttribute("delete", id);
         return "redirect:/";
 
     }
