@@ -3,7 +3,7 @@ Feature: User can add an article reference to reference database by filling mand
    Scenario: user can add an article reference with mandatory fields filled
     Given form article is selected
     When key "KW04" author "Whittington, Keith J." title "Infusing active learning into introductory programming courses" year "2017" journal "J. Comput. Small Coll." publisher "publisher" volume "19" number "3" startingPage "3" endingPage "6" month "5" address "katuosoite" are inserted
-    Then system will respond with "Reference added succesfully!"
+    Then system will respond with "Reference added successfully!"
  
 
   Scenario: user cannot add an article reference without mandatory fields filled

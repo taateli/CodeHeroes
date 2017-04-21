@@ -12,8 +12,10 @@ import cucumber.api.java.en.When;
 import java.io.File;
 
 import static org.junit.Assert.assertTrue;
+import org.openqa.selenium.Alert;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -54,10 +56,15 @@ public class Stepdefs {
         driver.get(baseUrl + "/article");
     }
 
+    @Given("^a book reference with key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" publisher \"([^\"]*)\" is created$")
+    public void a_book_reference_with_key_author_title_year_publisher_is_created(String key, String author, String title, String year, String publisher) throws Throwable {
+        form_book_is_selected();
+        createBookWithMandatoryFields(key, author, title, year, publisher);
+        system_will_respond_with("Reference added successfully!");
+    }
     @When("^key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" publisher \"([^\"]*)\" are inserted$")
     public void key_author_title_year_publisher_are_inserted(String key, String author, String title, String year, String publisher) throws Throwable {
         createBookWithMandatoryFields(key, author, title, year, publisher);
-
     }
 
     @When("^key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" journal \"([^\"]*)\" publisher \"([^\"]*)\" volume \"([^\"]*)\" number \"([^\"]*)\" startingPage \"([^\"]*)\" endingPage \"([^\"]*)\" month \"([^\"]*)\" address \"([^\"]*)\" are inserted$")
@@ -71,6 +78,28 @@ public class Stepdefs {
             String key, String author, String title, String year, String publisher, String editor, String booktitle, String address, String series, String startingPage, String endingPage, String month, String organization) throws Throwable {
         createInproceedings(key, author, title, year, publisher, editor, booktitle, address, series, startingPage, endingPage, month, organization);
     }
+    
+
+    @When("^Delete is pressed$")
+    public void delete_is_pressed() throws Throwable {
+         WebElement element = driver.findElement(By.name("_method"));
+         System.out.println("Löysi DELETEN");
+        element.submit();
+    }
+
+// Tämä askel ei toimi, pitäisi saada driver sallimaan popup ja löytämään se
+//    @When("^popup is accepted$")
+//    public void popup_is_accepted() throws Throwable {
+//       // ((JavascriptExecutor) driver).executeScript("window.confirm = function(msg) { return true; }");
+//        WebElement element = driver.findElement(By.className("btn btn-danger btn-sm"));
+//      //  WebElement element = driver.findElement(By.name("btn btn-danger btn-sm"));
+//        Thread.sleep(500);
+//        ((JavascriptExecutor) driver).executeScript("arguments[1].click()", element);
+//        Thread.sleep(500);
+//        Alert alert = driver.switchTo().alert();
+//        alert.accept();
+//        System.out.println("MENI POPUPPIIIN");
+//    }
 
     @Then("^system will respond with \"([^\"]*)\"$")
     public void system_will_respond_with(String arg1) throws Throwable {
