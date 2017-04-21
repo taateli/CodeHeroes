@@ -10,6 +10,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import java.io.File;
+import java.util.Iterator;
 
 import static org.junit.Assert.assertTrue;
 import org.openqa.selenium.Alert;
@@ -27,13 +28,15 @@ public class Stepdefs {
 
     public Stepdefs() {
 
-
         baseUrl = "http://localhost:8080";
         File file;
+
         if (System.getProperty("os.name").matches("Mac OS X")) {
             file = new File("lib/macgeckodriver");
-        } else {
+        } else if (System.getProperty("os.name").matches("Linux")) {
             file = new File("lib/geckodriver");
+        } else {
+            file = new File("lib/wingeckodriver.exe");
         }
 
         String path = file.getAbsolutePath();
@@ -62,6 +65,7 @@ public class Stepdefs {
         createBookWithMandatoryFields(key, author, title, year, publisher);
         system_will_respond_with("Reference added successfully!");
     }
+
     @When("^key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" publisher \"([^\"]*)\" are inserted$")
     public void key_author_title_year_publisher_are_inserted(String key, String author, String title, String year, String publisher) throws Throwable {
         createBookWithMandatoryFields(key, author, title, year, publisher);
@@ -78,19 +82,17 @@ public class Stepdefs {
             String key, String author, String title, String year, String publisher, String editor, String booktitle, String address, String series, String startingPage, String endingPage, String month, String organization) throws Throwable {
         createInproceedings(key, author, title, year, publisher, editor, booktitle, address, series, startingPage, endingPage, month, organization);
     }
-    
 
     @When("^Delete is pressed$")
     public void delete_is_pressed() throws Throwable {
-         WebElement element = driver.findElement(By.name("_method"));
-         System.out.println("Löysi DELETEN");
+        WebElement element = driver.findElement(By.name("_method"));
         element.submit();
     }
 
 // Tämä askel ei toimi, pitäisi saada driver sallimaan popup ja löytämään se
 //    @When("^popup is accepted$")
 //    public void popup_is_accepted() throws Throwable {
-//       // ((JavascriptExecutor) driver).executeScript("window.confirm = function(msg) { return true; }");
+//       //       // ((JavascriptExecutor) driver).executeScript("window.confirm = function(msg) { return true; }");
 //        WebElement element = driver.findElement(By.className("btn btn-danger btn-sm"));
 //      //  WebElement element = driver.findElement(By.name("btn btn-danger btn-sm"));
 //        Thread.sleep(500);
@@ -98,7 +100,7 @@ public class Stepdefs {
 //        Thread.sleep(500);
 //        Alert alert = driver.switchTo().alert();
 //        alert.accept();
-//        System.out.println("MENI POPUPPIIIN");
+////        System.out.println("MENI POPUPPIIIN");
 //    }
 
     @Then("^system will respond with \"([^\"]*)\"$")
@@ -109,7 +111,7 @@ public class Stepdefs {
 
 // This method checks if page has text that is given as parameter    
     private void pageHasContent(String content) throws InterruptedException {
-                Thread.sleep(2000);
+        Thread.sleep(2000);
         assertTrue(driver.getPageSource().contains(content));
     }
 
@@ -133,9 +135,7 @@ public class Stepdefs {
 
     }
 
-
     // all fields included - if missing, different message given
-
     public void createArticle(String key, String author, String title, String year,
             String journal, String publisher, String volume, String number, String startingPage, String endingPage, String month, String address) {
         assertTrue(driver.getPageSource().contains("Add article reference"));
