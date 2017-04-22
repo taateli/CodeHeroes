@@ -11,15 +11,23 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import java.io.File;
 import java.util.Iterator;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 import static org.junit.Assert.assertTrue;
 import org.openqa.selenium.Alert;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class Stepdefs {
 
@@ -84,24 +92,30 @@ public class Stepdefs {
     }
 
     @When("^Delete is pressed$")
-    public void delete_is_pressed() throws Throwable {
-        WebElement element = driver.findElement(By.name("_method"));
-        element.submit();
+    public void delete_is_pressed() {
+        // this will make the popup visible
+        driver.findElement(By.xpath("//div[3]/table/tbody/tr/th/form/input[2]")).click();
+//        Thread.sleep(5000); // If you wanna see the popup properly
     }
 
-// Tämä askel ei toimi, pitäisi saada driver sallimaan popup ja löytämään se
-//    @When("^popup is accepted$")
-//    public void popup_is_accepted() throws Throwable {
-//       //       // ((JavascriptExecutor) driver).executeScript("window.confirm = function(msg) { return true; }");
-//        WebElement element = driver.findElement(By.className("btn btn-danger btn-sm"));
-//      //  WebElement element = driver.findElement(By.name("btn btn-danger btn-sm"));
-//        Thread.sleep(500);
-//        ((JavascriptExecutor) driver).executeScript("arguments[1].click()", element);
-//        Thread.sleep(500);
-//        Alert alert = driver.switchTo().alert();
-//        alert.accept();
-////        System.out.println("MENI POPUPPIIIN");
-//    }
+    @When("^popup is accepted$")
+    public void popup_is_accepted() throws Throwable {
+        long timeout = 500;
+        long waitForAlert = System.currentTimeMillis() + timeout;
+        boolean boolFound = false;
+        do {
+            try {
+                Alert alert = this.driver.switchTo().alert();
+                if (alert != null) {
+                    alert.accept(); // OK is accepted from the popup
+//                    alert.dismiss(); // Cancel is accepted from the popup
+                    boolFound = true;
+                }
+            } catch (NoAlertPresentException ex) {
+            }
+        } while ((System.currentTimeMillis() < waitForAlert) && (!boolFound));
+
+    }
 
     @Then("^system will respond with \"([^\"]*)\"$")
     public void system_will_respond_with(String arg1) throws Throwable {

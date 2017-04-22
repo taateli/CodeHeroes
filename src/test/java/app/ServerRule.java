@@ -1,17 +1,14 @@
 package app;
 
-
 import org.junit.rules.ExternalResource;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
-
 // Lainattu
-class ServerRule extends ExternalResource{
-    
+class ServerRule extends ExternalResource {
+
     ConfigurableApplicationContext app;
     private final int port;
-    
 
     public ServerRule(int port) {
         this.port = port;
