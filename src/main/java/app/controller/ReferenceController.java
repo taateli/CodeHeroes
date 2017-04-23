@@ -31,7 +31,7 @@ public class ReferenceController {
     // To controller is given an instance of service class
     @Autowired
     private ReferenceService refService;
-    
+
     @Autowired
     private ValidatorService validator;
 
@@ -57,16 +57,16 @@ public class ReferenceController {
     public String showInpForm(Model model) {
         Inproceedings inp = new Inproceedings();
         model.addAttribute("inproceedings", inp);
-        
+
         return "inproceedings";
     }
-    
-     //This method handles get-request to path /article and shows books.html file from folder resource/templates/ 
+
+    //This method handles get-request to path /article and shows books.html file from folder resource/templates/ 
     @RequestMapping(value = "/article", method = RequestMethod.GET)
     public String showArticleForm(Model model) {
         Article article = new Article();
         model.addAttribute("article", article);
-        
+
         return "article";
     }
 
@@ -77,28 +77,20 @@ public class ReferenceController {
     
      */
     @RequestMapping(value = "/inproceedings", method = RequestMethod.POST)
-    public String addInproceedings(Model model, @Valid @ModelAttribute Inproceedings inp, BindingResult bindingresult,
-                                    RedirectAttributes redirectAttrs) {
-        
+    public String addInproceedings(@Valid @ModelAttribute Inproceedings inp, BindingResult bindingresult,
+            RedirectAttributes redirectAttrs) {
+
         if (bindingresult.hasErrors()) {
             return "inproceedings";
         }
 
-        if(validator.fieldNotEmpty(inp.getEndingPage()) && validator.fieldNotEmpty(inp.getStartingPage())) {
-                if(validator.endingPageBeforeStartingPage(inp.getEndingPage(), inp.getStartingPage())){
-                    bindingresult.addError(new FieldError("Inproceedings", "endingPage", "Ending page cannot be before starting page!"));
-                    return "inproceedings";
-                }    
+        if (validator.fieldNotEmpty(inp.getEndingPage()) && validator.fieldNotEmpty(inp.getStartingPage())) {
+            if (validator.endingPageBeforeStartingPage(inp.getEndingPage(), inp.getStartingPage())) {
+                bindingresult.addError(new FieldError("Inproceedings", "endingPage", "Ending page cannot be before starting page!"));
+                return "inproceedings";
+            }
         }
-        inp.setAuthors(validator.splitAuthors(inp.getAuthors().get(0)));
-        Reference r = null;
-        if (!validator.fieldNotEmpty(inp.getKey())) {
-            r = refService.addReference(validator.getKey(inp));
-        } else {
-            r = refService.addReference(inp);
-        }
-        
-        redirectAttrs.addFlashAttribute("newReference", r);
+        addReference(inp, bindingresult, redirectAttrs);
         return "redirect:/";
     }
 
@@ -108,62 +100,74 @@ public class ReferenceController {
     
      */
     @RequestMapping(value = "/books", method = RequestMethod.POST)
-    public String addBook(Model model, @Valid @ModelAttribute Book book, BindingResult bindingresult,
-                            RedirectAttributes redirectAttrs) {
-        
+    public String addBook(@Valid @ModelAttribute Book book, BindingResult bindingresult,
+            RedirectAttributes redirectAttrs) {
+
         if (bindingresult.hasErrors()) {
             return "books";
         }
-        book.setAuthors(validator.splitAuthors(book.getAuthors().get(0)));
-        Reference r = null;
-        if (!validator.fieldNotEmpty(book.getKey())) {
-            r = refService.addReference(validator.getKey(book));
-        } else {
-            r = refService.addReference(book);
-        }
-        redirectAttrs.addFlashAttribute("newReference", r);
+        addReference(book, bindingresult, redirectAttrs);
         return "redirect:/";
     }
-    
+
     /*  This method handles post-request to path /article
         and takes Article type parameter. It uses @ModelAttribute annotation to render
         th:field tags from view
     
      */
     @RequestMapping(value = "/article", method = RequestMethod.POST)
-    public String addArticle(Model model, @Valid @ModelAttribute Article article, BindingResult bindingresult,
-                            RedirectAttributes redirectAttrs) {
-        
+    public String addArticle(@Valid @ModelAttribute Article article, BindingResult bindingresult,
+            RedirectAttributes redirectAttrs) {
+
         if (bindingresult.hasErrors()) {
             return "article";
         }
         if (validator.fieldNotEmpty(article.getEndingPage()) && validator.fieldNotEmpty(article.getStartingPage())) {
-                if(validator.endingPageBeforeStartingPage(article.getEndingPage(), article.getStartingPage())){
-                    bindingresult.addError(new FieldError("Article", "endingPage", "Ending page cannot be before starting page!"));
-                    return "article";
-                }    
+            if (validator.endingPageBeforeStartingPage(article.getEndingPage(), article.getStartingPage())) {
+                bindingresult.addError(new FieldError("Article", "endingPage", "Ending page cannot be before starting page!"));
+                return "article";
+            }
         }
-        article.setAuthors(validator.splitAuthors(article.getAuthors().get(0)));
-        Reference r = null;
-        if (!validator.fieldNotEmpty(article.getKey())) {
-            r = refService.addReference(validator.getKey(article));
-        } else {
-            r = refService.addReference(article);
-        }
-        redirectAttrs.addFlashAttribute("newReference", r);
+        addReference(article, bindingresult, redirectAttrs);
         return "redirect:/";
     }
 
+    /**
+     * A method to help with adding a reference into the database
+     *
+     * @param reference
+     * @param bindingresult
+     * @param redirectAttrs
+     */
+    public void addReference(@Valid @ModelAttribute Reference reference, BindingResult bindingresult,
+            RedirectAttributes redirectAttrs) {
+        
+        reference.setAuthors(validator.splitAuthors(reference.getAuthors().get(0)));
+        Reference newReference = null;
+        if (!validator.fieldNotEmpty(reference.getKey())) {
+            newReference = refService.addReference(validator.getKey(reference));
+        } else {
+            newReference = refService.addReference(reference);
+        }
+        redirectAttrs.addFlashAttribute("newReference", newReference);
+    }
+
+    /**
+     * Method for deleting a reference
+     * @param id, Long, received as a parameter, id of the reference being deleted
+     * @param redirectAttrs
+     * @return 
+     */
     @RequestMapping(value = "/references/{id}", method = RequestMethod.DELETE)
     public String deleteReference(@PathVariable Long id, RedirectAttributes redirectAttrs) {
-        
+
         refService.delete(id);
-        
+
         redirectAttrs.addFlashAttribute("delete", id);
         return "redirect:/";
 
     }
-    
+
     @RequestMapping(value = "/references/{id}", method = RequestMethod.GET)
     public String editReference(Model model, @PathVariable Long id) {
         List<Reference> refs = refService.getReferences();
@@ -171,5 +175,5 @@ public class ReferenceController {
         model.addAttribute("newReference", model.asMap().get("newReference"));
         return "home";
     }
-    
+
 }

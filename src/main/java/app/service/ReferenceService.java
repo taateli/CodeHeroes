@@ -33,5 +33,13 @@ public class ReferenceService {
     public void delete(Long id) {
         refRepository.delete(id);
     }
+    
+    public Reference findById (Long id) {
+        return refRepository.findById(id);
+    }
+    
+    public Reference findByKey (String key) {
+        return refRepository.findByKey(key);
+    }
 
 }
