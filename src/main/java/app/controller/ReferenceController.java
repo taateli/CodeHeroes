@@ -57,7 +57,6 @@ public class ReferenceController {
     public String showInpForm(Model model) {
         Inproceedings inp = new Inproceedings();
         model.addAttribute("inproceedings", inp);
-
         return "inproceedings";
     }
 
@@ -69,7 +68,6 @@ public class ReferenceController {
 
         return "article";
     }
-
 
     /*  This method handles post-request to path /inproceedings
         and takes Inproceedings type parameter. It uses @ModelAttribute annotation to render
@@ -131,6 +129,22 @@ public class ReferenceController {
         addReference(article, bindingresult, redirectAttrs);
         return "redirect:/";
     }
+    /**
+     * This method takes search -String to compare it on all references
+     * toString -methods and return all references including the String
+     * 
+     * @param model
+     * @param search - field for any string to search from references
+     * @return 
+     */
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String searchReference(Model model, @RequestParam String search) {
+        List<Reference> refs = refService.getSearchedReferences(search);
+        model.addAttribute("references", refs);
+        model.addAttribute("newReference", model.asMap().get("newReference"));
+        return "home";
+    }
 
     /**
      * A method to help with adding a reference into the database
@@ -139,9 +153,10 @@ public class ReferenceController {
      * @param bindingresult
      * @param redirectAttrs
      */
-    public void addReference(@Valid @ModelAttribute Reference reference, BindingResult bindingresult,
+    public void addReference(@Valid
+            @ModelAttribute Reference reference, BindingResult bindingresult,
             RedirectAttributes redirectAttrs) {
-        
+
         reference.setAuthors(validator.splitAuthors(reference.getAuthors().get(0)));
         Reference newReference = null;
         if (!validator.fieldNotEmpty(reference.getKey())) {
@@ -154,9 +169,11 @@ public class ReferenceController {
 
     /**
      * Method for deleting a reference
-     * @param id, Long, received as a parameter, id of the reference being deleted
+     *
+     * @param id, Long, received as a parameter, id of the reference being
+     * deleted
      * @param redirectAttrs
-     * @return 
+     * @return
      */
     @RequestMapping(value = "/references/{id}", method = RequestMethod.DELETE)
     public String deleteReference(@PathVariable Long id, RedirectAttributes redirectAttrs) {
