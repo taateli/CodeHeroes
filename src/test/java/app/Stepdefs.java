@@ -10,6 +10,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import java.io.File;
+import static org.junit.Assert.assertFalse;
 
 import static org.junit.Assert.assertTrue;
 import org.openqa.selenium.Alert;
@@ -74,8 +75,14 @@ public class Stepdefs {
     }
 
     @Given("^searchdata \"([^\"]*)\" is given$")
-    public void searchdata_is_given(String search) throws Throwable {
-        system_will_respond_with("search");
+    public void searchdata_is_given(String searchData) throws Throwable {
+         WebElement element = driver.findElement(By.name("search"));
+        element.sendKeys(searchData);
+    }
+
+    @Then("^system will not respond with \"([^\"]*)\"$")
+    public void system_will_not_respond_with(String content) throws Throwable {
+        pageHasNotContent(content);
     }
 
     @When("^Search button is pressed$")
@@ -86,7 +93,7 @@ public class Stepdefs {
 
     @Then("^book reference with data \"([^\"]*)\" is displayd in the list$")
     public void book_reference_with_data_is_displayd_in_the_list(String searchdata) throws Throwable {
-        System.out.println("EN TIEDÄ MITÄ TEHDÄ");
+        system_will_respond_with(searchdata);
     }
 
     @When("^key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" publisher \"([^\"]*)\" are inserted$")
@@ -135,12 +142,21 @@ public class Stepdefs {
     @Then("^system will respond with \"([^\"]*)\"$")
     public void system_will_respond_with(String arg1) throws Throwable {
 //        Thread.sleep(2000);
+
         pageHasContent(arg1);
+    }
+
+    private void pageHasNotContent(String content) throws InterruptedException {
+        Thread.sleep(4000);
+        
+        System.out.println("OAGE HAS NOT CONTENT SIVUN SISÄLTÖ: " + driver.getPageSource());
+        assertTrue(!driver.getPageSource().contains(content));
     }
 
 // This method checks if page has text that is given as parameter    
     private void pageHasContent(String content) throws InterruptedException {
-        Thread.sleep(2000);
+        Thread.sleep(4000);
+        System.out.println("OAGE HAS CONTENT SIVUN SISÄLTÖ: " + driver.getPageSource());
         assertTrue(driver.getPageSource().contains(content));
     }
 
