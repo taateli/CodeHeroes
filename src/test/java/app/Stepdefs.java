@@ -62,7 +62,9 @@ public class Stepdefs {
     @Given("^a book reference with key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" publisher \"([^\"]*)\" is created$")
     public void a_book_reference_with_key_author_title_year_publisher_is_created(String key, String author, String title, String year, String publisher) throws Throwable {
         form_book_is_selected();
+        System.out.println("OKEI, MENTIIN TÄHÄN");
         createBookWithMandatoryFields(key, author, title, year, publisher);
+        System.out.println("TÄSSÄ VÄLISSÄ ON");
         system_will_respond_with("Reference added successfully!");
     }
 
@@ -131,6 +133,25 @@ public class Stepdefs {
                 if (alert != null) {
                     alert.accept(); // OK is accepted from the popup
 //                    alert.dismiss(); // Cancel is accepted from the popup
+                    boolFound = true;
+                }
+            } catch (NoAlertPresentException ex) {
+            }
+        } while ((System.currentTimeMillis() < waitForAlert) && (!boolFound));
+
+    }
+
+    @When("^popup is not accepted$")
+    public void popup_is_not_accepted() throws Throwable {
+        long timeout = 500;
+        long waitForAlert = System.currentTimeMillis() + timeout;
+        boolean boolFound = false;
+        do {
+            try {
+                Alert alert = this.driver.switchTo().alert();
+                if (alert != null) {
+                    //  alert.accept(); // OK is accepted from the popup
+                    alert.dismiss(); // Cancel is accepted from the popup
                     boolFound = true;
                 }
             } catch (NoAlertPresentException ex) {
@@ -247,6 +268,7 @@ public class Stepdefs {
         element.submit();
     }
 
+    
     @After
     public void tearDown() {
         driver.quit();
