@@ -67,6 +67,30 @@ public class Stepdefs {
         system_will_respond_with("Reference added successfully!");
     }
 
+    // searchingReference.feature uses:
+    @Given("^a book reference with key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" publisher \"([^\"]*)\" is created succesfully$")
+    public void a_book_reference_with_key_author_title_year_publisher_is_created_succesfully(String key, String author, String title, String year, String publisher) throws Throwable {
+        form_book_is_selected();
+        createBookWithMandatoryFields(key, author, title, year, publisher);
+        system_will_respond_with("Reference added successfully!");
+    }
+
+    @Given("^searchdata \"([^\"]*)\" is given$")
+    public void searchdata_is_given(String search) throws Throwable {
+        system_will_respond_with("search");
+    }
+
+    @When("^Search button is pressed$")
+    public void search_button_is_pressed() throws Throwable {
+        WebElement element = driver.findElement(By.name("search"));
+        element.submit();
+    }
+
+    @Then("^book reference with data \"([^\"]*)\" is displayd in the list$")
+    public void book_reference_with_data_is_displayd_in_the_list(String searchdata) throws Throwable {
+        System.out.println("EN TIEDÄ MITÄ TEHDÄ");
+    }
+
     @When("^key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" publisher \"([^\"]*)\" are inserted$")
     public void key_author_title_year_publisher_are_inserted(String key, String author, String title, String year, String publisher) throws Throwable {
         createBookWithMandatoryFields(key, author, title, year, publisher);
@@ -88,7 +112,7 @@ public class Stepdefs {
     public void delete_is_pressed() throws InterruptedException {
         // this will make the popup visible
         driver.findElement(By.xpath("//div[3]/table/tbody/tr/th/form/input[2]")).click();
-        Thread.sleep(10000); // If you wanna see the popup properly
+        Thread.sleep(2000); // If you wanna see the popup for 2 seconds
     }
 
     @When("^popup is accepted$")
