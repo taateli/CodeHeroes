@@ -62,9 +62,7 @@ public class Stepdefs {
     @Given("^a book reference with key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" publisher \"([^\"]*)\" is created$")
     public void a_book_reference_with_key_author_title_year_publisher_is_created(String key, String author, String title, String year, String publisher) throws Throwable {
         form_book_is_selected();
-        System.out.println("OKEI, MENTIIN TÄHÄN");
         createBookWithMandatoryFields(key, author, title, year, publisher);
-        System.out.println("TÄSSÄ VÄLISSÄ ON");
         system_will_respond_with("Reference added successfully!");
     }
 
@@ -78,8 +76,25 @@ public class Stepdefs {
 
     @Given("^searchdata \"([^\"]*)\" is given$")
     public void searchdata_is_given(String searchData) throws Throwable {
-         WebElement element = driver.findElement(By.name("search"));
+        WebElement element = driver.findElement(By.name("search"));
         element.sendKeys(searchData);
+    }
+
+    @Given("^filename \"([^\"]*)\" is added$")
+    public void filename_is_added(String fileName) throws Throwable {
+        WebElement element = driver.findElement(By.name("fileName"));
+        element.sendKeys(fileName);
+
+    }
+
+    @When("^printFile button is pressed$")
+    public void printfile_button_is_pressed() throws Throwable {
+        driver.findElement(By.name("fileName")).click();
+    }
+
+    @Then("^file is created by name \"([^\"]*)\"$")
+    public void file_is_created_by_name(String fileName) throws Throwable {
+       pageHasContent(fileName);
     }
 
     @Then("^system will not respond with \"([^\"]*)\"$")
@@ -162,22 +177,18 @@ public class Stepdefs {
 
     @Then("^system will respond with \"([^\"]*)\"$")
     public void system_will_respond_with(String arg1) throws Throwable {
-//        Thread.sleep(2000);
-
+        //        Thread.sleep(2000);
         pageHasContent(arg1);
     }
 
     private void pageHasNotContent(String content) throws InterruptedException {
         Thread.sleep(4000);
-        
-        System.out.println("OAGE HAS NOT CONTENT SIVUN SISÄLTÖ: " + driver.getPageSource());
         assertTrue(!driver.getPageSource().contains(content));
     }
 
 // This method checks if page has text that is given as parameter    
     private void pageHasContent(String content) throws InterruptedException {
         Thread.sleep(4000);
-        System.out.println("OAGE HAS CONTENT SIVUN SISÄLTÖ: " + driver.getPageSource());
         assertTrue(driver.getPageSource().contains(content));
     }
 
@@ -268,7 +279,6 @@ public class Stepdefs {
         element.submit();
     }
 
-    
     @After
     public void tearDown() {
         driver.quit();
