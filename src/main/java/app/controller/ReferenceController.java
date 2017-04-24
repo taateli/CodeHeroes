@@ -153,7 +153,7 @@ public class ReferenceController {
      * @param bindingresult
      * @param redirectAttrs
      */
-    public void addReference(@Valid
+    private void addReference(@Valid
             @ModelAttribute Reference reference, BindingResult bindingresult,
             RedirectAttributes redirectAttrs) {
 
