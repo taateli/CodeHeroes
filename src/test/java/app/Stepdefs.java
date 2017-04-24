@@ -92,15 +92,15 @@ public class Stepdefs {
     }
 
     @When("^Delete is pressed$")
-    public void delete_is_pressed() {
+    public void delete_is_pressed() throws InterruptedException {
         // this will make the popup visible
         driver.findElement(By.xpath("//div[3]/table/tbody/tr/th/form/input[2]")).click();
-//        Thread.sleep(5000); // If you wanna see the popup properly
+        Thread.sleep(10000); // If you wanna see the popup properly
     }
 
     @When("^popup is accepted$")
     public void popup_is_accepted() throws Throwable {
-        long timeout = 500;
+        long timeout = 5000;
         long waitForAlert = System.currentTimeMillis() + timeout;
         boolean boolFound = false;
         do {
@@ -108,7 +108,7 @@ public class Stepdefs {
                 Alert alert = this.driver.switchTo().alert();
                 if (alert != null) {
                     alert.accept(); // OK is accepted from the popup
-//                    alert.dismiss(); // Cancel is accepted from the popup
+                   // alert.dismiss(); // Cancel is accepted from the popup
                     boolFound = true;
                 }
             } catch (NoAlertPresentException ex) {
@@ -119,15 +119,17 @@ public class Stepdefs {
 
     @Then("^system will respond with \"([^\"]*)\"$")
     public void system_will_respond_with(String arg1) throws Throwable {
-//        Thread.sleep(2000);
+        Thread.sleep(10000);
         pageHasContent(arg1);
     }
 
 // This method checks if page has text that is given as parameter    
     private void pageHasContent(String content) throws InterruptedException {
-        Thread.sleep(2000);
+        Thread.sleep(10000);
         assertTrue(driver.getPageSource().contains(content));
     }
+    
+
 
     // this method fills the book form with mandatory fields and submits.
     private void createBookWithMandatoryFields(String key, String author, String title, String year, String publisher) throws InterruptedException {
