@@ -194,7 +194,7 @@ public class ReferenceController {
 
         Book editedBook = (Book) refService.findById(id);
 
-        editedBook.setAuthors(editBookRef.getAuthors());
+        editedBook.setAuthors(validator.splitAuthors(editBookRef.getAuthors().get(0)));
         editedBook.setKey(editBookRef.getKey());
         editedBook.setTags(editBookRef.getTags());
         editedBook.setTitle(editBookRef.getTitle());
@@ -205,7 +205,7 @@ public class ReferenceController {
         editedBook.setPublisher(editBookRef.getPublisher());
         editedBook.setSeries(editBookRef.getSeries());
         editedBook.setVolume(editBookRef.getVolume());
-
+        refService.addReference(editedBook);
         return "redirect:/";
     }
 
@@ -219,7 +219,7 @@ public class ReferenceController {
 
         Article editedArticle = (Article) refService.findById(id);
 
-        editedArticle.setAuthors(editArticleRef.getAuthors());
+        editedArticle.setAuthors(validator.splitAuthors(editArticleRef.getAuthors().get(0)));
         editedArticle.setKey(editArticleRef.getKey());
         editedArticle.setTags(editArticleRef.getTags());
         editedArticle.setTitle(editArticleRef.getTitle());
@@ -232,7 +232,7 @@ public class ReferenceController {
         editedArticle.setMonth(editArticleRef.getMonth());
         editedArticle.setPublisher(editArticleRef.getPublisher());
         editedArticle.setVolume(editArticleRef.getVolume());
-
+        refService.addReference(editedArticle);
         return "redirect:/";
     }
 
@@ -241,12 +241,12 @@ public class ReferenceController {
             @PathVariable Long id) {
 
         if (bindingresult.hasErrors()) {
-            return "editArticle";
+            return "editInpro";
         }
 
         Inproceedings editedInproceed = (Inproceedings) refService.findById(id);
 
-        editedInproceed.setAuthors(editInproceedingsRef.getAuthors());
+        editedInproceed.setAuthors(validator.splitAuthors(editInproceedingsRef.getAuthors().get(0)));
         editedInproceed.setKey(editInproceedingsRef.getKey());
         editedInproceed.setTags(editInproceedingsRef.getTags());
         editedInproceed.setTitle(editInproceedingsRef.getTitle());
@@ -261,7 +261,7 @@ public class ReferenceController {
         editedInproceed.setMonth(editInproceedingsRef.getMonth());
         editedInproceed.setPublisher(editInproceedingsRef.getPublisher());
         editedInproceed.setVolume(editInproceedingsRef.getVolume());
-
+        refService.addReference(editedInproceed);
         return "redirect:/";
     }
 
@@ -270,14 +270,14 @@ public class ReferenceController {
         Reference reference = refService.findById(id);
 
         if (reference instanceof Book) {
-            model.addAttribute("editBookRef", reference);
+            model.addAttribute("book", reference);
             return "editBook";
 
         } else if (reference instanceof Article) {
-            model.addAttribute("editArticleRef", reference);
+            model.addAttribute("article", reference);
             return "editArticle";
         } else {
-            model.addAttribute("editInproceedingsRef", reference);
+            model.addAttribute("inproceedings", reference);
             return "editInpro";
         }
     }

@@ -26,7 +26,7 @@
                  
                      <span>* = mandatory field</span>   
 
-                     <form th:action="@{/editInpro/{id}(id=${editInproceedingsRef.id})}" th:method="POST" th:object="${editInproceedingsRef}">
+                     <form th:action="@{/editInpro/{id}(id=${inproceedings.id})}" th:method="POST" th:object="${inproceedings}">
 
                          <div th:replace="fragments/inproceedingsForm :: inproceedingsForm">
 

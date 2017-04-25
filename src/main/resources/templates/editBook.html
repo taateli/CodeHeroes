@@ -26,7 +26,7 @@
                 <div class="container-fluid-bordered" >    
                     <span>* = mandatory field</span>
 
-                     <form th:action="@{/editBook/{id}(id=${editBookRef.id})}" th:method="POST" th:object="${editBookRef}">
+                     <form th:action="@{/editBook/{id}(id=${book.id})}" th:method="POST" th:object="${book}">
 
                         <div th:replace="fragments/bookForm :: bookForm">
 
