@@ -128,15 +128,15 @@ public class ReferenceController {
         addReference(article, bindingresult, redirectAttrs);
         return "redirect:/";
     }
+
     /**
-     * This method takes search -String to compare it on all references
-     * toString -methods and return all references including the String
-     * 
+     * This method takes search -String to compare it on all references toString
+     * -methods and return all references including the String
+     *
      * @param model
      * @param search - field for any string to search from references
-     * @return 
+     * @return
      */
-
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String searchReference(Model model, @RequestParam String search) {
         List<Reference> refs = refService.getSearchedReferences(search);
@@ -184,12 +184,102 @@ public class ReferenceController {
 
     }
 
+    @RequestMapping(value = "/editBook/{id}", method = RequestMethod.POST)
+    public String updateBook(@Valid @ModelAttribute Book editBookRef, BindingResult bindingresult,
+            @PathVariable Long id) {
+
+        if (bindingresult.hasErrors()) {
+            return "editBook";
+        }
+
+        Book editedBook = (Book) refService.findById(id);
+
+        editedBook.setAuthors(editBookRef.getAuthors());
+        editedBook.setKey(editBookRef.getKey());
+        editedBook.setTags(editBookRef.getTags());
+        editedBook.setTitle(editBookRef.getTitle());
+        editedBook.setYear(editBookRef.getYear());
+        editedBook.setAddress(editBookRef.getAddress());
+        editedBook.setEdition(editBookRef.getEdition());
+        editedBook.setMonth(editBookRef.getMonth());
+        editedBook.setPublisher(editBookRef.getPublisher());
+        editedBook.setSeries(editBookRef.getSeries());
+        editedBook.setVolume(editBookRef.getVolume());
+
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/editArticle/{id}", method = RequestMethod.POST)
+    public String updateArticle(@Valid @ModelAttribute Article editArticleRef, BindingResult bindingresult,
+            @PathVariable Long id) {
+
+        if (bindingresult.hasErrors()) {
+            return "editArticle";
+        }
+
+        Article editedArticle = (Article) refService.findById(id);
+
+        editedArticle.setAuthors(editArticleRef.getAuthors());
+        editedArticle.setKey(editArticleRef.getKey());
+        editedArticle.setTags(editArticleRef.getTags());
+        editedArticle.setTitle(editArticleRef.getTitle());
+        editedArticle.setYear(editArticleRef.getYear());
+        editedArticle.setAddress(editArticleRef.getAddress());
+        editedArticle.setJournal(editArticleRef.getJournal());
+        editedArticle.setNumber(editArticleRef.getNumber());
+        editedArticle.setStartingPage(editArticleRef.getStartingPage());
+        editedArticle.setEndingPage(editArticleRef.getEndingPage());
+        editedArticle.setMonth(editArticleRef.getMonth());
+        editedArticle.setPublisher(editArticleRef.getPublisher());
+        editedArticle.setVolume(editArticleRef.getVolume());
+
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/editInpro/{id}", method = RequestMethod.POST)
+    public String updateInproceedings(@Valid @ModelAttribute Inproceedings editInproceedingsRef, BindingResult bindingresult,
+            @PathVariable Long id) {
+
+        if (bindingresult.hasErrors()) {
+            return "editArticle";
+        }
+
+        Inproceedings editedInproceed = (Inproceedings) refService.findById(id);
+
+        editedInproceed.setAuthors(editInproceedingsRef.getAuthors());
+        editedInproceed.setKey(editInproceedingsRef.getKey());
+        editedInproceed.setTags(editInproceedingsRef.getTags());
+        editedInproceed.setTitle(editInproceedingsRef.getTitle());
+        editedInproceed.setYear(editInproceedingsRef.getYear());
+        editedInproceed.setAddress(editInproceedingsRef.getAddress());
+        editedInproceed.setBookTitle(editInproceedingsRef.getBookTitle());
+        editedInproceed.setEditor(editInproceedingsRef.getEditor());
+        editedInproceed.setOrganization(editInproceedingsRef.getOrganization());
+        editedInproceed.setSeries(editInproceedingsRef.getSeries());
+        editedInproceed.setStartingPage(editInproceedingsRef.getStartingPage());
+        editedInproceed.setEndingPage(editInproceedingsRef.getEndingPage());
+        editedInproceed.setMonth(editInproceedingsRef.getMonth());
+        editedInproceed.setPublisher(editInproceedingsRef.getPublisher());
+        editedInproceed.setVolume(editInproceedingsRef.getVolume());
+
+        return "redirect:/";
+    }
+
     @RequestMapping(value = "/references/{id}", method = RequestMethod.GET)
     public String editReference(Model model, @PathVariable Long id) {
-        List<Reference> refs = refService.getReferences();
-        model.addAttribute("references", refs);
-        model.addAttribute("newReference", model.asMap().get("newReference"));
-        return "home";
+        Reference reference = refService.findById(id);
+
+        if (reference instanceof Book) {
+            model.addAttribute("editBookRef", reference);
+            return "editBook";
+
+        } else if (reference instanceof Article) {
+            model.addAttribute("editArticleRef", reference);
+            return "editArticle";
+        } else {
+            model.addAttribute("editInproceedingsRef", reference);
+            return "editInpro";
+        }
     }
 
 }
