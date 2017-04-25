@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Article</title>
+        <title>Books</title>
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css"></link>
         <link rel="stylesheet" th:href="@{/css/site.css}"/>
@@ -20,16 +20,18 @@
            
             <div class="col-md-6 col-md-offset-2">
                 
-                <h1>Add article reference</h1>
+                <h1>Edit a book reference</h1>
+
                 
                 <div class="container-fluid-bordered" >    
                     <span>* = mandatory field</span>
 
-                     <form th:action="@{/article}" th:method="POST" th:object="${article}">
+                     <form th:action="@{/editBook/{id}(id=${editBookRef.id})}" th:method="POST" th:object="${editBookRef}">
 
-                         <div th:replace="fragments/articleForm :: articleForm">
+                        <div th:replace="fragments/bookForm :: bookForm">
 
                         </div>
+                         
 
                     </form>
                 </div>
@@ -44,8 +46,5 @@
 
 
        
-    </body>  
-   
-
+    </body>    
 </html>
-

@@ -20,12 +20,12 @@
            
             <div class="col-md-6 col-md-offset-2">
                 
-                <h1>Add article reference</h1>
+                <h1>Edit an article reference</h1>
                 
                 <div class="container-fluid-bordered" >    
                     <span>* = mandatory field</span>
 
-                     <form th:action="@{/article}" th:method="POST" th:object="${article}">
+                    <form th:action="@{/editArticle/{id}(id=${editArticleRef.id})}" th:method="POST" th:object="${editArticleRef}">
 
                          <div th:replace="fragments/articleForm :: articleForm">
 
@@ -48,4 +48,3 @@
    
 
 </html>
-
