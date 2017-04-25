@@ -44,19 +44,18 @@ public class FileController {
     private ValidatorService validator;
     
        @RequestMapping(value = "/download", method = RequestMethod.POST)
-    public ResponseEntity<byte[]> viewFile(@RequestParam String fileName, @RequestParam("refs") Long[] refs) {
+    public ResponseEntity<byte[]> viewFile(@RequestParam String fileName) {
         String name = fileName;
         if(!validator.fieldNotEmpty(fileName)){
             name = null;
         }
-        List<Reference> toDownload = new ArrayList<>();
-        if(refs.length > 0){
-            toDownload = referenceService.getReferencesById(Arrays.asList(refs));
-            
-        }else{
-            toDownload = referenceService.getReferences();
-        }
-        FileObject fo = fileService.createFile(toDownload,name);    
+//        List<Reference> toDownload = new ArrayList<>();
+//        if(refs.length > 0){
+//            toDownload = referenceService.getReferencesById(Arrays.asList(refs));
+//        }else{
+//            toDownload = referenceService.getReferences();
+//        }
+        FileObject fo = fileService.createFile(referenceService.getReferences(),name);    
 
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType("text/bib"));
