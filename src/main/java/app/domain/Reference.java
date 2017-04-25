@@ -40,7 +40,7 @@ public abstract class Reference extends AbstractPersistable<Long> {
     // this field is common with all Reference types
     @ElementCollection
     @CollectionTable(name = "authors")
-    @NotEmpty(message = "Field can not be empty!")
+//    @NotEmpty(message = "Field can not be empty!")
     private List<String> authors;
 
     public String getKey() {
