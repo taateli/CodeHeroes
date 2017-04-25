@@ -1,5 +1,6 @@
 package app.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CollectionTable;
 import javax.persistence.DiscriminatorColumn;
@@ -129,12 +130,13 @@ public abstract class Reference extends AbstractPersistable<Long> {
         String output = "";
         int length = this.tags.size();
 
+        
         if (length == 1) {
             output = this.tags.get(0);
         }
 
         
-        else {
+        else if (length > 1) {
             output = String.join(",", tags);
         }
 

@@ -6,6 +6,7 @@ import app.domain.Inproceedings;
 import app.domain.Reference;
 import app.service.ReferenceService;
 import app.service.ValidatorService;
+import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -157,6 +158,14 @@ public class ReferenceController {
             RedirectAttributes redirectAttrs) {
 
         reference.setAuthors(validator.splitAuthors(reference.getAuthors().get(0)));
+        //tässä vika!
+        try {
+            reference.setTags(validator.splitTags(reference.getTags().get(0)));
+            } catch (IndexOutOfBoundsException iex) {
+                System.err.println("Tags not set: "+iex);
+                reference.setTags(new ArrayList<String>());
+            }
+        
         Reference newReference = null;
         if (!validator.fieldNotEmpty(reference.getKey())) {
             newReference = refService.addReference(validator.getKey(reference));

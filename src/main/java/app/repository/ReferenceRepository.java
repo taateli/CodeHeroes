@@ -14,5 +14,7 @@ public interface ReferenceRepository extends JpaRepository<Reference,Long> {
     Reference findById(Long id);
     
     Reference findByKey(String key);
+    
+    //Reference findByTag(String tag);
 }
 

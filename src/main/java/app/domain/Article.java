@@ -132,6 +132,10 @@ public class Article extends Reference {
         }
         output = output + " Key{" + super.getKey() + "}";
         
+        if (!super.getTags().isEmpty()) {
+            output = output + " " + super.tagsToString() + ".";
+        }
+         
         return output;
     }
 

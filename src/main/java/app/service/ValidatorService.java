@@ -21,6 +21,7 @@ public class ValidatorService {
     
  // This method checks if input string is empty   
     public boolean fieldNotEmpty(String value){
+        System.out.println("valuen pituus "+value.length());
         return value.length() > 0;
     }
 
@@ -29,10 +30,17 @@ public class ValidatorService {
         return Integer.parseInt(end) < Integer.parseInt(start);
     }
 
-// This methid is for splitting authors string to arraylist    
+// This method is for splitting authors string to arraylist    
     public List<String> splitAuthors(String authors){
         List authorList = new ArrayList<>(Arrays.asList(authors.split(" and ")));
         return authorList;
+    }
+    
+    // This method is for splitting tags string to arraylist    
+     public List<String> splitTags(String tags) {
+         System.out.println("splitTags kutsuttu, tags: "+tags); //testing
+         List tagList = new ArrayList<>(Arrays.asList(tags.split(" and ")));
+        return tagList;
     }
     
     public Reference getKey(Reference ref) {
@@ -58,6 +66,8 @@ public class ValidatorService {
         
         return ref;
     }
+
+   
     
     
 }

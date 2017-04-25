@@ -38,6 +38,8 @@ public class BookForm {
     
     @NotEmpty(message = "Field can not be empty!")
     private String publisher;
+    
+    private String tags;
 
     /**
      * Optional variables:
@@ -138,6 +140,14 @@ public class BookForm {
 
     public void setYear(String year) {
         this.year = year;
+    }
+    
+       public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 
 }
