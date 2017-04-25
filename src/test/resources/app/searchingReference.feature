@@ -6,3 +6,4 @@ Feature: User can search references according to a string
     And searchdata "Mika" is given
     When Search button is pressed
     Then book reference with data "Mika Waltari" is displayd in the list
+    And system will not respond with "Kaisa Waltari"  

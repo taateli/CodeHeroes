@@ -5,6 +5,8 @@
  */
 package app.domain;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,7 +18,6 @@ import static org.junit.Assert.*;
  *
  * @author bensatu
  */
-
 public class BookTest {
 
     Book instance;
@@ -36,10 +37,16 @@ public class BookTest {
     public void setUp() {
         instance = new Book();
         instance.setAddress("address");
+        List<String> authors = new ArrayList<>();
+        authors.add("author1");
+        authors.add("author2");
+        instance.setAuthors(authors);
 //        instance.setAuthor("author");
         instance.setPublisher("publisher");
         instance.setTitle("title");
         instance.setYear("2017");
+        instance.setEdition("44");
+        instance.setKey("avain");
     }
 
     @After
@@ -64,7 +71,6 @@ public class BookTest {
 //        System.out.println("getAuthor");
 //        assertEquals("author", instance.getAuthor());
 //    }
-
     /**
      * Test of getYear method, of class Book.
      */
@@ -104,8 +110,8 @@ public class BookTest {
     }
 
     /**
-     * Test of setAuthor method, of class Book.
-//     */
+     * Test of setAuthor method, of class Book. //
+     */
 //    @Test
 //    public void testSetAuthor() {
 //        System.out.println("setAuthor");
@@ -113,7 +119,6 @@ public class BookTest {
 //        instance1.setAuthor("author");
 //        assertEquals("author", instance1.getAuthor());
 //    }
-
     /**
      * Test of setYear method, of class Book.
      */
@@ -156,20 +161,23 @@ public class BookTest {
 //        String expResult = "author. title. publisher, 2017. address.";
 //        assertEquals(expResult, instance.toString());
 //    }
-
     /**
      * Test of toBibTex method, of class Book.
      */
-//    @Test
-//    public void testToBibTex() {
-//        System.out.println("toBibTex");
-//        Book instance = new Book();
-//        String expResult = "";
-//        String result = instance.toBibTex();
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    @Test
+    public void testToBibTex() {
+        System.out.println("toBibTex");
+        String expResult = "@book{avain,\n"
+                + "author = {author1 and author2},\n"
+                + "title = {title},\n"
+                + "year = {2017},\n"
+                + "publisher = {publisher},\n"
+                + "address = {address},\n"
+                + "edition = {44},\n"
+                + "}";
+        assertEquals(expResult, instance.toBibTex());
+    }
+
     /**
      * Test of getId method, of class Book.
      */
@@ -179,7 +187,5 @@ public class BookTest {
         assertEquals(null, instance.getId());
 
     }
-
-    
 
 }
