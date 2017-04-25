@@ -52,5 +52,9 @@ public class ReferenceService {
     public Reference findByKey(String key) {
         return refRepository.findByKey(key);
     }
-
+    
+    public List<Reference> getReferencesById(List ids) {
+        
+        return refRepository.findAll();
+    }
 }

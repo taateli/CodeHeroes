@@ -58,13 +58,7 @@
             <div class="col-md-4">
                 <h1> All references </h1>  
 
-                <div class="container-fluid">   
-                    <form th:method="GET" th:action="@{/download} ">
-                        <label>Name of the file:</label>
-                        <input type="text" name="fileName"/>
-                        <input type="submit" class="btn btn-primary btn-sm" value="Download.bib"/>
-                    </form>
-                </div> 
+                
 
                 <div class="container-fluid">   
                     <form th:method="GET" th:action="@{/search} ">
@@ -102,7 +96,13 @@
 
                 </div>
      -->
-
+                  
+                    <form th:method="POST" th:action="@{/download} ">
+                        <label>Name of the file:</label>
+                        <input type="text" name="fileName"/>
+                        <input type="submit" class="btn btn-primary btn-sm" value="Download.bib"/>
+                    
+                
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
@@ -114,6 +114,8 @@
                     <tbody>
 
                         <tr th:each="reference : ${references}">
+                            <td><input  type="checkbox" name="refs" th:value="${reference.id}"></input></td>
+                     </form>        
                             <td><a  th:href="@{/references/{id} (id=${reference.id})}" th:text="${reference}"></a></td>
 
 
@@ -123,7 +125,9 @@
 
                     </tbody>
                 </table>
-
+               
+     
+                
 
             </div>
         </div>
