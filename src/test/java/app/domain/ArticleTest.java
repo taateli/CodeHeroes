@@ -12,6 +12,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import app.domain.Reference;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Iisa
@@ -36,6 +40,11 @@ public class ArticleTest {
         instance = new Article();
 
 //        instance.setAuthor("author");
+        List<String> authors = new ArrayList<>();
+        authors.add("author1");
+        authors.add("author2");
+        instance.setAuthors(authors);
+        instance.setKey("avain");
         instance.setTitle("title");
         instance.setJournal("journal");
         instance.setPublisher("publisher");
@@ -241,8 +250,8 @@ public class ArticleTest {
         instance1.setEndingPage(page);
         assertEquals("70", instance1.getEndingPage());
     }
-    
-     /**
+
+    /**
      * Test of toString method, of class Article.
      */
 //    @Test
@@ -251,4 +260,23 @@ public class ArticleTest {
 //        String expResult = "author. title. journal, 4(2): 1-100, publisher, 2017. address.";
 //        assertEquals(expResult, instance.toString());
 //    }
+    /**
+     * Test of toBibTex method, of class Article.
+     */
+    @Test
+    public void testToBibTex() {
+        System.out.println("toBibTex()");
+        String expResult = "@article{avain,\n"
+                + "author = {author1 and author2},\n"
+                + "title = {title},\n"
+                + "journal = {journal},\n"
+                + "vol = {4},\n"
+                + "number = {2},\n"
+                + "year = {2017},\n"
+                + "pages = {1--100},\n"
+                + "publisher = {publisher},\n"
+                + "address = {address},\n"
+                + "}";
+        assertEquals(expResult, instance.toBibTex());
+    }
 }

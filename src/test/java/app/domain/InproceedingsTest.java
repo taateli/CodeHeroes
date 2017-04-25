@@ -5,6 +5,8 @@
  */
 package app.domain;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,7 +18,6 @@ import static org.junit.Assert.*;
  *
  * @author bensatu
  */
-
 public class InproceedingsTest {
 
     Inproceedings instance;
@@ -37,13 +38,18 @@ public class InproceedingsTest {
     public void setUp() {
         instance = new Inproceedings();
         instance.setAddress("address");
-//        instance.setAuthor("author");
+        List<String> authors = new ArrayList<>();
+        authors.add("author1");
+        authors.add("author2");
+        instance.setAuthors(authors);
         instance.setBookTitle("bookTitle");
+        instance.setStartingPage("1");
         instance.setEndingPage("100");
         instance.setPublisher("publisher");
         instance.setStartingPage("1");
         instance.setTitle("title");
         instance.setYear("2017");
+        instance.setEditor("editor");
 
     }
 
@@ -80,7 +86,6 @@ public class InproceedingsTest {
 //        String result = instance.getAuthor();
 //        assertEquals("author", result);
 //    }
-
     /**
      * Test of getYear method, of class Inproceedings.
      */
@@ -163,7 +168,6 @@ public class InproceedingsTest {
 //        instance1.setAuthor(author);
 //        assertEquals("author1", instance1.getAuthor());
 //    }
-
     /**
      * Test of setYear method, of class Inproceedings.
      */
@@ -235,18 +239,22 @@ public class InproceedingsTest {
 //        String expResult = " author. title. In bookTitle, pages 1 - 100. publisher,2017. address.";
 //        assertEquals(expResult, instance.toString());
 //    }
-
     /**
      * Test of toBibTex method, of class Inproceedings.
      */
-//    @Test
-//    public void testToBibTex() {
-//        System.out.println("toBibTex");
-//        Inproceedings instance = new Inproceedings();
-//        String expResult = "";
-//        String result = instance.toBibTex();
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    @Test
+    public void testToBibTex() {
+        System.out.println("toBibTex()");
+        String expResult = "@inproceedings{null,\n"
+                + "author = {author1 and author2},\n"
+                + "title = {title},\n"
+                + "booktitle = {bookTitle},\n"
+                + "year = {2017},\n"
+                + "pages = {1--100},\n"
+                + "publisher = {publisher},\n"
+                + "address = {address},\n"
+                + "editor = {editor},\n"
+                + "}";
+        assertEquals(expResult, instance.toBibTex());
+    }
 }

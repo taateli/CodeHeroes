@@ -42,6 +42,11 @@ public abstract class Reference extends AbstractPersistable<Long> {
     @CollectionTable(name = "authors")
     @NotEmpty(message = "Field can not be empty!")
     private List<String> authors;
+    
+      // this field is common with all Reference types
+    @ElementCollection
+    @CollectionTable(name = "tags")
+    private List<String> tags;
 
     public String getKey() {
         return key;
@@ -61,6 +66,14 @@ public abstract class Reference extends AbstractPersistable<Long> {
 
     public void setAuthors(List<String> authors) {
         this.authors = authors;
+    }
+    
+     public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
     }
 
     public String getTitle() {
@@ -107,6 +120,22 @@ public abstract class Reference extends AbstractPersistable<Long> {
                 output = output + this.authors.get(i) + ", ";
             }
             output = output + "and " + this.authors.get(length - 1);
+        }
+
+        return output;
+    }
+    
+       public String tagsToString() {
+        String output = "";
+        int length = this.tags.size();
+
+        if (length == 1) {
+            output = this.tags.get(0);
+        }
+
+        
+        else {
+            output = String.join(",", tags);
         }
 
         return output;

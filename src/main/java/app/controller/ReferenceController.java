@@ -6,7 +6,6 @@ import app.domain.Inproceedings;
 import app.domain.Reference;
 import app.service.ReferenceService;
 import app.service.ValidatorService;
-import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -153,7 +152,7 @@ public class ReferenceController {
      * @param bindingresult
      * @param redirectAttrs
      */
-    public void addReference(@Valid
+    private void addReference(@Valid
             @ModelAttribute Reference reference, BindingResult bindingresult,
             RedirectAttributes redirectAttrs) {
 

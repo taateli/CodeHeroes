@@ -10,6 +10,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import java.io.File;
+import static org.junit.Assert.assertFalse;
 
 import static org.junit.Assert.assertTrue;
 import org.openqa.selenium.Alert;
@@ -65,6 +66,53 @@ public class Stepdefs {
         system_will_respond_with("Reference added successfully!");
     }
 
+    // searchingReference.feature uses:
+    @Given("^a book reference with key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" publisher \"([^\"]*)\" is created succesfully$")
+    public void a_book_reference_with_key_author_title_year_publisher_is_created_succesfully(String key, String author, String title, String year, String publisher) throws Throwable {
+        form_book_is_selected();
+        createBookWithMandatoryFields(key, author, title, year, publisher);
+        system_will_respond_with("Reference added successfully!");
+    }
+
+    @Given("^searchdata \"([^\"]*)\" is given$")
+    public void searchdata_is_given(String searchData) throws Throwable {
+        WebElement element = driver.findElement(By.name("search"));
+        element.sendKeys(searchData);
+    }
+
+    @Given("^filename \"([^\"]*)\" is added$")
+    public void filename_is_added(String fileName) throws Throwable {
+        WebElement element = driver.findElement(By.name("fileName"));
+        element.sendKeys(fileName);
+
+    }
+
+    @When("^printFile button is pressed$")
+    public void printfile_button_is_pressed() throws Throwable {
+        driver.findElement(By.name("fileName")).click();
+    }
+
+    @Then("^file is created by name \"([^\"]*)\"$")
+    public void file_is_created_by_name(String fileName) throws Throwable {
+       pageHasContent(fileName);
+    }
+
+    @Then("^system will not respond with \"([^\"]*)\"$")
+    public void system_will_not_respond_with(String content) throws Throwable {
+        pageHasNotContent(content);
+    }
+
+    @When("^Search button is pressed$")
+    public void search_button_is_pressed() throws Throwable {
+        WebElement element = driver.findElement(By.name("search"));
+        element.submit();
+    }
+
+    @Then("^book reference with data \"([^\"]*)\" is displayd in the list$")
+    public void book_reference_with_data_is_displayd_in_the_list(String searchdata) throws Throwable {
+        system_will_respond_with(searchdata);
+    }
+
     @When("^key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" publisher \"([^\"]*)\" are inserted$")
     public void key_author_title_year_publisher_are_inserted(String key, String author, String title, String year, String publisher) throws Throwable {
         createBookWithMandatoryFields(key, author, title, year, publisher);
@@ -86,7 +134,7 @@ public class Stepdefs {
     public void delete_is_pressed() throws InterruptedException {
         // this will make the popup visible
         driver.findElement(By.xpath("//div[3]/table/tbody/tr/th/form/input[2]")).click();
-        Thread.sleep(10000); // If you wanna see the popup properly
+        Thread.sleep(2000); // If you wanna see the popup for 2 seconds
     }
 
     @When("^popup is accepted$")
@@ -108,15 +156,40 @@ public class Stepdefs {
 
     }
 
+    @When("^popup is not accepted$")
+    public void popup_is_not_accepted() throws Throwable {
+        long timeout = 500;
+        long waitForAlert = System.currentTimeMillis() + timeout;
+        boolean boolFound = false;
+        do {
+            try {
+                Alert alert = this.driver.switchTo().alert();
+                if (alert != null) {
+                    //  alert.accept(); // OK is accepted from the popup
+                    alert.dismiss(); // Cancel is accepted from the popup
+                    boolFound = true;
+                }
+            } catch (NoAlertPresentException ex) {
+            }
+        } while ((System.currentTimeMillis() < waitForAlert) && (!boolFound));
+
+    }
+
     @Then("^system will respond with \"([^\"]*)\"$")
     public void system_will_respond_with(String arg1) throws Throwable {
-        Thread.sleep(10000);
+        Thread.sleep(2000);
         pageHasContent(arg1);
+    }
+
+    private void pageHasNotContent(String content) throws InterruptedException {
+        Thread.sleep(4000);
+        assertTrue(!driver.getPageSource().contains(content));
     }
 
 // This method checks if page has text that is given as parameter    
     private void pageHasContent(String content) throws InterruptedException {
-        Thread.sleep(10000);
+
+        Thread.sleep(4000);
         assertTrue(driver.getPageSource().contains(content));
     }
     
