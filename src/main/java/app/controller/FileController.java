@@ -6,9 +6,13 @@
 package app.controller;
 
 import app.domain.FileObject;
+import app.domain.Reference;
 import app.service.FileService;
 import app.service.ReferenceService;
 import app.service.ValidatorService;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -39,13 +43,19 @@ public class FileController {
     @Autowired
     private ValidatorService validator;
     
-       @RequestMapping(value = "/download", method = RequestMethod.GET)
+       @RequestMapping(value = "/download", method = RequestMethod.POST)
     public ResponseEntity<byte[]> viewFile(@RequestParam String fileName) {
         String name = fileName;
         if(!validator.fieldNotEmpty(fileName)){
             name = null;
         }
-        FileObject fo = fileService.createFile(referenceService.getReferences(),name);
+//        List<Reference> toDownload = new ArrayList<>();
+//        if(refs.length > 0){
+//            toDownload = referenceService.getReferencesById(Arrays.asList(refs));
+//        }else{
+//            toDownload = referenceService.getReferences();
+//        }
+        FileObject fo = fileService.createFile(referenceService.getReferences(),name);    
 
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType("text/bib"));
