@@ -157,6 +157,10 @@ public class ReferenceController {
             RedirectAttributes redirectAttrs) {
 
         reference.setAuthors(validator.splitAuthors(reference.getAuthors().get(0)));
+        //tässä vika!
+        if (reference.getTags().get(0) == null){
+            reference.setTags(validator.splitTags(reference.getTags().get(0)));
+        }
         Reference newReference = null;
         if (!validator.fieldNotEmpty(reference.getKey())) {
             newReference = refService.addReference(validator.getKey(reference));
