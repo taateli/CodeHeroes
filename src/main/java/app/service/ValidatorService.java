@@ -21,6 +21,7 @@ public class ValidatorService {
     
  // This method checks if input string is empty   
     public boolean fieldNotEmpty(String value){
+        System.out.println("valuen pituus "+value.length());
         return value.length() > 0;
     }
 
@@ -37,7 +38,7 @@ public class ValidatorService {
     
     // This method is for splitting tags string to arraylist    
      public List<String> splitTags(String tags) {
-         System.out.println("splitTags kutsuttu, tags: "+tags);
+         System.out.println("splitTags kutsuttu, tags: "+tags); //testing
          List tagList = new ArrayList<>(Arrays.asList(tags.split(" and ")));
         return tagList;
     }
