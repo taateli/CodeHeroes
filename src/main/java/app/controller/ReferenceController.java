@@ -162,7 +162,6 @@ public class ReferenceController {
         try {
             reference.setTags(validator.splitTags(reference.getTags().get(0)));
             } catch (IndexOutOfBoundsException iex) {
-                System.err.println("Tags not set: "+iex);
                 reference.setTags(new ArrayList<String>());
             }
         
