@@ -43,19 +43,33 @@ public class FileController {
     @Autowired
     private ValidatorService validator;
     
-       @RequestMapping(value = "/download", method = RequestMethod.POST)
-    public ResponseEntity<byte[]> viewFile(@RequestParam String fileName) {
+       @RequestMapping(value = "/download2", method = RequestMethod.POST)
+    public ResponseEntity<byte[]> viewFile(@RequestParam String fileName, @RequestParam(name = "refs", required=false) List<Long> refs) {
+        
         String name = fileName;
         if(!validator.fieldNotEmpty(fileName)){
             name = null;
         }
+        FileObject fo = null;
+        if (refs == null) {
+        fo = fileService.createFile(referenceService.getReferences(),name);
+        } else {
+        List<Reference> references = null;  
+        for (Long id : refs) {
+            references.add(referenceService.findById(id));
+        }
+            
+        fo= fileService.createFile(references, fileName);
+        }
+        
+        
 //        List<Reference> toDownload = new ArrayList<>();
 //        if(refs.length > 0){
 //            toDownload = referenceService.getReferencesById(Arrays.asList(refs));
 //        }else{
 //            toDownload = referenceService.getReferences();
 //        }
-        FileObject fo = fileService.createFile(referenceService.getReferences(),name);    
+            
 
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType("text/bib"));
@@ -63,7 +77,8 @@ public class FileController {
         headers.setContentLength(fo.getContentLength());
 
         return new ResponseEntity<byte[]>(fo.getContent(), headers, HttpStatus.CREATED);
-    }
+        }
+        
 
     //kopioitu malliksi, saa poistaa kun toimii
 //    String filename = "output.pdf";
