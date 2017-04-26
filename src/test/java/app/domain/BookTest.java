@@ -41,12 +41,15 @@ public class BookTest {
         authors.add("author1");
         authors.add("author2");
         instance.setAuthors(authors);
-//        instance.setAuthor("author");
         instance.setPublisher("publisher");
         instance.setTitle("title");
         instance.setYear("2017");
         instance.setEdition("44");
         instance.setKey("avain");
+        List<String> tags = new ArrayList<>();
+        tags.add("tag1");
+        tags.add("tag2");
+        instance.setTags(tags);
     }
 
     @After
@@ -153,14 +156,71 @@ public class BookTest {
     }
 
     /**
+     * Test of toString method, of class Book. One author.
+     */
+    @Test
+    public void testToStringOneAuthor() {
+        List<String> authors = new ArrayList<>();
+        authors.add("author1");
+        instance.setAuthors(authors);
+        System.out.println("toString");
+        String expResult = "author1. title. publisher, 44, 2017. address. Key{avain} tag1,tag2.";
+        assertEquals(expResult, instance.toString());
+    }
+
+    /**
      * Test of toString method, of class Book.
      */
-//    @Test
-//    public void testToString() {
-//        System.out.println("toString");
-//        String expResult = "author. title. publisher, 2017. address.";
-//        assertEquals(expResult, instance.toString());
-//    }
+    @Test
+    public void testToString() {
+        System.out.println("toString");
+        String expResult = "author1 and author2. title. publisher, 44, 2017. address. Key{avain} tag1,tag2.";
+        assertEquals(expResult, instance.toString());
+    }
+
+    /**
+     * Test of toString method, of class Book. Three authors.
+     */
+    @Test
+    public void testToStringThreeAuthors() {
+        List<String> authors = new ArrayList<>();
+        authors.add("author1");
+        authors.add("author2");
+        authors.add("author3");
+        instance.setAuthors(authors);
+        System.out.println("toString");
+        String expResult = "author1, author2, and author3. title. publisher, 44, 2017. address. Key{avain} tag1,tag2.";
+        assertEquals(expResult, instance.toString());
+    }
+
+    /**
+     * Test of toString method, of class Book. One tag.
+     */
+    @Test
+    public void testToStringOneTag() {
+        List<String> tags = new ArrayList<>();
+        tags.add("tag1");
+        instance.setTags(tags);
+        System.out.println("toString");
+        String expResult = "author1 and author2. title. publisher, 44, 2017. address. Key{avain} tag1.";
+        assertEquals(expResult, instance.toString());
+    }
+
+    /**
+     * Test of toString method, of class Book. Three tags.
+     */
+    @Test
+    public void testToStringThreeTags() {
+        List<String> tags = new ArrayList<>();
+        tags.add("tag1");
+        tags.add("tag2");
+        tags.add("tag3");
+        instance.setTags(tags);
+        System.out.println("toString");
+        String expResult = "author1 and author2. title. publisher, 44, 2017. address. Key{avain} tag1,tag2,tag3.";
+        assertEquals(expResult, instance.toString());
+    }
+
     /**
      * Test of toBibTex method, of class Book.
      */

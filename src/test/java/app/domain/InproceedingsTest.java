@@ -41,6 +41,7 @@ public class InproceedingsTest {
         List<String> authors = new ArrayList<>();
         authors.add("author1");
         authors.add("author2");
+        instance.setKey("avain");
         instance.setAuthors(authors);
         instance.setBookTitle("bookTitle");
         instance.setStartingPage("1");
@@ -49,7 +50,11 @@ public class InproceedingsTest {
         instance.setStartingPage("1");
         instance.setTitle("title");
         instance.setYear("2017");
-        instance.setEditor("editor");
+        instance.setEditor("editor1");
+        List<String> tags = new ArrayList<>();
+        tags.add("tag1");
+        tags.add("tag2");
+        instance.setTags(tags);
 
     }
 
@@ -229,23 +234,78 @@ public class InproceedingsTest {
     }
 
     /**
+     * Test of toString method, of class Inproceedings. One author.
+     */
+    @Test
+    public void testToStringOneAuthor() {
+        List<String> authors = new ArrayList<>();
+        authors.add("author1");
+        instance.setAuthors(authors);
+        System.out.println("toString");
+        String expResult = "author1. title. In editor1, editor, bookTitle, pages 1-100. publisher, 2017. address. Key{avain} tag1,tag2.";
+        assertEquals(expResult, instance.toString());
+    }
+
+    /**
      * Test of toString method, of class Inproceedings.
      */
-//    @Test
-//    public void testToString() {
-//        System.out.println("toString");
-//        System.out.println("alla");
-//        System.out.println(instance.toString());
-//        String expResult = " author. title. In bookTitle, pages 1 - 100. publisher,2017. address.";
-//        assertEquals(expResult, instance.toString());
-//    }
+    @Test
+    public void testToString() {
+        System.out.println("toString");
+        String expResult = "author1 and author2. title. In editor1, editor, bookTitle, pages 1-100. publisher, 2017. address. Key{avain} tag1,tag2.";
+        assertEquals(expResult, instance.toString());
+    }
+
+    /**
+     * Test of toString method, of class Inproceedings. Three authors.
+     */
+    @Test
+    public void testToStringThreeAuthors() {
+        List<String> authors = new ArrayList<>();
+        authors.add("author1");
+        authors.add("author2");
+        authors.add("author3");
+        instance.setAuthors(authors);
+        System.out.println("toString");
+        String expResult = "author1, author2, and author3. title. In editor1, editor, bookTitle, pages 1-100. publisher, 2017. address. Key{avain} tag1,tag2.";
+        assertEquals(expResult, instance.toString());
+    }
+
+    /**
+     * Test of toString method, of class Inproceedings. One tag.
+     */
+    @Test
+    public void testToStringOneTag() {
+        List<String> tags = new ArrayList<>();
+        tags.add("tag1");
+        instance.setTags(tags);
+        System.out.println("toString");
+        String expResult = "author1 and author2. title. In editor1, editor, bookTitle, pages 1-100. publisher, 2017. address. Key{avain} tag1.";
+        assertEquals(expResult, instance.toString());
+    }
+
+    /**
+     * Test of toString method, of class Inproceedings. Three tags.
+     */
+    @Test
+    public void testToStringThreeTags() {
+        List<String> tags = new ArrayList<>();
+        tags.add("tag1");
+        tags.add("tag2");
+        tags.add("tag3");
+        instance.setTags(tags);
+        System.out.println("toString");
+        String expResult = "author1 and author2. title. In editor1, editor, bookTitle, pages 1-100. publisher, 2017. address. Key{avain} tag1,tag2,tag3.";
+        assertEquals(expResult, instance.toString());
+    }
+
     /**
      * Test of toBibTex method, of class Inproceedings.
      */
     @Test
     public void testToBibTex() {
         System.out.println("toBibTex()");
-        String expResult = "@inproceedings{null,\n"
+        String expResult = "@inproceedings{avain,\n"
                 + "author = {author1 and author2},\n"
                 + "title = {title},\n"
                 + "booktitle = {bookTitle},\n"
@@ -253,7 +313,7 @@ public class InproceedingsTest {
                 + "pages = {1--100},\n"
                 + "publisher = {publisher},\n"
                 + "address = {address},\n"
-                + "editor = {editor},\n"
+                + "editor = {editor1},\n"
                 + "}";
         assertEquals(expResult, instance.toBibTex());
     }
