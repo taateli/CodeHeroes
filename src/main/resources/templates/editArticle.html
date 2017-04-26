@@ -32,13 +32,15 @@
                         </div>
 
                     </form>
+                    
+                    <form th:method="DELETE" th:action="@{/references/{id} (id=${article.id})} ">
+                        <input type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm" value="Delete"/>
+                    </form>
                 </div>
                
             </div>
             
-            <div class="col-md-4">
-                
-            </div>
+            
 
         </div>
 

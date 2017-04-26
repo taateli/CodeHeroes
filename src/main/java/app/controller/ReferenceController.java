@@ -194,7 +194,7 @@ public class ReferenceController {
 
     @RequestMapping(value = "/editBook/{id}", method = RequestMethod.POST)
     public String updateBook(@Valid @ModelAttribute Book editBookRef, BindingResult bindingresult,
-            @PathVariable Long id) {
+            @PathVariable Long id,RedirectAttributes redirectAttrs) {
 
         if (bindingresult.hasErrors()) {
             return "editBook";
@@ -214,12 +214,13 @@ public class ReferenceController {
         editedBook.setSeries(editBookRef.getSeries());
         editedBook.setVolume(editBookRef.getVolume());
         refService.addReference(editedBook);
+        redirectAttrs.addFlashAttribute("updatedReference", editedBook);
         return "redirect:/";
     }
 
     @RequestMapping(value = "/editArticle/{id}", method = RequestMethod.POST)
     public String updateArticle(@Valid @ModelAttribute Article editArticleRef, BindingResult bindingresult,
-            @PathVariable Long id) {
+            @PathVariable Long id,RedirectAttributes redirectAttrs) {
 
         if (bindingresult.hasErrors()) {
             return "editArticle";
@@ -241,12 +242,13 @@ public class ReferenceController {
         editedArticle.setPublisher(editArticleRef.getPublisher());
         editedArticle.setVolume(editArticleRef.getVolume());
         refService.addReference(editedArticle);
+        redirectAttrs.addFlashAttribute("updatedReference", editedArticle);
         return "redirect:/";
     }
 
     @RequestMapping(value = "/editInpro/{id}", method = RequestMethod.POST)
     public String updateInproceedings(@Valid @ModelAttribute Inproceedings editInproceedingsRef, BindingResult bindingresult,
-            @PathVariable Long id) {
+            @PathVariable Long id,RedirectAttributes redirectAttrs) {
 
         if (bindingresult.hasErrors()) {
             return "editInpro";
@@ -270,6 +272,7 @@ public class ReferenceController {
         editedInproceed.setPublisher(editInproceedingsRef.getPublisher());
         editedInproceed.setVolume(editInproceedingsRef.getVolume());
         refService.addReference(editedInproceed);
+        redirectAttrs.addFlashAttribute("updatedReference", editedInproceed);
         return "redirect:/";
     }
 

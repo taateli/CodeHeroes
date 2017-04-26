@@ -50,13 +50,12 @@ public class FileController {
         if(!validator.fieldNotEmpty(fileName)){
             name = null;
         }
-        
-        
+                   
         List<Reference> toDownload = new ArrayList<>();
-        if(refs == null){
-            toDownload = referenceService.getReferencesById(Arrays.asList(refs));
-        }else{
+        if(refs == null || refs[0] == null){
             toDownload = referenceService.getReferences();
+        }else{
+            toDownload = referenceService.getReferencesById(Arrays.asList(refs));
         }
             
          FileObject fo= fileService.createFile(toDownload, name);
