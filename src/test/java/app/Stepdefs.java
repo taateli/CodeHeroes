@@ -179,29 +179,21 @@ public class Stepdefs {
     
         @When("^Edit is pressed$")
     public void edit_is_pressed() throws Throwable {
-        driver.findElement(By.linkText("EDIT")).click();
-        // Write code here that turns the phrase above into concrete actions
-      //  throw new PendingException();
+        driver.findElement(By.xpath("//tbody/tr/td[3]/a")).click();
+        Thread.sleep(5000);
     }
 
     @When("^a book reference with key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" publisher \"([^\"]*)\" is updated$")
     public void a_book_reference_with_key_author_title_year_publisher_is_updated(String key, String author, String title, String year, String publisher) throws Throwable {
-
+     //   System.out.println("Driverin page source onko true? " +driver.getPageSource().contains("Edit a book reference"));
         assertTrue(driver.getPageSource().contains("Edit a book reference"));
-//                 WebElement element = driver.findElement(By.name("key"));
-//        element.sendKeys(key);
-//        element = driver.findElement(By.name("authors"));
-//        element.sendKeys(author);
-//        element = driver.findElement(By.name("title"));
-//        element.sendKeys(title);
-//        element = driver.findElement(By.name("year"));
-//        element.sendKeys(year);
-//
-//        element = driver.findElement(By.name("publisher"));
-//        element.sendKeys(publisher);
-//
-//        element = driver.findElement(By.name("save"));
-//        element.submit();
+                 WebElement element = driver.findElement(By.name("key"));
+        element.sendKeys(key);
+        element = driver.findElement(By.name("authors"));
+        element.sendKeys(author);
+
+        element = driver.findElement(By.name("save"));
+        element.submit();
          
     }
 
@@ -210,6 +202,8 @@ public class Stepdefs {
     @Then("^system will respond with \"([^\"]*)\"$")
     public void system_will_respond_with(String arg1) throws Throwable {
         Thread.sleep(2000);
+   //     System.out.println("pagen content " + arg1);
+        
         pageHasContent(arg1);
     }
 
@@ -222,6 +216,9 @@ public class Stepdefs {
     private void pageHasContent(String content) throws InterruptedException {
 
         Thread.sleep(4000);
+//        System.out.println("content on " + content);
+//        System.out.println("Driver contains true? " + driver.getPageSource().contains(content));
+//        System.out.println("Tässä pagesource on " + driver.getPageSource());
         assertTrue(driver.getPageSource().contains(content));
     }
     
