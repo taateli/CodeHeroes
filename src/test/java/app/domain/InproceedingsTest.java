@@ -234,6 +234,19 @@ public class InproceedingsTest {
     }
 
     /**
+     * Test of toString method, of class Inproceedings. One author.
+     */
+    @Test
+    public void testToStringOneAuthor() {
+        List<String> authors = new ArrayList<>();
+        authors.add("author1");
+        instance.setAuthors(authors);
+        System.out.println("toString");
+        String expResult = "author1. title. In editor1, editor, bookTitle, pages 1-100. publisher, 2017. address. Key{avain} tag1,tag2.";
+        assertEquals(expResult, instance.toString());
+    }
+
+    /**
      * Test of toString method, of class Inproceedings.
      */
     @Test
@@ -242,6 +255,50 @@ public class InproceedingsTest {
         String expResult = "author1 and author2. title. In editor1, editor, bookTitle, pages 1-100. publisher, 2017. address. Key{avain} tag1,tag2.";
         assertEquals(expResult, instance.toString());
     }
+
+    /**
+     * Test of toString method, of class Inproceedings. Three authors.
+     */
+    @Test
+    public void testToStringThreeAuthors() {
+        List<String> authors = new ArrayList<>();
+        authors.add("author1");
+        authors.add("author2");
+        authors.add("author3");
+        instance.setAuthors(authors);
+        System.out.println("toString");
+        String expResult = "author1, author2, and author3. title. In editor1, editor, bookTitle, pages 1-100. publisher, 2017. address. Key{avain} tag1,tag2.";
+        assertEquals(expResult, instance.toString());
+    }
+
+    /**
+     * Test of toString method, of class Inproceedings. One tag.
+     */
+    @Test
+    public void testToStringOneTag() {
+        List<String> tags = new ArrayList<>();
+        tags.add("tag1");
+        instance.setTags(tags);
+        System.out.println("toString");
+        String expResult = "author1 and author2. title. In editor1, editor, bookTitle, pages 1-100. publisher, 2017. address. Key{avain} tag1.";
+        assertEquals(expResult, instance.toString());
+    }
+
+    /**
+     * Test of toString method, of class Inproceedings. Three tags.
+     */
+    @Test
+    public void testToStringThreeTags() {
+        List<String> tags = new ArrayList<>();
+        tags.add("tag1");
+        tags.add("tag2");
+        tags.add("tag3");
+        instance.setTags(tags);
+        System.out.println("toString");
+        String expResult = "author1 and author2. title. In editor1, editor, bookTitle, pages 1-100. publisher, 2017. address. Key{avain} tag1,tag2,tag3.";
+        assertEquals(expResult, instance.toString());
+    }
+
     /**
      * Test of toBibTex method, of class Inproceedings.
      */
