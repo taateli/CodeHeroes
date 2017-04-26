@@ -135,7 +135,7 @@ public class Inproceedings extends Reference {
         }
         output = output + this.bookTitle;
         if (!this.startingPage.isEmpty() && !this.endingPage.isEmpty()) {
-            output = output + ", pages " + this.startingPage + " - " + this.endingPage;
+            output = output + ", pages " + this.startingPage + "-" + this.endingPage;
         } 
         if (!this.publisher.isEmpty()) {
             output = output + ". " + this.publisher + ",";

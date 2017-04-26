@@ -39,7 +39,6 @@ public class ArticleTest {
     public void setUp() {
         instance = new Article();
 
-//        instance.setAuthor("author");
         List<String> authors = new ArrayList<>();
         authors.add("author1");
         authors.add("author2");
@@ -54,6 +53,10 @@ public class ArticleTest {
         instance.setStartingPage("1");
         instance.setEndingPage("100");
         instance.setAddress("address");
+        List<String> tags = new ArrayList<>();
+        tags.add("tag1");
+        tags.add("tag2");
+        instance.setTags(tags);
     }
 
     @After
@@ -254,12 +257,13 @@ public class ArticleTest {
     /**
      * Test of toString method, of class Article.
      */
-//    @Test
-//    public void testToString() {
-//        System.out.println("toString");
-//        String expResult = "author. title. journal, 4(2): 1-100, publisher, 2017. address.";
-//        assertEquals(expResult, instance.toString());
-//    }
+    @Test
+    public void testToString() {
+        System.out.println("toString");
+        String expResult = "author1 and author2";
+        expResult = expResult + ". title. journal, 4(2):1-100, publisher, 2017. address. Key{avain} tag1,tag2.";
+        assertEquals(expResult, instance.toString());
+    }
     /**
      * Test of toBibTex method, of class Article.
      */
