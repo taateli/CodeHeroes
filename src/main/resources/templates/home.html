@@ -17,127 +17,126 @@
 
         <div class="container-fluid">
 
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="container-fluid-bordered">
+                        <div class="bg-faded">
+                            <h1 class="text-center">Welcome to Reference manager</h1>
+                        </div>
 
-            <div class="col-md-6 col-md-offset-3">
-                <div class="container-fluid-bordered">
-                    <div class="bg-faded">
-                        <h1 class="text-center">Welcome to Reference manager</h1>
                     </div>
 
-                </div>
 
+                </div>
 
             </div>
+            <div class="row">
+              
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h1> All references </h1>  
+                        </div>
+                        <div class="col-md-2 col-md-offset-2">
+                            <div class="dropdown">   
+
+                                <button class="btn btn-lg dropdown-toggle" type="button" data-toggle="dropdown" >
+                                    Add a new reference
+                                    <span class="caret"></span>
+                                </button>
+
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-toggle" th:href="@{/books}">Book</a></li>
+                                    <li><a class="dropdown-toggle" th:href="@{/inproceedings}">Inproceedings</a></li>
+                                    <li><a class ="dropdown-toggle" th:href="@{/article}">Article</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
 
 
-            <div class="col-md-4 col-md-offset-2">
-
-               
-
-                <div class="dropdown">   
-
-                    <button class="btn btn-lg dropdown-toggle" type="button" data-toggle="dropdown" >
-                        Add a new reference
-                        <span class="caret"></span>
-                    </button>
-
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-toggle" th:href="@{/books}">Book</a></li>
-                        <li><a class="dropdown-toggle" th:href="@{/inproceedings}">Inproceedings</a></li>
-                        <li><a class ="dropdown-toggle" th:href="@{/article}">Article</a></li>
-                    </ul>
-                </div>
-
-
-
-
-
-
-            </div>
-
-            <div class="col-md-4">
-                <h1> All references </h1>  
-
-                
-
-                <div class="container-fluid">   
-                    <form th:method="GET" th:action="@{/search} ">
-                        <label>Search:</label>
-                        <input type="text" name="search"/>
-                        <input type="submit" class="btn btn-primary btn-sm" value="Search"/>
-                    </form>
-                </div> 
-
-
-                <div class="container-fluid" th:if="${newReference != null}">
-
-                    <p class="alert-success" id="hideSuccess">
-                        Reference added successfully!
-                        <button type="button" class="close" id="hideSuccessButton">&times;</button>
-                    </p>
-
-                </div>
-
-                <div class="container-fluid" th:if="${delete != null}">
-
-                    <p class="alert-success" id="hideSuccess">
-                        Reference deleted successfully!
-                        <button type="button" class="close" id="hideSuccessButton">&times;</button>
-                    </p>
-
-                </div>
-
-     <!--           <div class="container-fluid" th:if="${delete == null}">
-
-                    <p class="alert-success" id="hideSuccess">
-                        Deletion cancelled
-                        <button type="button" class="close" id="hideSuccessButton">&times;</button>
-                    </p>
-
-                </div>
-     -->
-                  
-                    <form th:method="POST" th:action="@{/download} ">
-                        <label>Name of the file:</label>
-                        <input type="text" name="fileName"/>
-                        <input type="submit" class="btn btn-primary btn-sm" value="Download.bib"/>
-                    </form>
-     <form action="#" th:method="POST" th:action="@{/download2}" th:object="${refs}">    
-                <table class="table table-striped table-bordered" id="referenceTable">
-                    <thead>
-                        <tr>
-                            <th><label><input  type="checkbox" id="selectAllBox" name="selectAllBox" />Select all</label></th>
-                            <th>Reference</th>
-
-                        </tr>
-                    </thead>
                     
-                    <tbody>
 
-                        <tr th:each="reference : ${references}">
-                            <td><input type="checkbox"  name="refs" th:value="${reference.id}"></input></td>                         
-                            <td><a  th:href="@{/}" th:text="${reference}"></a></td>
-                             <td><a class="btn btn-primary"  th:href="@{/references/{id} (id=${reference.id})}">EDIT</a></td>
 
-                            <th><form th:method="DELETE" th:action="@{/references/{id} (id=${reference.id})} "><input type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm" value="Delete"/></form></th>
- 
-                        </tr>
+                    <div class="container-fluid" th:if="${newReference != null}">
 
-                    </tbody>
-                </table>
-     
-                        <label>Name of the file:</label>
-                        <input type="text" name="fileName"/>
-                        <input type="submit" class="btn btn-primary btn-sm" value="Download.bib"/>
-                    </form>
-         
-               
-     
-             
+                        <p class="alert-success" id="hideSuccess">
+                            Reference added successfully!
+                            <button type="button" class="close" id="hideSuccessButton">&times;</button>
+                        </p>
 
+                    </div>
+
+                    <div class="container-fluid" th:if="${delete != null}">
+
+                        <p class="alert-success" id="hideSuccess">
+                            Reference deleted successfully!
+                            <button type="button" class="close" id="hideSuccessButton">&times;</button>
+                        </p>
+
+                    </div>
+
+         <!--           <div class="container-fluid" th:if="${delete == null}">
+
+                        <p class="alert-success" id="hideSuccess">
+                            Deletion cancelled
+                            <button type="button" class="close" id="hideSuccessButton">&times;</button>
+                        </p>
+
+                    </div>
+         -->
+                          
+                            <form th:method="GET" th:action="@{/search} ">
+                                <label>Search:</label>
+                                <input type="text" name="search"/>
+                                <input type="submit" class="btn btn-primary btn-sm" value="Search"/>
+                            </form>
+                       
+                        
+                        <form th:method="GET" th:action="@{/download} ">
+                            <label>Name of the file:</label>
+                            <input type="text" name="fileName"/>
+                            <input type="submit" class="btn btn-primary btn-sm" value="Download.bib"/>
+        <!--                
+                        </form>
+         <form action="#" th:method="POST" th:action="@{/download2}" th:object="${refs}">    
+         -->
+             <table class="table table-striped table-bordered" id="referenceTable">
+                        <thead>
+                            <tr>
+                                <th><label><input  type="checkbox" id="selectAllBox" name="selectAllBox" />Select all</label></th>
+                                <th>Reference</th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <tr th:each="reference : ${references}">
+                                <td><input type="checkbox"  name="refs" th:value="${reference.id}"></input></td>                         
+                                <td><a  th:href="@{/}" th:text="${reference}"></a></td>
+                                 <td><a class="btn btn-primary"  th:href="@{/references/{id} (id=${reference.id})}">EDIT</a></td>
+
+                                <th><form th:method="DELETE" th:action="@{/references/{id} (id=${reference.id})} "><input type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm" value="Delete"/></form></th>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+         <!--
+                            <label>Name of the file:</label>
+                            <input type="text" name="fileName"/>
+                            <input type="submit" class="btn btn-primary btn-sm" value="Download.bib"/>
+             -->          
+                        </form>
+
+
+
+
+
+                </div>
             </div>
-        </div>
-
+        </div>    
 
     </body>    
 </html>

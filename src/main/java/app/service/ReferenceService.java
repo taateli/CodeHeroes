@@ -53,8 +53,11 @@ public class ReferenceService {
         return refRepository.findByKey(key);
     }
     
-    public List<Reference> getReferencesById(List ids) {
-        
-        return refRepository.findAll();
+    public List<Reference> getReferencesById(List<Long> ids) {
+        List refs = new ArrayList<>();
+        for(Long id:ids){
+            refs.add(this.findById(id));
+        }
+        return refs;
     }
 }
