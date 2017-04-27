@@ -137,6 +137,16 @@ public class InproceedingsTest {
     }
 
     /**
+     * Test of getVolume method, of class Inproceedings.
+     */
+    @Test
+    public void testGetVol() {
+        instance.setVolume("5");
+        System.out.println("getVolume");
+        assertEquals("5", instance.getVolume());
+    }
+
+    /**
      * Test of setTitle method, of class Inproceedings.
      */
     @Test
@@ -234,6 +244,18 @@ public class InproceedingsTest {
     }
 
     /**
+     * Test of setVolume method, of class Inproceedings.
+     */
+    @Test
+    public void testSetVolume() {
+        System.out.println("setVolume");
+        String vol = "7";
+        Inproceedings instance1 = new Inproceedings();
+        instance1.setVolume(vol);
+        assertEquals("7", instance1.getVolume());
+    }
+
+    /**
      * Test of toString method, of class Inproceedings. One author.
      */
     @Test
@@ -296,6 +318,17 @@ public class InproceedingsTest {
         instance.setTags(tags);
         System.out.println("toString");
         String expResult = "author1 and author2. title. In editor1, editor, bookTitle, pages 1-100. publisher, 2017. address. Key{avain} tag1,tag2,tag3.";
+        assertEquals(expResult, instance.toString());
+    }
+
+    /**
+     * Test of toString method, of class Inproceedings. No publisher.
+     */
+    @Test
+    public void testToStringNoPublisher() {
+        instance.setPublisher("");
+        System.out.println("toString");
+        String expResult = "author1 and author2. title. In editor1, editor, bookTitle, pages 1-100, 2017. address. Key{avain} tag1,tag2.";
         assertEquals(expResult, instance.toString());
     }
 
