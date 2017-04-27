@@ -82,6 +82,7 @@ public class Stepdefs {
 
     @Given("^filename \"([^\"]*)\" is added$")
     public void filename_is_added(String fileName) throws Throwable {
+        driver.get(baseUrl);
         WebElement element = driver.findElement(By.name("fileName"));
         element.sendKeys(fileName);
 
@@ -94,7 +95,8 @@ public class Stepdefs {
 
     @Then("^file is created by name \"([^\"]*)\"$")
     public void file_is_created_by_name(String fileName) throws Throwable {
-       pageHasContent(fileName);
+        assertTrue(driver.getPageSource().contains("fileName"));
+             
     }
 
     @Then("^system will not respond with \"([^\"]*)\"$")
