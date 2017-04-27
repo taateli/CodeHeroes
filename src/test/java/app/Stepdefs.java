@@ -144,43 +144,15 @@ public class Stepdefs {
 
     @When("^popup is accepted$")
     public void popup_is_accepted() throws Throwable {
-        long timeout = 5000;
-        long waitForAlert = System.currentTimeMillis() + timeout;
-        boolean boolFound = false;
-        do {
-            try {
-                Alert alert = this.driver.switchTo().alert();
-                if (alert != null) {
-                    alert.accept(); // OK is accepted from the popup
-                   // alert.dismiss(); // Cancel is accepted from the popup
-                    boolFound = true;
-                }
-            } catch (NoAlertPresentException ex) {
-            }
-        } while ((System.currentTimeMillis() < waitForAlert) && (!boolFound));
-
+        handlePopup(true);
     }
 
     @When("^popup is not accepted$")
     public void popup_is_not_accepted() throws Throwable {
-        long timeout = 500;
-        long waitForAlert = System.currentTimeMillis() + timeout;
-        boolean boolFound = false;
-        do {
-            try {
-                Alert alert = this.driver.switchTo().alert();
-                if (alert != null) {
-                    //  alert.accept(); // OK is accepted from the popup
-                    alert.dismiss(); // Cancel is accepted from the popup
-                    boolFound = true;
-                }
-            } catch (NoAlertPresentException ex) {
-            }
-        } while ((System.currentTimeMillis() < waitForAlert) && (!boolFound));
-
-    } 
-    
-    
+        handlePopup(false);
+    }
+	
+	
         @When("^Edit is pressed$")
     public void edit_is_pressed() throws Throwable {
         driver.findElement(By.xpath("//tbody/tr/td[3]/a")).click();
@@ -314,6 +286,39 @@ public class Stepdefs {
 
         element.submit();
     }
+	
+	private void handlePopup(boolean accept) {
+		long timeout = setTimeout(accept);
+		
+		long waitForAlert = System.currentTimeMillis() + timeout;
+		boolean boolFound = false;
+		do {
+			try {
+				Alert alert = this.driver.switchTo().alert();
+				if (alert != null) {
+					handleAlert(alert, accept);
+					boolFound = true;
+				}
+			} catch (NoAlertPresentException ex) {
+			}
+		} while ((System.currentTimeMillis() < waitForAlert) && (!boolFound));
+	}
+	
+	private long setTimeout(boolean accept) {
+		if (accept) {
+			return 5000;
+		} else {
+			return 5000;
+		}
+	}
+	
+	private void handleAlert(Alert alert, boolean accept) {
+		if (accept) {
+			alert.accept();
+		} else {
+			alert.dismiss();
+		}
+	}
 
     @After
     public void tearDown() {
