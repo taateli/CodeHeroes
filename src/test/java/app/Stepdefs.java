@@ -135,10 +135,11 @@ public class Stepdefs {
     @When("^Delete is pressed$")
     public void delete_is_pressed() throws InterruptedException {
         // this will make the popup visible
-        driver.findElement(By.xpath("//tbody/tr[2]/th/form/input[2]")).click();
+        driver.findElement(By.xpath("/html/body/div/div/div/form[2]/input[2]")).click();
         Thread.sleep(2000); // If you wanna see the popup for 2 seconds
 //        //*[@id="referenceTable"]/tbody/tr/th/input[2]
 ////*[@id="referenceTable"]/tbody/tr[2]/th/form/input[2]
+// /html/body/div/div/div/form[2]/input[2]
     }
 
     @When("^popup is accepted$")
@@ -177,7 +178,8 @@ public class Stepdefs {
             }
         } while ((System.currentTimeMillis() < waitForAlert) && (!boolFound));
 
-    }
+    } 
+    
     
         @When("^Edit is pressed$")
     public void edit_is_pressed() throws Throwable {
