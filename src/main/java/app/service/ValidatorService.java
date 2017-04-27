@@ -38,7 +38,6 @@ public class ValidatorService {
     
     // This method is for splitting tags string to arraylist    
      public List<String> splitTags(String tags) {
-         System.out.println("splitTags kutsuttu, tags: "+tags); //testing
          List tagList = new ArrayList<>(Arrays.asList(tags.split(" and ")));
         return tagList;
     }
