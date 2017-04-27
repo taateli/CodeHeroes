@@ -113,6 +113,7 @@
                                 <tr>
                                     <th><label><input  type="checkbox" id="selectAllBox" name="selectAllBox" />Select all</label></th>
                                     <th>Reference</th>
+                                    <th>Tags</th>
 
                                 </tr>
                             </thead>
@@ -120,9 +121,12 @@
                             <tbody>
 
                                 <tr th:each="reference : ${references}">
-                                    <td><input type="checkbox"  name="refs" th:value="${reference.id}"></input></td>                         
-                                    <td><a  th:href="@{/}" th:text="${reference}"></a></td>
+                                    <td><input type="checkbox"  name="refs" th:value="${reference.id}"></input></td>
+                                    <td><a th:text="${reference}"></a></td>
+                                    <td><span th:each="tag : ${reference.tags}"><a
+                                                th:text="${tag} + ' '" th:href="@{'/search?search={search}'(search=${tag})}"></a></span></td>
                                     <td><a class="btn btn-primary" th:href="@{/references/{id} (id=${reference.id})}">EDIT</a></td>
+                                    
                                     <!--
                                     <th><form th:method="DELETE" th:id="'deleteForm' + ${reference.id}" th:action="@{/references/{id} (id=${reference.id})} "><input type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm" value="Delete" form="'deleteForm' + ${reference.id}"/></form></th>
                                     -->
