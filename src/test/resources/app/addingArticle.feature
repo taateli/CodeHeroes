@@ -24,7 +24,7 @@ Scenario: user cannot add an article reference without mandatory fied title
     Given form article is selected
     When key "KW07" author "Whittington, Keith J." title "" year "2017" journal "J. Comput. Small Coll." publisher "publisher" volume "19" number "3" startingPage "3" endingPage "6" month "5" address "katuosoite" are inserted
     Then system will respond with "Field can not be empty!"
-
+  
 
 # Pari pidempää versiota
 #     Scenario: user can add an article reference with mandatory fields filled

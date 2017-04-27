@@ -279,6 +279,12 @@ public class ReferenceController {
     @RequestMapping(value = "/references/{id}", method = RequestMethod.GET)
     public String editReference(Model model, @PathVariable Long id) {
         Reference reference = refService.findById(id);
+        
+        // laitetaan ruudulle 'and' authorien väliin 
+        String authors = reference.authorsToBibTex();
+        List<String> authorsList = new ArrayList<>();
+        authorsList.add(authors);
+        reference.setAuthors(authorsList); // ekassa indeksissä uusi lista
 
         if (reference instanceof Book) {
             model.addAttribute("book", reference);
