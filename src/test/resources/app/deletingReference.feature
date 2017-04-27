@@ -12,4 +12,4 @@ Feature: User can delete a reference by clicking "Delete" button
     And Edit is pressed
     When Delete is pressed
     And popup is not accepted
-#    Then system will respond with "Deletion cancelled"
+##    Then system will respond with "Deletion cancelled"
