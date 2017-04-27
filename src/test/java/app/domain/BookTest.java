@@ -67,14 +67,6 @@ public class BookTest {
     }
 
     /**
-     * Test of getAuthor method, of class Book.
-     */
-//    @Test
-//    public void testGetAuthor() {
-//        System.out.println("getAuthor");
-//        assertEquals("author", instance.getAuthor());
-//    }
-    /**
      * Test of getYear method, of class Book.
      */
     @Test
@@ -112,16 +104,6 @@ public class BookTest {
         assertEquals("title", instance1.getTitle());
     }
 
-    /**
-     * Test of setAuthor method, of class Book. //
-     */
-//    @Test
-//    public void testSetAuthor() {
-//        System.out.println("setAuthor");
-//        Book instance1 = new Book();
-//        instance1.setAuthor("author");
-//        assertEquals("author", instance1.getAuthor());
-//    }
     /**
      * Test of setYear method, of class Book.
      */
