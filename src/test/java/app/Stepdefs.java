@@ -197,13 +197,7 @@ public class Stepdefs {
         } while ((System.currentTimeMillis() < waitForAlert) && (!boolFound));
 
     }
-//
-//    @When("^Edit is pressed$")
-//    public void edit_is_pressed() throws Throwable {
-//        driver.findElement(By.xpath("//tbody/tr/td[4]/a")).click();
-//        Thread.sleep(5000);
-//    }
-
+    
     @When("^a book reference with key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" publisher \"([^\"]*)\" is updated$")
     public void a_book_reference_with_key_author_title_year_publisher_is_updated(String key, String author, String title, String year, String publisher) throws Throwable {
         //   System.out.println("Driverin page source onko true? " +driver.getPageSource().contains("Edit a book reference"));
