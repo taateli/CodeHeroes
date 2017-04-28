@@ -59,6 +59,13 @@ public class Stepdefs {
     public void form_article_is_selected() throws Throwable {
         driver.get(baseUrl + "/article");
     }
+    
+    
+    @Given("^Front page is opened$")
+    public void front_page_is_opened() throws Throwable {
+        driver.get(baseUrl);
+    }
+
 
     @Given("^Edit is pressed for key \"([^\"]*)\"$")
     public void edit_is_pressed_for_key(String key) throws Throwable {
@@ -214,7 +221,7 @@ public class Stepdefs {
 
     @Then("^system will respond with \"([^\"]*)\"$")
     public void system_will_respond_with(String arg1) throws Throwable {
-        Thread.sleep(2000);
+        Thread.sleep(4000);
         pageHasContent(arg1);
     }
 

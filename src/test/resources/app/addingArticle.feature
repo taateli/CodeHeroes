@@ -27,7 +27,7 @@ Scenario: user cannot add an article reference without mandatory fied title
 
 Scenario: user cannot add an article reference with pagenumbers incorrect order
     Given form article is selected
-    When key "KW09" author "Whittington, Keith J." title "" year "2017" journal "J. Comput. Small Coll." publisher "publisher" volume "19" number "3" startingPage "9" endingPage "1" month "5" address "katuosoite" are inserted
+    When key "KW09" author "Whittington, Keith J." title "Title" year "2017" journal "J. Comput. Small Coll." publisher "publisher" volume "19" number "3" startingPage "9" endingPage "1" month "5" address "katuosoite" are inserted
     Then system will respond with "Ending page cannot be before starting page!"
     
 

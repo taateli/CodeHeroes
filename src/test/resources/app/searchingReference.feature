@@ -7,3 +7,9 @@ Feature: User can search references according to a string
     When Search button is pressed
     Then book reference with data "Mika Waltari" is displayd in the list
     And system will not respond with "Kaisa Waltari"  
+
+    Scenario: user can search reference data and corresponding references not found
+    Given Front page is opened
+    And searchdata "yhteiskuntaperillinen" is given 
+    When Search button is pressed
+    Then system will not respond with "yhteiskuntaperillinen"
