@@ -183,7 +183,7 @@ public class Stepdefs {
     
         @When("^Edit is pressed$")
     public void edit_is_pressed() throws Throwable {
-        driver.findElement(By.xpath("//tbody/tr/td[3]/a")).click();
+        driver.findElement(By.xpath("//tbody/tr/td[4]/a")).click();
         Thread.sleep(5000);
     }
 
