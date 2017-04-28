@@ -36,13 +36,7 @@ public class ValidatorService {
         return authorList;
     }
     
-    // This method is for splitting tags string to arraylist    
-     public List<String> splitTags(String tags) {
-         List tagList = new ArrayList<>(Arrays.asList(tags.split(" and ")));
-        return tagList;
-    }
-    
-    public Reference getKey(Reference ref) {
+     public Reference getKey(Reference ref) {
         String key = "";
         
             if (ref.getAuthors().get(0).contains(" ")) {

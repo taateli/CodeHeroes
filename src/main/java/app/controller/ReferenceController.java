@@ -158,12 +158,6 @@ public class ReferenceController {
             RedirectAttributes redirectAttrs) {
 
         reference.setAuthors(validator.splitAuthors(reference.getAuthors().get(0)));
-        //tässä vika!
-        try {
-            reference.setTags(validator.splitTags(reference.getTags().get(0)));
-            } catch (IndexOutOfBoundsException iex) {
-                reference.setTags(new ArrayList<String>());
-            }
         
         Reference newReference = null;
         if (!validator.fieldNotEmpty(reference.getKey())) {
