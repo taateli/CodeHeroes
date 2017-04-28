@@ -10,6 +10,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import java.io.File;
+import java.util.List;
 import static org.junit.Assert.assertFalse;
 
 import static org.junit.Assert.assertTrue;
@@ -59,6 +60,26 @@ public class Stepdefs {
         driver.get(baseUrl + "/article");
     }
 
+    @Given("^Edit is pressed for key \"([^\"]*)\"$")
+    public void edit_is_pressed_for_key(String key) throws Throwable {
+        // let's get all the <td> -elements from HTML
+        List<WebElement> lista = driver.findElements(By.tagName("td"));
+        int indeksi = 0;
+        for (int i = 0; i < lista.size(); i++) {
+            WebElement element = lista.get(i);
+            // there are four columns: checkbox, reference, tags, edit 
+            if (element.getText().contains(key)) {
+                indeksi = i + 2; // element + 2 -> get the edit -element 
+                break;
+            }
+        }
+        if (indeksi > 0) {
+            // let's press the founded EDIT button (submit doesn't work)
+            lista.get(indeksi).click();
+        }
+        Thread.sleep(2000);
+    }
+
     @Given("^a book reference with key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" publisher \"([^\"]*)\" is created$")
     public void a_book_reference_with_key_author_title_year_publisher_is_created(String key, String author, String title, String year, String publisher) throws Throwable {
         form_book_is_selected();
@@ -96,7 +117,7 @@ public class Stepdefs {
     @Then("^file is created by name \"([^\"]*)\"$")
     public void file_is_created_by_name(String fileName) throws Throwable {
         assertTrue(driver.getPageSource().contains("fileName"));
-             
+
     }
 
     @Then("^system will not respond with \"([^\"]*)\"$")
@@ -137,9 +158,6 @@ public class Stepdefs {
         // this will make the popup visible
         driver.findElement(By.xpath("/html/body/div/div/div/form[2]/input[2]")).click();
         Thread.sleep(2000); // If you wanna see the popup for 2 seconds
-//        //*[@id="referenceTable"]/tbody/tr/th/input[2]
-////*[@id="referenceTable"]/tbody/tr[2]/th/form/input[2]
-// /html/body/div/div/div/form[2]/input[2]
     }
 
     @When("^popup is accepted$")
@@ -152,7 +170,7 @@ public class Stepdefs {
                 Alert alert = this.driver.switchTo().alert();
                 if (alert != null) {
                     alert.accept(); // OK is accepted from the popup
-                   // alert.dismiss(); // Cancel is accepted from the popup
+                    // alert.dismiss(); // Cancel is accepted from the popup
                     boolFound = true;
                 }
             } catch (NoAlertPresentException ex) {
@@ -178,36 +196,31 @@ public class Stepdefs {
             }
         } while ((System.currentTimeMillis() < waitForAlert) && (!boolFound));
 
-    } 
-    
-    
-        @When("^Edit is pressed$")
-    public void edit_is_pressed() throws Throwable {
-        driver.findElement(By.xpath("//tbody/tr/td[4]/a")).click();
-        Thread.sleep(5000);
     }
+//
+//    @When("^Edit is pressed$")
+//    public void edit_is_pressed() throws Throwable {
+//        driver.findElement(By.xpath("//tbody/tr/td[4]/a")).click();
+//        Thread.sleep(5000);
+//    }
 
     @When("^a book reference with key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" publisher \"([^\"]*)\" is updated$")
     public void a_book_reference_with_key_author_title_year_publisher_is_updated(String key, String author, String title, String year, String publisher) throws Throwable {
-     //   System.out.println("Driverin page source onko true? " +driver.getPageSource().contains("Edit a book reference"));
+        //   System.out.println("Driverin page source onko true? " +driver.getPageSource().contains("Edit a book reference"));
         assertTrue(driver.getPageSource().contains("Edit a book reference"));
-                 WebElement element = driver.findElement(By.name("key"));
+        WebElement element = driver.findElement(By.name("key"));
         element.sendKeys(key);
         element = driver.findElement(By.name("authors"));
         element.sendKeys(author);
 
         element = driver.findElement(By.name("save"));
         element.submit();
-         
+
     }
-
-
 
     @Then("^system will respond with \"([^\"]*)\"$")
     public void system_will_respond_with(String arg1) throws Throwable {
         Thread.sleep(2000);
-   //     System.out.println("pagen content " + arg1);
-        
         pageHasContent(arg1);
     }
 
@@ -218,15 +231,9 @@ public class Stepdefs {
 
 // This method checks if page has text that is given as parameter    
     private void pageHasContent(String content) throws InterruptedException {
-
         Thread.sleep(4000);
-//        System.out.println("content on " + content);
-//        System.out.println("Driver contains true? " + driver.getPageSource().contains(content));
-//        System.out.println("Tässä pagesource on " + driver.getPageSource());
         assertTrue(driver.getPageSource().contains(content));
     }
-    
-
 
     // this method fills the book form with mandatory fields and submits.
     private void createBookWithMandatoryFields(String key, String author, String title, String year, String publisher) throws InterruptedException {

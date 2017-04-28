@@ -20,8 +20,8 @@ import static org.mockito.Mockito.*;
  * @author kaisa
  */
 public class ValidatorServiceTest {
+
     ValidatorService validator;
-    
 
     @BeforeClass
     public static void setUpClass() {
@@ -37,49 +37,48 @@ public class ValidatorServiceTest {
 
     }
 
+//    @Test
+//    public void splitTagsSplitsTwoTagsAndFirstTagIsRight() {
+//        String tagString = "some and someOther";
+//        assertEquals("some", validator.splitTags(tagString).get(0));
+//
+//    }
+
+//    @Test
+//    public void splitTagsSplitsTwoTagsAndSecondTagIsRight() {
+//        String tagString = "some and someOther";
+//        assertEquals("someOther", validator.splitTags(tagString).get(1));
+//    }
+//
+//    @Test
+//    public void splitTagsWorksWithOneTag() {
+//        String tagString = "some";
+//        assertEquals(1, validator.splitTags(tagString).size());
+//    }
+
     @Test
-    public void splitTagsSplitsTwoTagsAndFirstTagIsRight() {
-        String tagString = "some and someOther";
-        assertEquals("some", validator.splitTags(tagString).get(0));
+    public void getKeyWorksWhenNameHasWhiteSpace() {
+        Book mockBook = mock(Book.class);
+        List mockList = mock(List.class);
+        when(mockBook.getYear()).thenReturn("2000");
+        when(mockBook.getAuthors()).thenReturn(mockList);
+        when(mockBook.getAuthors().get(0)).thenReturn("Teppo Testaaja");
 
+        validator.getKey(mockBook);
+
+        verify(mockBook).setKey("TT2000");
     }
-    
-     @Test
-    public void splitTagsSplitsTwoTagsAndSecondTagIsRight() {
-        String tagString = "some and someOther";
-        assertEquals("someOther", validator.splitTags(tagString).get(1));
-    }
-    
-     @Test
-    public void splitTagsWorksWithOneTag() {
-        String tagString = "some";
-        assertEquals(1, validator.splitTags(tagString).size());
-    }
-    
+
     @Test
-public void getKeyWorksWhenNameHasWhiteSpace() {
-    Book mockBook = mock(Book.class);
-    List mockList = mock(List.class);
-    when(mockBook.getYear()).thenReturn("2000");
-    when(mockBook.getAuthors()).thenReturn(mockList);
-    when(mockBook.getAuthors().get(0)).thenReturn("Teppo Testaaja");
-    
-    validator.getKey(mockBook);
+    public void getKeyWorksWhenNameHasNoWhiteSpaces() {
+        Book mockBook = mock(Book.class);
+        List mockList = mock(List.class);
+        when(mockBook.getYear()).thenReturn("1997");
+        when(mockBook.getAuthors()).thenReturn(mockList);
+        when(mockBook.getAuthors().get(0)).thenReturn("SuperCool");
 
-    verify(mockBook).setKey("TT2000");
-}
+        validator.getKey(mockBook);
 
-    
-    @Test
-public void getKeyWorksWhenNameHasNoWhiteSpaces() {
-    Book mockBook = mock(Book.class);
-    List mockList = mock(List.class);
-    when(mockBook.getYear()).thenReturn("1997");
-    when(mockBook.getAuthors()).thenReturn(mockList);
-    when(mockBook.getAuthors().get(0)).thenReturn("SuperCool");
-    
-    validator.getKey(mockBook);
-
-    verify(mockBook).setKey("S1997");
-}
+        verify(mockBook).setKey("S1997");
+    }
 }
