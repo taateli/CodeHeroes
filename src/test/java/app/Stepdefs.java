@@ -25,6 +25,7 @@ public class Stepdefs {
 
     WebDriver driver;
     String baseUrl;
+    int amount1, amount2;
 
     public Stepdefs() {
 
@@ -42,6 +43,7 @@ public class Stepdefs {
         String path = file.getAbsolutePath();
         System.setProperty("webdriver.gecko.driver", path);
         this.driver = new FirefoxDriver();
+
     }
 
     @Given("^form book is selected$")
@@ -106,16 +108,31 @@ public class Stepdefs {
 
     @Given("^searchdata \"([^\"]*)\" is given$")
     public void searchdata_is_given(String searchData) throws Throwable {
-        WebElement element = driver.findElement(By.name("search"));
-        element.sendKeys(searchData);
+        driver.findElement(By.name("search")).sendKeys(searchData);
+//        element.sendKeys(searchData);
     }
 
     @Given("^filename \"([^\"]*)\" is added$")
     public void filename_is_added(String fileName) throws Throwable {
-        driver.get(baseUrl);
-        WebElement element = driver.findElement(By.name("fileName"));
-        element.sendKeys(fileName);
+//        driver.get(baseUrl);
+//        WebElement element = driver.findElement(By.name("fileName"));
+//        element.sendKeys(fileName);
+        front_page_is_opened();
+        driver.findElement(By.name("fileName")).sendKeys(fileName);
+    }
 
+    @Given("^number of displayed references is calculated$")
+    public void number_of_displayed_references_is_calculated() throws Throwable {
+        amount1 = driver.findElements(By.tagName("td")).size();
+    }
+
+    // tag-test needs this
+    @Given("^book reference with key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" publisher \"([^\"]*)\" tags \"([^\"]*)\"is created successfully$")
+    public void book_reference_with_key_author_title_year_publisher_tags_is_created_successfully(String key, String author, String title, String year, String publisher, String tags) throws Throwable {
+        form_book_is_selected();
+        String address = "", series = "", edition = "", month = "", volume = "";
+        updateBook(key, author, title, year, publisher, address, series, edition, month, volume, tags);
+        system_will_respond_with("Reference added successfully!");
     }
 
     @When("^printFile button is pressed$")
@@ -125,8 +142,7 @@ public class Stepdefs {
 
     @When("^Search button is pressed$")
     public void search_button_is_pressed() throws Throwable {
-        WebElement element = driver.findElement(By.name("search"));
-        element.submit();
+        driver.findElement(By.name("search")).submit();
     }
 
     @When("^key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" publisher \"([^\"]*)\" are inserted$")
@@ -145,7 +161,7 @@ public class Stepdefs {
     @When("^key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" pubisher \"([^\"]*)\" editor \"([^\"]*)\" booktitle \"([^\"]*)\" address \"([^\"]*)\" series \"([^\"]*)\" startingPage \"([^\"]*)\" endingPage \"([^\"]*)\" month \"([^\"]*)\" organization \"([^\"]*)\" are inserted$")
     public void key_author_title_year_pubisher_editor_booktitle_address_series_startingPage_endingPage_month_organization_are_inserted(
             String key, String author, String title, String year, String publisher, String editor, String booktitle, String address, String series, String startingPage, String endingPage, String month, String organization) throws Throwable {
-       String tags = "";
+        String tags = "";
         updateInproceedings(key, author, title, year, publisher, editor, booktitle, address, series, startingPage, endingPage, month, organization, tags);
     }
 
@@ -180,6 +196,38 @@ public class Stepdefs {
         element = driver.findElement(By.name("save"));
         element.submit();
 
+    }
+
+    @When("^ListAll button is pressed$")
+    public void listall_button_is_pressed() throws Throwable {
+        driver.findElement(By.name("listAll")).click();
+    }
+
+    @When("^number of displayed references is calculated again$")
+    public void number_of_displayed_references_is_calculated_again() throws Throwable {
+        amount2 = driver.findElements(By.tagName("td")).size();
+    }
+
+    @When("^link tag by name \"([^\"]*)\" is pressed$")
+    public void link_tag_by_name_is_pressed(String tag) throws Throwable {
+        List<WebElement> lista = driver.findElements(By.tagName("span"));
+        for (WebElement element : lista) {
+            if (element.getText().contains(tag)) {
+                element.click();
+            }
+        }
+        Thread.sleep(2000);
+    }
+
+    @Then("^the number is same$")
+    public void the_number_is_same() throws Throwable {
+        assertTrue(this.amount1 == this.amount2);
+    }
+    
+// tag-test
+    @Then("^the number difference is at least \"([^\"]*)\" less than earlier$")
+    public void the_number_difference_is_at_least_less_than_earlier(String ero) throws Throwable {
+        assertTrue((this.amount1 - this.amount2) >= Integer.parseInt(ero));
     }
 
     @Then("^file is created by name \"([^\"]*)\"$")
@@ -237,16 +285,18 @@ public class Stepdefs {
         } while ((System.currentTimeMillis() < waitForAlert) && (!boolFound));
 
     }
-    private void updateField(WebElement element, String data){
+
+    private void updateField(WebElement element, String data) {
         element.sendKeys("");
         element.sendKeys(data);
-        
+
     }
+
     // this method fills the book form with mandatory fields and submits.
     private void updateBook(String key, String author, String title, String year, String publisher, String address, String series, String edition, String month, String volume, String tags) throws InterruptedException {
         WebElement element = driver.findElement(By.name("key"));
         updateField(element, key);
-        element = driver.findElement(By.name("authors"));        
+        element = driver.findElement(By.name("authors"));
         updateField(element, author);
         element = driver.findElement(By.name("title"));
         updateField(element, title);
@@ -275,7 +325,7 @@ public class Stepdefs {
     // all fields included - if missing, different message given
     public void updateArticle(String key, String author, String title, String year,
             String journal, String publisher, String volume, String number, String startingPage, String endingPage, String month, String address, String tags) {
-            WebElement element = driver.findElement(By.name("key"));
+        WebElement element = driver.findElement(By.name("key"));
         updateField(element, key);
         element = driver.findElement(By.name("authors"));
         updateField(element, author);
@@ -288,19 +338,19 @@ public class Stepdefs {
         element = driver.findElement(By.name("publisher"));
         updateField(element, publisher);
         element = driver.findElement(By.name("volume"));
-       updateField(element, volume);
+        updateField(element, volume);
         element = driver.findElement(By.name("number"));
         updateField(element, number);
         element = driver.findElement(By.name("startingPage"));
-       updateField(element, startingPage);
+        updateField(element, startingPage);
         element = driver.findElement(By.name("endingPage"));
         updateField(element, endingPage);
         element = driver.findElement(By.name("month"));
-       updateField(element, month);
+        updateField(element, month);
         element = driver.findElement(By.name("address"));
-       updateField(element, address);
+        updateField(element, address);
         element = driver.findElement(By.name("tags"));
-       updateField(element, tags);
+        updateField(element, tags);
 
         element = driver.findElement(By.name("save"));
         element.submit();
@@ -322,7 +372,7 @@ public class Stepdefs {
         element = driver.findElement(By.name("bookTitle"));
         updateField(element, booktitle);
         element = driver.findElement(By.name("address"));
-       updateField(element, address);
+        updateField(element, address);
         element = driver.findElement(By.name("series"));
         updateField(element, series);
         element = driver.findElement(By.name("startingPage"));
