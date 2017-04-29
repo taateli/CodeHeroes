@@ -109,14 +109,10 @@ public class Stepdefs {
     @Given("^searchdata \"([^\"]*)\" is given$")
     public void searchdata_is_given(String searchData) throws Throwable {
         driver.findElement(By.name("search")).sendKeys(searchData);
-//        element.sendKeys(searchData);
     }
 
     @Given("^filename \"([^\"]*)\" is added$")
     public void filename_is_added(String fileName) throws Throwable {
-//        driver.get(baseUrl);
-//        WebElement element = driver.findElement(By.name("fileName"));
-//        element.sendKeys(fileName);
         front_page_is_opened();
         driver.findElement(By.name("fileName")).sendKeys(fileName);
     }
@@ -193,8 +189,7 @@ public class Stepdefs {
         element = driver.findElement(By.name("authors"));
         element.sendKeys(author);
 
-        element = driver.findElement(By.name("save"));
-        element.submit();
+        driver.findElement(By.name("save")).submit();
 
     }
 
@@ -242,9 +237,9 @@ public class Stepdefs {
     }
 
     @Then("^system will respond with \"([^\"]*)\"$")
-    public void system_will_respond_with(String arg1) throws Throwable {
+    public void system_will_respond_with(String anyString) throws Throwable {
         Thread.sleep(4000);
-        pageHasContent(arg1);
+        pageHasContent(anyString);
     }
 
     @Then("^book reference with data \"([^\"]*)\" is displayd in the list$")
@@ -289,7 +284,6 @@ public class Stepdefs {
     private void updateField(WebElement element, String data) {
         element.sendKeys("");
         element.sendKeys(data);
-
     }
 
     // this method fills the book form with mandatory fields and submits.
@@ -317,8 +311,7 @@ public class Stepdefs {
         element = driver.findElement(By.name("tags"));
         updateField(element, tags);
 
-        element = driver.findElement(By.name("save"));
-        element.submit();
+        driver.findElement(By.name("save")).submit();
 
     }
 
@@ -352,8 +345,7 @@ public class Stepdefs {
         element = driver.findElement(By.name("tags"));
         updateField(element, tags);
 
-        element = driver.findElement(By.name("save"));
-        element.submit();
+        driver.findElement(By.name("save")).submit();
     }
 
     public void updateInproceedings(String key, String author, String title, String year, String publisher, String editor, String booktitle, String address, String series, String startingPage, String endingPage, String month, String organization, String tags) {
@@ -386,8 +378,7 @@ public class Stepdefs {
         element = driver.findElement(By.name("tags"));
         updateField(element, tags);
 
-        element = driver.findElement(By.name("save"));
-        element.submit();
+        driver.findElement(By.name("save")).submit();
     }
 
     @After
