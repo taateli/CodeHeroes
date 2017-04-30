@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-
 public class LetterCheckerTest {
 
     LetterChecker checker;
@@ -23,6 +22,13 @@ public class LetterCheckerTest {
     @Before
     public void setUp() {
         checker = new LetterChecker();
+
+    }
+
+    @Test
+    public void doesntHaveScandinaviansTest() {
+        scandinavian = "ei ole skandinaaveja ollenkaan";
+        assertEquals(false, checker.hasScandinavians(scandinavian));
 
     }
 

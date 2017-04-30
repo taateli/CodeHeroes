@@ -34,7 +34,7 @@
 
                 <div class="col-md-8 col-md-offset-2">
                     <div class="row">
-                        
+
                         <div class="col-md-2 col-md-offset-4">
                             <div class="dropdown">   
 
@@ -67,7 +67,7 @@
 
                     </div>
 
-                     <div class="container-fluid" th:if="${updatedReference != null}">
+                    <div class="container-fluid" th:if="${updatedReference != null}">
 
                         <p class="alert-success" id="hideSuccess">
                             Reference updated successfully!
@@ -75,8 +75,8 @@
                         </p>
 
                     </div>
-             
-            
+
+
 
                     <div class="container-fluid" th:if="${delete != null}">
 
@@ -87,7 +87,7 @@
 
                     </div>
 
-                    
+
                 </div>    
             </div>        
             <div class="row">
@@ -98,7 +98,9 @@
                         <input type="text" name="search"/>
                         <input type="submit" class="btn btn-primary btn-sm" value="Search"/>
                     </form>
-
+                    <form th:method="GET" th:action="@{/} ">
+                        <input type="submit" name="listAll" class="btn btn-primary btn-sm" value="List all"/>
+                    </form>
 
                     <form th:method="GET" th:action="@{/download} ">
                         <label>Name of the file:</label>
@@ -126,7 +128,7 @@
                                     <td><span th:each="tag : ${reference.tags}"><a
                                                 th:text="${tag} + ' '" th:href="@{'/search?search={search}'(search=${tag})}"></a></span></td>
                                     <td><a class="btn btn-primary" th:href="@{/references/{id} (id=${reference.id})}">EDIT</a></td>
-                                    
+
                                     <!--
                                     <th><form th:method="DELETE" th:id="'deleteForm' + ${reference.id}" th:action="@{/references/{id} (id=${reference.id})} "><input type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm" value="Delete" form="'deleteForm' + ${reference.id}"/></form></th>
                                     -->
