@@ -34,7 +34,19 @@ public class ReferenceController {
 
     @Autowired
     private ValidatorService validator;
-
+        
+    @RequestMapping(value = "/acm", method = RequestMethod.GET)
+    public String showAcmForm(Model model) {
+        
+        return "acm";
+    }
+    
+    @RequestMapping(value = "/acm", method = RequestMethod.POST)
+    public String getFromAcm(Model model, @RequestParam String url) {
+        
+        return "redirect:/";
+    }
+    
     //This method handles get-request to home path and shows home.html file from folder resource/templates/ 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showReferenceTypes(Model model) {
