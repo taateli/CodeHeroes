@@ -89,17 +89,17 @@ public class Stepdefs {
         Thread.sleep(2000);
     }
 
-    @Given("^a book reference with key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" publisher \"([^\"]*)\" is created$")
-    public void a_book_reference_with_key_author_title_year_publisher_is_created(String key, String author, String title, String year, String publisher) throws Throwable {
-        form_book_is_selected();
-        String address = "", series = "", edition = "", month = "", volume = "", tags = "";
-        updateBook(key, author, title, year, publisher, address, series, edition, month, volume, tags);
-        system_will_respond_with("Reference added successfully!");
-    }
+//    @Given("^a book reference with key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" publisher \"([^\"]*)\" is created$")
+//    public void a_book_reference_with_key_author_title_year_publisher_is_created(String key, String author, String title, String year, String publisher) throws Throwable {
+//        form_book_is_selected();
+//        String address = "", series = "", edition = "", month = "", volume = "", tags = "";
+//        updateBook(key, author, title, year, publisher, address, series, edition, month, volume, tags);
+//        system_will_respond_with("Reference added successfully!");
+//    }
 
     // searchingReference.feature uses:
-    @Given("^a book reference with key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" publisher \"([^\"]*)\" is created succesfully$")
-    public void a_book_reference_with_key_author_title_year_publisher_is_created_succesfully(String key, String author, String title, String year, String publisher) throws Throwable {
+    @Given("^a book reference with key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" publisher \"([^\"]*)\" is created successfully$")
+    public void a_book_reference_with_key_author_title_year_publisher_is_created_successfully(String key, String author, String title, String year, String publisher) throws Throwable {
         form_book_is_selected();
         String address = "", series = "", edition = "", month = "", volume = "", tags = "";
         updateBook(key, author, title, year, publisher, address, series, edition, month, volume, tags);
@@ -128,6 +128,22 @@ public class Stepdefs {
         form_book_is_selected();
         String address = "", series = "", edition = "", month = "", volume = "";
         updateBook(key, author, title, year, publisher, address, series, edition, month, volume, tags);
+        system_will_respond_with("Reference added successfully!");
+    }
+
+    @Given("^an article reference with key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" journal \"([^\"]*)\" volume \"([^\"]*)\" tags \"([^\"]*)\" is created successfully$")
+    public void an_article_reference_with_key_author_title_year_journal_volume_tags_is_created_successfully(String key, String author, String title, String year, String journal, String volume, String tags) throws Throwable {
+        form_article_is_selected();
+        String publisher = "", number = "", startingPage = "", endingPage = "", month = "", address = "";
+        updateArticle(key, author, title, year, journal, publisher, volume, number, startingPage, endingPage, month, address, tags);
+        system_will_respond_with("Reference added successfully!");
+    }
+
+    @Given("^an inproceedings reference with key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" booktitle \"([^\"]*)\" year \"([^\"]*)\" tags \"([^\"]*)\" is created successfully$")
+    public void an_inproceedings_reference_with_key_author_title_booktitle_year_tags_is_created_successfully(String key, String author, String title, String booktitle, String year, String tags) throws Throwable {
+        form_inproceedings_is_selected();
+        String publisher = "", editor = "", address = "", series = "", startingPage = "", endingPage = "", edition = "", month = "", organization = "";
+        updateInproceedings(key, author, title, year, publisher, editor, booktitle, address, series, startingPage, endingPage, month, organization, tags);
         system_will_respond_with("Reference added successfully!");
     }
 
@@ -182,15 +198,26 @@ public class Stepdefs {
 
     @When("^a book reference with key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" publisher \"([^\"]*)\" is updated$")
     public void a_book_reference_with_key_author_title_year_publisher_is_updated(String key, String author, String title, String year, String publisher) throws Throwable {
-        //   System.out.println("Driverin page source onko true? " +driver.getPageSource().contains("Edit a book reference"));
         assertTrue(driver.getPageSource().contains("Edit a book reference"));
-        WebElement element = driver.findElement(By.name("key"));
-        element.sendKeys(key);
-        element = driver.findElement(By.name("authors"));
-        element.sendKeys(author);
-
+        String address = "", series = "", edition = "", month = "", volume = "", tags = "";
+        updateBook(key, author, title, year, publisher, address, series, edition, month, volume, tags);
         driver.findElement(By.name("save")).submit();
+    }
 
+    @When("^an article reference with key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" journal \"([^\"]*)\" volume \"([^\"]*)\" tags \"([^\"]*)\" is updated$")
+    public void an_article_reference_with_key_author_title_year_journal_volume_tags_is_updated(String key, String author, String title, String year, String journal, String volume, String tags) throws Throwable {
+        assertTrue(driver.getPageSource().contains("Edit an article reference"));;
+        String publisher = "", number = "", startingPage = "", endingPage = "", month = "", address = "";
+        updateArticle(key, author, title, year, journal, publisher, volume, number, startingPage, endingPage, month, address, tags);
+        driver.findElement(By.name("save")).submit();
+    }
+
+    @When("^an inproceedings reference with key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" booktitle \"([^\"]*)\" year \"([^\"]*)\" tags \"([^\"]*)\" is updated$")
+    public void an_inproceedings_reference_with_key_author_title_booktitle_year_tags_is_updated(String key, String author, String title, String booktitle, String year, String tags) throws Throwable {
+        assertTrue(driver.getPageSource().contains("Edit an inproceedings reference"));
+        String publisher = "", editor = "", address = "", series = "", startingPage = "", endingPage = "", edition = "", month = "", organization = "";
+        updateInproceedings(key, author, title, year, publisher, editor, booktitle, address, series, startingPage, endingPage, month, organization, tags);
+        driver.findElement(By.name("save")).submit();
     }
 
     @When("^ListAll button is pressed$")
@@ -218,7 +245,7 @@ public class Stepdefs {
     public void the_number_is_same() throws Throwable {
         assertTrue(this.amount1 == this.amount2);
     }
-    
+
 // tag-test
     @Then("^the number difference is at least \"([^\"]*)\" less than earlier$")
     public void the_number_difference_is_at_least_less_than_earlier(String ero) throws Throwable {
