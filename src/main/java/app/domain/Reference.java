@@ -2,6 +2,7 @@ package app.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 import javax.persistence.CollectionTable;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.ElementCollection;
@@ -43,8 +44,8 @@ public abstract class Reference extends AbstractPersistable<Long> {
     @CollectionTable(name = "authors")
     @NotEmpty(message = "Field can not be empty!")
     private List<String> authors;
-    
-      // this field is common with all Reference types
+
+    // this field is common with all Reference types
     @ElementCollection
     @CollectionTable(name = "tags")
     private List<String> tags;
@@ -68,8 +69,8 @@ public abstract class Reference extends AbstractPersistable<Long> {
     public void setAuthors(List<String> authors) {
         this.authors = authors;
     }
-    
-     public List<String> getTags() {
+
+    public List<String> getTags() {
         return tags;
     }
 
@@ -94,49 +95,28 @@ public abstract class Reference extends AbstractPersistable<Long> {
     }
 
     public String authorsToBibTex() {
-        String output = "";
-        int length = this.authors.size();
-        for (int i = 0; i < length - 1; i++) {
-            output = output + this.authors.get(i) + " and ";
-        }
-        output = output + this.authors.get(length - 1);
-
-        return output;
+        return String.join(" and ", authors);
     }
 
     public String authorsToString() {
-        String output = "";
-        int length = this.authors.size();
+        int length = authors.size();
 
-        if (length == 1) {
-            output = this.authors.get(0);
+        if (length < 3) {
+            return String.join(" and ", authors);
+        } else {
+            return String.join(", and ",
+                    String.join(", ", authors.subList(0, length - 1)),
+                    authors.get(length - 1));
         }
-
-        if (length == 2) {
-            output = this.authors.get(0) + " and " + this.authors.get(1);
-        }
-
-        if (length > 2) {
-            for (int i = 0; i < length - 1; i++) {
-                output = output + this.authors.get(i) + ", ";
-            }
-            output = output + "and " + this.authors.get(length - 1);
-        }
-
-        return output;
     }
-    
-       public String tagsToString() {
+
+    public String tagsToString() {
         String output = "";
         int length = this.tags.size();
 
-        
         if (length == 1) {
             output = this.tags.get(0);
-        }
-
-        
-        else if (length > 1) {
+        } else if (length > 1) {
             output = String.join(",", tags);
         }
 
