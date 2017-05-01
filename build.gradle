@@ -41,7 +41,9 @@ dependencies {
     compile group: 'org.seleniumhq.selenium', name: 'selenium-firefox-driver', version:seleniumVersion
     compile group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version:seleniumVersion
     
+    // Jsoup for web crawling
     
+    compile 'org.jsoup:jsoup:1.7.2'
     
     // Springin testien lisäämistä: cucumberin kanssa
     testCompile 'org.springframework.boot:spring-boot-starter-test'

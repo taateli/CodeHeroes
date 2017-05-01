@@ -21,7 +21,7 @@ public class ValidatorService {
     
  // This method checks if input string is empty   
     public boolean fieldNotEmpty(String value){
-        System.out.println("valuen pituus "+value.length());
+        
         return value.length() > 0;
     }
 

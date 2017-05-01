@@ -16,7 +16,14 @@ public class ReferenceService {
 
     @Autowired
     private ReferenceRepository refRepository;
+    
+    @Autowired
+    private WebCrawler crawler;
 
+    public String getReferencesFromAcm(String url){
+        return crawler.getReferences(url);
+    }
+    
     public Reference addReference(Reference b) {
         return refRepository.save(b);
     }
