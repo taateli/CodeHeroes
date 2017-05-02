@@ -9,26 +9,29 @@ Scandinavian letters to BibText format.
 @Service
 public class LetterChecker {
 
-    
-    public LetterChecker() {
+//    public LetterChecker() {
+//
+//    }
 
-    }
-
-      /**
-       * Method to check if a reference contains Scandinavian letters.
-       * @param reference, String, received as a parameter
-       * @return true, if the reference contains any Scandinavian letters
-       */
+    /**
+     * Method to check if a reference contains Scandinavian letters.
+     *
+     * @param reference, String, received as a parameter
+     * @return true, if the reference contains any Scandinavian letters
+     */
     public boolean hasScandinavians(String reference) {
         String reference2 = reference.toLowerCase();
         return reference2.contains("ä") || reference2.contains("ö") || reference2.contains("å")
-              || reference2.contains("ø") || reference2.contains("æ");
+                || reference2.contains("ø") || reference2.contains("æ");
     }
 
     /**
-     * Method to change Scandinavian letters in a reference to forms used by BibText
+     * Method to change Scandinavian letters in a reference to forms used by
+     * BibText
+     *
      * @param reference, String, received as a parameter
-     * @return modified reference that has Scandinavian letters changed to BibText forms
+     * @return modified reference that has Scandinavian letters changed to
+     * BibText forms
      */
     public String changeScandisToBibTextForm(String reference) {
         char[] characters = reference.toCharArray();

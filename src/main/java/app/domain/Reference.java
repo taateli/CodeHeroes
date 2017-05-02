@@ -15,7 +15,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 /**
- * This class is the abstract class for the subclasses "Book", "Inproceedins"
+ * This class is the abstract class for the subclasses "Book", "Inproceedings"
  * and "Article".
  */
 @Entity
@@ -43,8 +43,8 @@ public abstract class Reference extends AbstractPersistable<Long> {
     @CollectionTable(name = "authors")
     @NotEmpty(message = "Field can not be empty!")
     private List<String> authors;
-    
-      // this field is common with all Reference types
+
+    // this field is common with all Reference types
     @ElementCollection
     @CollectionTable(name = "tags")
     private List<String> tags;
@@ -68,8 +68,8 @@ public abstract class Reference extends AbstractPersistable<Long> {
     public void setAuthors(List<String> authors) {
         this.authors = authors;
     }
-    
-     public List<String> getTags() {
+
+    public List<String> getTags() {
         return tags;
     }
 
@@ -93,6 +93,11 @@ public abstract class Reference extends AbstractPersistable<Long> {
         this.year = year;
     }
 
+    /**
+     * Method to transfer authors from a list into BibTex form.
+     *
+     * @return authors as a String in BibTex form
+     */
     public String authorsToBibTex() {
         String output = "";
         int length = this.authors.size();
@@ -104,6 +109,11 @@ public abstract class Reference extends AbstractPersistable<Long> {
         return output;
     }
 
+    /**
+     * Method to transfer authors from a list into a String
+     *
+     * @return authors as a String
+     */
     public String authorsToString() {
         String output = "";
         int length = this.authors.size();
@@ -125,18 +135,19 @@ public abstract class Reference extends AbstractPersistable<Long> {
 
         return output;
     }
-    
-       public String tagsToString() {
+
+    /**
+     * Method to transfer tags from a list into a String
+     *
+     * @return tags in a String
+     */
+    public String tagsToString() {
         String output = "";
         int length = this.tags.size();
 
-        
         if (length == 1) {
             output = this.tags.get(0);
-        }
-
-        
-        else if (length > 1) {
+        } else if (length > 1) {
             output = String.join(",", tags);
         }
 

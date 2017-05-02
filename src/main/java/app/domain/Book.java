@@ -6,7 +6,7 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
- * This class is to create different book objects.
+ * This class is for creating different Book objects.
  */
 @Entity
 @DiscriminatorValue(value = "Book")
