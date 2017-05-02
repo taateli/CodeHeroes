@@ -68,7 +68,13 @@
                 <input type="text" th:field="*{series}" class="form-control" name="series"/>
                 <p class="alert-danger" th:if="${#fields.hasErrors('series')}" th:errors="*{series}">Virheviesti</p>
             </div>
-
+             <div class="form-group">
+                        
+                <label for="volume">Volume</label>
+                <input type="text" th:field="*{volume}" class="form-control" name="volume" />
+                <p class="alert-danger" th:if="${#fields.hasErrors('volume')}" th:errors="*{volume}" >Virheviesti</p>
+            </div>
+            
             <div class="form-group"> 
                 <label for="startingPage">Starting page</label>
                 <input type="text" th:field="*{startingPage}" class="form-control" name="startingPage"/>

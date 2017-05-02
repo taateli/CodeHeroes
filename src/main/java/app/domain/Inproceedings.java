@@ -7,7 +7,7 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
- * This class is to create different proceedings objects.
+ * This class is for creating different Inproceedings objects.
  */
 @Entity
 @DiscriminatorValue(value = "Inproceedings")

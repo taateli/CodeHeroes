@@ -34,19 +34,19 @@ public class ReferenceController {
 
     @Autowired
     private ValidatorService validator;
-        
+
     @RequestMapping(value = "/acm", method = RequestMethod.GET)
     public String showAcmForm(Model model) {
-        
+
         return "acm";
     }
-    
+
     @RequestMapping(value = "/acm", method = RequestMethod.POST)
-    public void getFromAcm(Model model, @RequestParam String url) {
+    public String getFromAcm(Model model, @RequestParam String url) throws InterruptedException {
         refService.getReferencesFromAcm(url);
-//        return "redirect:/acm";
+        return "redirect:/";
     }
-    
+
     //This method handles get-request to home path and shows home.html file from folder resource/templates/ 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showReferenceTypes(Model model) {
@@ -83,8 +83,7 @@ public class ReferenceController {
 
     /*  This method handles post-request to path /inproceedings
         and takes Inproceedings type parameter. It uses @ModelAttribute annotation to render
-        th:field tags from view
-    
+        th:field tags from view   
      */
     @RequestMapping(value = "/inproceedings", method = RequestMethod.POST)
     public String addInproceedings(@Valid @ModelAttribute Inproceedings inp, BindingResult bindingresult,
@@ -170,7 +169,7 @@ public class ReferenceController {
             RedirectAttributes redirectAttrs) {
 
         reference.setAuthors(validator.splitAuthors(reference.getAuthors().get(0)));
-        
+
         Reference newReference = null;
         if (!validator.fieldNotEmpty(reference.getKey())) {
             newReference = refService.addReference(validator.getKey(reference));
@@ -198,9 +197,18 @@ public class ReferenceController {
 
     }
 
+    /**
+     * Method for updating a Book type reference
+     *
+     * @param editBookRef, Book object containing updated information
+     * @param bindingresult
+     * @param id, Long, id of the Book reference being updated
+     * @param redirectAttrs
+     * @return redirect to the main page
+     */
     @RequestMapping(value = "/editBook/{id}", method = RequestMethod.POST)
     public String updateBook(@Valid @ModelAttribute Book editBookRef, BindingResult bindingresult,
-            @PathVariable Long id,RedirectAttributes redirectAttrs) {
+            @PathVariable Long id, RedirectAttributes redirectAttrs) {
 
         if (bindingresult.hasErrors()) {
             return "editBook";
@@ -224,9 +232,18 @@ public class ReferenceController {
         return "redirect:/";
     }
 
+    /**
+     * Method for updating an Article type reference
+     *
+     * @param editArticleRef, Article object containing updated information
+     * @param bindingresult
+     * @param id, Long, id of the Article reference being updated
+     * @param redirectAttrs
+     * @return redirect to the main page
+     */
     @RequestMapping(value = "/editArticle/{id}", method = RequestMethod.POST)
     public String updateArticle(@Valid @ModelAttribute Article editArticleRef, BindingResult bindingresult,
-            @PathVariable Long id,RedirectAttributes redirectAttrs) {
+            @PathVariable Long id, RedirectAttributes redirectAttrs) {
 
         if (bindingresult.hasErrors()) {
             return "editArticle";
@@ -252,9 +269,19 @@ public class ReferenceController {
         return "redirect:/";
     }
 
+    /**
+     * Method for updating an Inproceedings type reference
+     *
+     * @param editInproceedingsRef, Inproceedings object containing updated
+     * information
+     * @param bindingresult
+     * @param id, Long, id of the Inproceedings reference being updated
+     * @param redirectAttrs
+     * @return redirect to the main page
+     */
     @RequestMapping(value = "/editInpro/{id}", method = RequestMethod.POST)
     public String updateInproceedings(@Valid @ModelAttribute Inproceedings editInproceedingsRef, BindingResult bindingresult,
-            @PathVariable Long id,RedirectAttributes redirectAttrs) {
+            @PathVariable Long id, RedirectAttributes redirectAttrs) {
 
         if (bindingresult.hasErrors()) {
             return "editInpro";
@@ -282,15 +309,22 @@ public class ReferenceController {
         return "redirect:/";
     }
 
+    /**
+     * Method for editing Reference objects
+     *
+     * @param model
+     * @param id, Long, id of the reference being edited
+     * @return a specific editing page according to the type of the reference
+     */
     @RequestMapping(value = "/references/{id}", method = RequestMethod.GET)
     public String editReference(Model model, @PathVariable Long id) {
         Reference reference = refService.findById(id);
-        
-        // laitetaan ruudulle 'and' authorien väliin 
+
+        // places 'and' between authors
         String authors = reference.authorsToBibTex();
         List<String> authorsList = new ArrayList<>();
         authorsList.add(authors);
-        reference.setAuthors(authorsList); // ekassa indeksissä uusi lista
+        reference.setAuthors(authorsList); //new list in the first index
 
         if (reference instanceof Book) {
             model.addAttribute("book", reference);

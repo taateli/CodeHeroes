@@ -18,32 +18,39 @@ import org.jsoup.select.Elements;
  */
 @Service
 public class WebCrawler {
-    
-    
-    public String getReferences(String URL){
         
+    public String getReferences(String URL){
+        String acmId = extractId(URL);
+        if(acmId == null){
+            return null;
+        }
+        String referenceUrl = "http://dl.acm.org/exportformats.cfm?id=" + acmId +"&expformat=bibtex";
+       
         try{
-//             System.out.println(URL);
-             Document document = Jsoup.connect(URL).userAgent("Mozilla").get();
-//             System.out.println(document.absUrl(URL));
-             Elements links = document.select("a[href]");
-             Element bibtexLink = null;
-             
-             for(Element el:links){
-                                  
-                 if(el.ownText().equals("BibTeX")){
-                    bibtexLink = el;
-                     System.out.println("löytyi: " + bibtexLink.toString());
-                 }
-             }
-//             Document references = Jsoup.connect(URL).userAgent("Mozilla").get();
-             
-             return "";
+            
+            Document document = Jsoup.connect(referenceUrl).userAgent("Mozilla").get();
+            Element references = document.select("PRE").first();
+            System.out.println(references.ownText());  
+            return references.ownText();
              
         } catch (IOException e) {
-                System.err.println("For '" + URL + "': " + e.getMessage());
+             System.err.println("For '" + referenceUrl + "': " + e.getMessage());
+             return null;
         }
-        return "";
+        
+    }
+    
+    private String extractId(String url){
+        String [] urlParts = url.split("=");
+        if(urlParts.length > 1){
+            String[]idPart = urlParts[1].split("&");
+            String [] id = idPart[0].split("[.]");
+            if(id.length > 1){
+                return id[1];
+            }    
+        }
+        return null;
     }
     
 }
+
