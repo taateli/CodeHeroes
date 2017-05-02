@@ -5,60 +5,52 @@
  */
 package app.service;
 
-import java.io.File;
 import java.io.IOException;
 import org.springframework.stereotype.Service;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 /**
  *
  * @author villepaa
  */
-
+@Service
 public class WebCrawler {
-    
-    WebDriver driver;
-    
-    public WebCrawler(){
-       
-        File file;
-
-        if (System.getProperty("os.name").matches("Mac OS X")) {
-            file = new File("lib/macgeckodriver");
-        } else if (System.getProperty("os.name").matches("Linux")) {
-            file = new File("lib/geckodriver");
-        } else {
-            file = new File("lib/wingeckodriver.exe");
+        
+    public String getReferences(String URL){
+        String acmId = extractId(URL);
+        if(acmId == null){
+            return null;
         }
-
-        String path = file.getAbsolutePath();
-        System.setProperty("webdriver.gecko.driver", path);
-        this.driver = new FirefoxDriver();
-
-    
-    }
-    
-    public String getReferences(String URL) throws InterruptedException{
+        String referenceUrl = "http://dl.acm.org/exportformats.cfm?id=" + acmId +"&expformat=bibtex";
        
-
-             this.driver.get(URL);
-             WebElement bibtexLink = this.driver.findElement(By.linkText("BibTeX"));
-             bibtexLink.click();
-             Thread.sleep(5000);
-             WebElement bibtex = this.driver.findElement(By.tagName("pre"));
+        try{
+            
+            Document document = Jsoup.connect(referenceUrl).userAgent("Mozilla").get();
+            Element references = document.select("PRE").first();
+            System.out.println(references.ownText());  
+            return references.ownText();
              
-             System.out.println(bibtex.getText());
-             this.driver.quit();
-             return "";
-             
+        } catch (IOException e) {
+             System.err.println("For '" + referenceUrl + "': " + e.getMessage());
+             return null;
+        }
         
     }
     
+    private String extractId(String url){
+        String [] urlParts = url.split("=");
+        if(urlParts.length > 1){
+            String[]idPart = urlParts[1].split("&");
+            String [] id = idPart[0].split("[.]");
+            if(id.length > 1){
+                return id[1];
+            }    
+        }
+        return null;
+    }
+    
 }
+

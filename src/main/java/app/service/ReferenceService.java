@@ -17,11 +17,10 @@ public class ReferenceService {
     @Autowired
     private ReferenceRepository refRepository;
     
-//    @Autowired
-//    private WebCrawler crawler;
+    @Autowired
+    private WebCrawler crawler;
 
     public String getReferencesFromAcm(String url) throws InterruptedException{
-        WebCrawler crawler = new WebCrawler();
         return crawler.getReferences(url);
     }
     
