@@ -1,8 +1,6 @@
 package app.domain;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.StringJoiner;
 import javax.persistence.CollectionTable;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.ElementCollection;
@@ -10,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.jpa.domain.AbstractPersistable;
