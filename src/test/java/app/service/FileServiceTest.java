@@ -15,6 +15,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 /**
@@ -24,6 +25,7 @@ import static org.mockito.Mockito.*;
 public class FileServiceTest {
 
     FileService service;
+    LetterChecker letterChecker;
 
     @BeforeClass
     public static void setUpClass() {
@@ -36,11 +38,8 @@ public class FileServiceTest {
     @Before
     public void setUp() {
         service = new FileService();
+        letterChecker = new LetterChecker();
+
     }
-    
-    //Will be continued...
 
-    
-
-    
-}
+    }

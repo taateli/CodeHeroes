@@ -29,7 +29,7 @@ public class Book extends Reference {
     
     @Pattern(regexp = "^([1-9][0-2]{0,1})*$", message ="Field must contain number between 1 and 12")
     private String month;
-
+    
     public String getVolume() {
         return volume;
     }
