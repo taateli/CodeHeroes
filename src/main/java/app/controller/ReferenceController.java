@@ -42,9 +42,9 @@ public class ReferenceController {
     }
     
     @RequestMapping(value = "/acm", method = RequestMethod.POST)
-    public void getFromAcm(Model model, @RequestParam String url) {
+    public String getFromAcm(Model model, @RequestParam String url) throws InterruptedException {
         refService.getReferencesFromAcm(url);
-//        return "redirect:/acm";
+        return "redirect:/acm";
     }
     
     //This method handles get-request to home path and shows home.html file from folder resource/templates/ 

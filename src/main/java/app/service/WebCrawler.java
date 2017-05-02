@@ -5,45 +5,60 @@
  */
 package app.service;
 
+import java.io.File;
 import java.io.IOException;
 import org.springframework.stereotype.Service;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 /**
  *
  * @author villepaa
  */
-@Service
+
 public class WebCrawler {
     
+    WebDriver driver;
     
-    public String getReferences(String URL){
-        
-        try{
-//             System.out.println(URL);
-             Document document = Jsoup.connect(URL).userAgent("Mozilla").get();
-//             System.out.println(document.absUrl(URL));
-             Elements links = document.select("a[href]");
-             Element bibtexLink = null;
+    public WebCrawler(){
+       
+        File file;
+
+        if (System.getProperty("os.name").matches("Mac OS X")) {
+            file = new File("lib/macgeckodriver");
+        } else if (System.getProperty("os.name").matches("Linux")) {
+            file = new File("lib/geckodriver");
+        } else {
+            file = new File("lib/wingeckodriver.exe");
+        }
+
+        String path = file.getAbsolutePath();
+        System.setProperty("webdriver.gecko.driver", path);
+        this.driver = new FirefoxDriver();
+
+    
+    }
+    
+    public String getReferences(String URL) throws InterruptedException{
+       
+
+             this.driver.get(URL);
+             WebElement bibtexLink = this.driver.findElement(By.linkText("BibTeX"));
+             bibtexLink.click();
+             Thread.sleep(5000);
+             WebElement bibtex = this.driver.findElement(By.tagName("pre"));
              
-             for(Element el:links){
-                                  
-                 if(el.ownText().equals("BibTeX")){
-                    bibtexLink = el;
-                     System.out.println("löytyi: " + bibtexLink.toString());
-                 }
-             }
-//             Document references = Jsoup.connect(URL).userAgent("Mozilla").get();
-             
+             System.out.println(bibtex.getText());
+             this.driver.quit();
              return "";
              
-        } catch (IOException e) {
-                System.err.println("For '" + URL + "': " + e.getMessage());
-        }
-        return "";
+        
     }
     
 }
