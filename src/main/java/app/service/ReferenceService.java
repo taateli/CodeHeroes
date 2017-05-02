@@ -20,16 +20,20 @@ public class ReferenceService {
     @Autowired
     private WebCrawler crawler;
 
+    // This method gets references from ACM digital library with the help of WebCrawler
+    
     public String getReferencesFromAcm(String url) throws InterruptedException{
         return crawler.getReferences(url);
     }
     
-    
+    // This method handles saving References to database via repository
     
     public Reference addReference(Reference b) {
         return refRepository.save(b);
     }
 
+    // This method handles getting all References from database via repository
+    
     public List<Reference> getReferences() {
         return refRepository.findAll();
     }
