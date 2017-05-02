@@ -50,7 +50,19 @@ public class ReferenceTest {
     @After
     public void tearDown() {
     }
-    
+
+    @Test
+    public void testAuthorsToBibTex() {
+        List<String> auth = new ArrayList<>();
+        auth.add("author1");
+        auth.add("author2");
+        auth.add("author3");
+        Reference reference = new Article();
+        reference.setAuthors(auth);
+        String expected = "author1 and author2 and author3";
+        assertEquals(expected, reference.authorsToBibTex());
+    }
+
     /**
      * Test of authorsToString method, of class Reference. One author.
      */
@@ -60,7 +72,7 @@ public class ReferenceTest {
         String expResult = "author1";
         assertEquals(expResult, instance.authorsToString());
     }
-    
+
     /**
      * Test of authorsToString method, of class Reference. Two authors.
      */
@@ -74,7 +86,7 @@ public class ReferenceTest {
         String expResult = "author1 and author2";
         assertEquals(expResult, instance.authorsToString());
     }
-    
+
     /**
      * Test of authorsToString method, of class Reference. Three authors.
      */
@@ -89,7 +101,7 @@ public class ReferenceTest {
         String expResult = "author1, author2, and author3";
         assertEquals(expResult, instance.authorsToString());
     }
-    
+
     /**
      * Test of tagsToString method, of class Reference. One tag.
      */
@@ -99,7 +111,7 @@ public class ReferenceTest {
         String expResult = "tag1";
         assertEquals(expResult, instance.tagsToString());
     }
-    
+
     /**
      * Test of tagsToString method, of class Reference. Two tags.
      */
@@ -113,7 +125,7 @@ public class ReferenceTest {
         String expResult = "tag1,tag2";
         assertEquals(expResult, instance.tagsToString());
     }
-    
+
     /**
      * Test of tagsToString method, of class Reference. Three tags.
      */
@@ -128,7 +140,7 @@ public class ReferenceTest {
         String expResult = "tag1,tag2,tag3";
         assertEquals(expResult, instance.tagsToString());
     }
-    
+
     /**
      * Test of setKey method, of class Reference.
      */
@@ -139,7 +151,7 @@ public class ReferenceTest {
         instance.setKey("avain");
         assertEquals("avain", instance.getKey());
     }
-    
+
     /**
      * Test of getKey method, of class Reference.
      */
@@ -148,5 +160,5 @@ public class ReferenceTest {
         System.out.println("getKey");
         assertEquals("avain1", instance.getKey());
     }
-    
+
 }
