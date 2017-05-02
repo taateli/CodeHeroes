@@ -55,7 +55,10 @@ public class InproceedingsTest {
         tags.add("tag1");
         tags.add("tag2");
         instance.setTags(tags);
-
+        instance.setVolume("volume1");
+        instance.setSeries("series");
+        instance.setMonth("May");
+        instance.setOrganization("organization");
     }
 
     @After
@@ -82,7 +85,6 @@ public class InproceedingsTest {
         assertEquals("bookTitle", result);
     }
 
-    
     /**
      * Test of getYear method, of class Inproceedings.
      */
@@ -132,10 +134,40 @@ public class InproceedingsTest {
      * Test of getVolume method, of class Inproceedings.
      */
     @Test
-    public void testGetVol() {
+    public void testGetVolume() {
         instance.setVolume("5");
         System.out.println("getVolume");
         assertEquals("5", instance.getVolume());
+    }
+
+    /**
+     * Test of getSeries method, of class Inproceedings.
+     */
+    @Test
+    public void testGetSeries() {
+        instance.setSeries("series");
+        System.out.println("getSeries");
+        assertEquals("series", instance.getSeries());
+    }
+
+    /**
+     * Test of getMonth method, of class Inproceedings.
+     */
+    @Test
+    public void testGetMonth() {
+        instance.setMonth("May");
+        System.out.println("getMonth");
+        assertEquals("May", instance.getMonth());
+    }
+
+    /**
+     * Test of getOrganization method, of class Inproceedings.
+     */
+    @Test
+    public void testGetOrganization() {
+        instance.setOrganization("organization");
+        System.out.println("getOrganization");
+        assertEquals("organization", instance.getOrganization());
     }
 
     /**
@@ -237,6 +269,45 @@ public class InproceedingsTest {
     }
 
     /**
+     * Test of setSeries method, of class Inproceedings.
+     */
+    @Test
+    public void testSetSeries() {
+        System.out.println("setSeries");
+        String series = "series1";
+        Inproceedings instance1 = new Inproceedings();
+        instance1.setSeries(series);
+        assertEquals("series1", instance1.getSeries());
+
+    }
+
+    /**
+     * Test of setMonth method, of class Inproceedings.
+     */
+    @Test
+    public void testSetMonth() {
+        System.out.println("setMonth");
+        String month = "May";
+        Inproceedings instance1 = new Inproceedings();
+        instance1.setMonth(month);
+        assertEquals("May", instance1.getMonth());
+
+    }
+
+    /**
+     * Test of setOrganization method, of class Inproceedings.
+     */
+    @Test
+    public void testSetOrganization() {
+        System.out.println("setOrganization");
+        String organization = "organization1";
+        Inproceedings instance1 = new Inproceedings();
+        instance1.setOrganization(organization);
+        assertEquals("organization1", instance1.getOrganization());
+
+    }
+
+    /**
      * Test of toString method, of class Inproceedings. One author.
      */
     @Test
@@ -245,7 +316,7 @@ public class InproceedingsTest {
         authors.add("author1");
         instance.setAuthors(authors);
         System.out.println("toString");
-        String expResult = "author1. title. In editor1, editor, bookTitle, pages 1-100. publisher, 2017. address. Key{avain} tag1,tag2.";
+        String expResult = "author1. title. In editor1, editor, bookTitle, volume volume1 (series), pages 1-100. publisher, organization, May 2017. address. Key{avain} tag1,tag2.";
         assertEquals(expResult, instance.toString());
     }
 
@@ -255,7 +326,7 @@ public class InproceedingsTest {
     @Test
     public void testToString() {
         System.out.println("toString");
-        String expResult = "author1 and author2. title. In editor1, editor, bookTitle, pages 1-100. publisher, 2017. address. Key{avain} tag1,tag2.";
+        String expResult = "author1 and author2. title. In editor1, editor, bookTitle, volume volume1 (series), pages 1-100. publisher, organization, May 2017. address. Key{avain} tag1,tag2.";
         assertEquals(expResult, instance.toString());
     }
 
@@ -270,7 +341,7 @@ public class InproceedingsTest {
         authors.add("author3");
         instance.setAuthors(authors);
         System.out.println("toString");
-        String expResult = "author1, author2, and author3. title. In editor1, editor, bookTitle, pages 1-100. publisher, 2017. address. Key{avain} tag1,tag2.";
+        String expResult = "author1, author2, and author3. title. In editor1, editor, bookTitle, volume volume1 (series), pages 1-100. publisher, organization, May 2017. address. Key{avain} tag1,tag2.";
         assertEquals(expResult, instance.toString());
     }
 
@@ -283,7 +354,7 @@ public class InproceedingsTest {
         tags.add("tag1");
         instance.setTags(tags);
         System.out.println("toString");
-        String expResult = "author1 and author2. title. In editor1, editor, bookTitle, pages 1-100. publisher, 2017. address. Key{avain} tag1.";
+        String expResult = "author1 and author2. title. In editor1, editor, bookTitle, volume volume1 (series), pages 1-100. publisher, organization, May 2017. address. Key{avain} tag1.";
         assertEquals(expResult, instance.toString());
     }
 
@@ -298,7 +369,7 @@ public class InproceedingsTest {
         tags.add("tag3");
         instance.setTags(tags);
         System.out.println("toString");
-        String expResult = "author1 and author2. title. In editor1, editor, bookTitle, pages 1-100. publisher, 2017. address. Key{avain} tag1,tag2,tag3.";
+        String expResult = "author1 and author2. title. In editor1, editor, bookTitle, volume volume1 (series), pages 1-100. publisher, organization, May 2017. address. Key{avain} tag1,tag2,tag3.";
         assertEquals(expResult, instance.toString());
     }
 
@@ -309,7 +380,51 @@ public class InproceedingsTest {
     public void testToStringNoPublisher() {
         instance.setPublisher("");
         System.out.println("toString");
-        String expResult = "author1 and author2. title. In editor1, editor, bookTitle, pages 1-100, 2017. address. Key{avain} tag1,tag2.";
+        String expResult = "author1 and author2. title. In editor1, editor, bookTitle, volume volume1 (series), pages 1-100, organization, May 2017. address. Key{avain} tag1,tag2.";
+        assertEquals(expResult, instance.toString());
+    }
+
+    /**
+     * Test of toString method, of class Inproceedings. No volume.
+     */
+    @Test
+    public void testToStringNoVolume() {
+        instance.setVolume("");
+        System.out.println("toString");
+        String expResult = "author1 and author2. title. In editor1, editor, bookTitle (series), pages 1-100. publisher, organization, May 2017. address. Key{avain} tag1,tag2.";
+        assertEquals(expResult, instance.toString());
+    }
+
+    /**
+     * Test of toString method, of class Inproceedings. No series.
+     */
+    @Test
+    public void testToStringNoSeries() {
+        instance.setSeries("");
+        System.out.println("toString");
+        String expResult = "author1 and author2. title. In editor1, editor, bookTitle, volume volume1, pages 1-100. publisher, organization, May 2017. address. Key{avain} tag1,tag2.";
+        assertEquals(expResult, instance.toString());
+    }
+
+    /**
+     * Test of toString method, of class Inproceedings. No month.
+     */
+    @Test
+    public void testToStringNoMonth() {
+        instance.setMonth("");
+        System.out.println("toString");
+        String expResult = "author1 and author2. title. In editor1, editor, bookTitle, volume volume1 (series), pages 1-100. publisher, organization, 2017. address. Key{avain} tag1,tag2.";
+        assertEquals(expResult, instance.toString());
+    }
+
+    /**
+     * Test of toString method, of class Inproceedings. No Organization.
+     */
+    @Test
+    public void testToStringNoOrganization() {
+        instance.setOrganization("");
+        System.out.println("toString");
+        String expResult = "author1 and author2. title. In editor1, editor, bookTitle, volume volume1 (series), pages 1-100. publisher, May 2017. address. Key{avain} tag1,tag2.";
         assertEquals(expResult, instance.toString());
     }
 
@@ -318,6 +433,10 @@ public class InproceedingsTest {
      */
     @Test
     public void testToBibTex() {
+        instance.setVolume("volume");
+        instance.setSeries("series");
+        instance.setMonth("month");
+        instance.setOrganization("organization");
         System.out.println("toBibTex()");
         String expResult = "@inproceedings{avain,\n"
                 + "author = {author1 and author2},\n"
@@ -328,6 +447,10 @@ public class InproceedingsTest {
                 + "publisher = {publisher},\n"
                 + "address = {address},\n"
                 + "editor = {editor1},\n"
+                + "volume = {volume},\n"
+                + "series = {series},\n"
+                + "month = {month},\n"
+                + "organization = {organization},\n"
                 + "}";
         assertEquals(expResult, instance.toBibTex());
     }
