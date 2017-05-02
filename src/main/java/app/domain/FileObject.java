@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package app.domain;
 
 import javax.persistence.Basic;
@@ -11,8 +7,8 @@ import javax.persistence.Lob;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 /**
- *
- * @author kaisa
+ * Class for creating FileObjects
+ * 
  */
 public class FileObject extends AbstractPersistable<Long> {
 
@@ -22,6 +18,11 @@ public class FileObject extends AbstractPersistable<Long> {
     @Basic(fetch = FetchType.LAZY)
     private byte[] content;
 
+    /**
+     * Constructor for FileObjects, assigns the name for BibTex files
+     * @param content, byte[], received as a parameter
+     * @param name, String, name of the file
+     */
     public FileObject(byte[] content, String name) {
         if (name == null) {
             this.name = "sigproc.bib";

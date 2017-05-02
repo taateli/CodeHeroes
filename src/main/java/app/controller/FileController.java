@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package app.controller;
 
 import app.domain.FileObject;
@@ -24,53 +20,52 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
-/** This class handles all requests regarding to downloading references as a 
- *  .bib file.
- * 
+/**
+ * This class handles all requests regarding to downloading references as a .bib
+ * file.
+ *
  * @author kaisa
  */
-
 @Controller
 public class FileController {
-    
+
     @Autowired
     private ReferenceService referenceService;
-    
+
     @Autowired
     private FileService fileService;
-    
+
     @Autowired
     private ValidatorService validator;
-    
-       @RequestMapping(value = "/download", method = RequestMethod.GET)
-    public ResponseEntity<byte[]> viewFile(@RequestParam String fileName, @RequestParam(name = "refs", required=false) Long[] refs) {
-        
+
+    /**
+     * Method to download a BibTex file
+     * @param fileName, String, name of the file
+     * @param refs, Long [], contains ids of the references to download
+     * @return 
+     */
+    @RequestMapping(value = "/download", method = RequestMethod.GET)
+    public ResponseEntity<byte[]> viewFile(@RequestParam String fileName, @RequestParam(name = "refs", required = false) Long[] refs) {
+
         String name = fileName;
-        if(!validator.fieldNotEmpty(fileName)){
+        if (!validator.fieldNotEmpty(fileName)) {
             name = null;
         }
-                   
+
         List<Reference> toDownload = new ArrayList<>();
-        if(refs == null || refs[0] == null){
+        if (refs == null || refs[0] == null) {
             toDownload = referenceService.getReferences();
-        }else{
+        } else {
             toDownload = referenceService.getReferencesById(Arrays.asList(refs));
         }
-            
-         FileObject fo= fileService.createFile(toDownload, name);
+
+        FileObject fo = fileService.createFile(toDownload, name);
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType("text/bib"));
         headers.add("Content-Disposition", "attachment; filename=" + fo.getName());
         headers.setContentLength(fo.getContentLength());
 
         return new ResponseEntity<byte[]>(fo.getContent(), headers, HttpStatus.CREATED);
-        }
-        
-
-    //kopioitu malliksi, saa poistaa kun toimii
-//    String filename = "output.pdf";
-//    headers.setContentDispositionFormData(filename, filename);
-//    headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+    }
 
 }

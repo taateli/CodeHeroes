@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package app.service;
 
 import app.domain.FileObject;
@@ -23,6 +19,12 @@ public class FileService {
     @Autowired
     private LetterChecker letterChecker;
     
+    /**
+     * Creates a FileObject containing with references in a String and the name of the file
+     * @param references, a list containing selected references
+     * @param fileName, String, name of the file
+     * @return a FileObject containing references with Scandinavian letters in BibTex form, and the name of the file
+     */
     public FileObject createFile(List<Reference> references, String fileName) {
         
         String content = "";
