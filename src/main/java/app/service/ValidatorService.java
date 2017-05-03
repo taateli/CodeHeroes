@@ -36,6 +36,11 @@ public class ValidatorService {
         return authorList;
     }
     
+        public List<String> splitTags(String authors){
+        List authorList = new ArrayList<>(Arrays.asList(authors.split(", ")));
+        return authorList;
+    }
+    
      public Reference getKey(Reference ref) {
         String key = "";
         
