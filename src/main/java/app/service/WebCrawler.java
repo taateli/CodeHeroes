@@ -41,13 +41,18 @@ public class WebCrawler {
     }
     
     private String extractId(String url){
-        String [] urlParts = url.split("=");
+        String [] urlParts = url.split("&");
         if(urlParts.length > 1){
-            String[]idPart = urlParts[1].split("&");
-            String [] id = idPart[0].split("[.]");
-            if(id.length > 1){
+            String[]idPart = urlParts[0].split("=");
+            if(idPart[1].contains(".")){
+                String [] id = idPart[1].split("[.]");
                 return id[1];
-            }    
+                
+            }else{
+                return idPart[1];
+            }
+            
+            
         }
         return null;
     }
