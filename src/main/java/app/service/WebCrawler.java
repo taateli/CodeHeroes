@@ -92,15 +92,15 @@ public class WebCrawler {
     public Book bibtextToBook(String bibtext) {
         Book book = new Book();
 
-        book.setAuthors(validator.splitAuthors(searchField(bibtext, "author")));
-        book.setTitle(searchField(bibtext, "title"));
-        book.setYear(searchField(bibtext, "year"));
-        book.setPublisher(searchField(bibtext, "publisher"));
-        book.setAddress(searchField(bibtext, "address"));
-        book.setEdition(searchField(bibtext, "edition"));
-        book.setMonth(searchField(bibtext, "month"));
-        book.setSeries(searchField(bibtext, "series"));
-        book.setTags(validator.splitTags(searchField(bibtext, "keywords")));
+        book.setAuthors(validator.splitAuthors(searchField(bibtext, "author", '{', '}')));
+        book.setTitle(searchField(bibtext, "title", '{', '}'));
+        book.setYear(searchField(bibtext, "year", '{', '}'));
+        book.setPublisher(searchField(bibtext, "publisher", '{', '}'));
+        book.setAddress(searchField(bibtext, "address", '{', '}'));
+        book.setEdition(searchField(bibtext, "edition", '{', '}'));
+        book.setMonth(searchField(bibtext, "month", '{', '}'));
+        book.setSeries(searchField(bibtext, "series", '{', '}'));
+        book.setTags(validator.splitTags(searchField(bibtext, "keywords", '{', '}')));
 
         validator.getKey(book);
 
@@ -110,26 +110,26 @@ public class WebCrawler {
     /**
      * This method handles turning BibTex format into an Inproceedings reference
      *
-     * @param String
+     * @param bibtext
      * @return
      */
     public Inproceedings bibtextToInproceedings(String bibtext) {
         Inproceedings inp = new Inproceedings();
 
-        inp.setAuthors(validator.splitAuthors(searchField(bibtext, "author")));
-        inp.setTitle(searchField(bibtext, "title"));
-        inp.setYear(searchField(bibtext, "year"));
-        inp.setPublisher(searchField(bibtext, "publisher"));
-        inp.setAddress(searchField(bibtext, "address"));
-        inp.setEditor(searchField(bibtext, "editor"));
-        inp.setMonth(searchField(bibtext, "month"));
-        inp.setSeries(searchField(bibtext, "series"));
-        inp.setTags(validator.splitTags(searchField(bibtext, "keywords")));
-        inp.setEndingPage(findEndingPage(bibtext, "pages"));
-        inp.setStartingPage(findStartingPage(bibtext, "pages"));
-        inp.setOrganization(searchField(bibtext, "organization"));
-        inp.setBookTitle(searchField(bibtext, "booktitle"));
-        inp.setVolume(searchField(bibtext, "volume"));
+        inp.setAuthors(validator.splitAuthors(searchField(bibtext, "author", '{', '}')));
+        inp.setTitle(searchField(bibtext, "title", '{', '}'));
+        inp.setYear(searchField(bibtext, "year", '{', '}'));
+        inp.setPublisher(searchField(bibtext, "publisher", '{', '}'));
+        inp.setAddress(searchField(bibtext, "address", '{', '}'));
+        inp.setEditor(searchField(bibtext, "editor", '{', '}'));
+//        inp.setMonth(searchField(bibtext, "month", '{', '}'));  data is: month = nov, no {}
+        inp.setSeries(searchField(bibtext, "series", '{', '}'));
+        inp.setTags(validator.splitTags(searchField(bibtext, "keywords", '{', '}')));
+        inp.setEndingPage(searchField(bibtext, "pages", '-', '}'));
+        inp.setStartingPage(searchField(bibtext, "pages", '{', '-'));
+        inp.setOrganization(searchField(bibtext, "organization", '{', '}'));
+        inp.setBookTitle(searchField(bibtext, "booktitle", '{', '}'));
+        inp.setVolume(searchField(bibtext, "volume", '{', '}'));
         validator.getKey(inp);
 
         return inp;
@@ -138,24 +138,25 @@ public class WebCrawler {
     /**
      * This method handles turning BibTex format into an Article reference
      *
+     * @param bibtext
      * @param String
      * @return
      */
     public Article bibtextToArticle(String bibtext) {
         Article art = new Article();
 
-        art.setAuthors(validator.splitAuthors(searchField(bibtext, "author")));
-        art.setTitle(searchField(bibtext, "title"));
-        art.setYear(searchField(bibtext, "year"));
-        art.setPublisher(searchField(bibtext, "publisher"));
-        art.setAddress(searchField(bibtext, "address"));
-        art.setMonth(searchField(bibtext, "month"));
-        art.setTags(validator.splitTags(searchField(bibtext, "keywords")));
-        art.setEndingPage(findEndingPage(bibtext, "pages"));
-        art.setStartingPage(findStartingPage(bibtext, "pages"));
-        art.setJournal(searchField(bibtext, "journal"));
-        art.setVolume(searchField(bibtext, "volume"));
-        art.setNumber(searchField(bibtext, "number"));
+        art.setAuthors(validator.splitAuthors(searchField(bibtext, "author", '{', '}')));
+        art.setTitle(searchField(bibtext, "title", '{', '}'));
+        art.setYear(searchField(bibtext, "year", '{', '}'));
+        art.setPublisher(searchField(bibtext, "publisher", '{', '}'));
+        art.setAddress(searchField(bibtext, "address", '{', '}'));
+        art.setMonth(searchField(bibtext, "month", '{', '}'));
+        art.setTags(validator.splitTags(searchField(bibtext, "keywords", '{', '}')));
+        art.setEndingPage(searchField(bibtext, "pages", '{', '-'));
+        art.setStartingPage(searchField(bibtext, "pages", '-', '}'));
+        art.setJournal(searchField(bibtext, "journal", '{', '}'));
+        art.setVolume(searchField(bibtext, "volume", '{', '}'));
+        art.setNumber(searchField(bibtext, "number", '{', '}'));
 
         validator.getKey(art);
 
@@ -165,89 +166,117 @@ public class WebCrawler {
     /**
      * This method helps finding the right field and data from BibTex
      *
-     * @param String
-     * @return
+     * @param bibtex - formalized data called bibtex
+     * @param field - the field header we are looking for like "title" -> title = {title of the publication}
+     * @param start  - data begins after this starting character 
+     * @param end - data ends before this ending character
+     * @return String - the data value 
      */
-    public static String searchField(String bibtex, String field) {
-        String data = "";
-        int index = 0;
-        if (bibtex.contains(field)) { // includes the field ("author"..) 
-
-            int start = bibtex.indexOf(field);
-            for (int i = start; i < bibtex.length(); i++) {
-                if (bibtex.charAt(index) == '}') { // when there is no more data...
-                    break; // ...this field is ready
+    
+     public static String searchField(String bibtex, String field, Character start, Character end){
+         String data = "";
+         bibtex = ' ' + bibtex; // just in case the field from index 0
+        int dataIndex = 0;
+        if (bibtex.contains(field)) { // includes the header field ("author"..) 
+            int fieldBeginIndex = bibtex.indexOf(field);
+            for (int i = fieldBeginIndex; i < bibtex.length(); i++) {
+                if (bibtex.charAt(i) == end) { // data ends
+                    break; 
                 }
-                if (index == i) {
+                if (dataIndex == i) { // this char is included the data
                     data = data + bibtex.charAt(i);
-                    index++;
+                    dataIndex ++;
                 }
-                if (bibtex.charAt(i) == '{') { // next time start extracting data from this point
-                    index = i;
-                    index++;
+                if (bibtex.charAt(i) == start) { // begin to collect data              dataIndex = i;
+                    dataIndex ++;
                 }
 
             }
         }
         return data;
+    
     }
-
-    /**
-     * This method handles finding starting page from BibTex data
-     *
-     * @param String
-     * @return
-     */
-    public static String findEndingPage(String bibtex, String field) {
-        String data = "";
-        int index = 0;
-        if (bibtex.contains(field)) { // includes the field ("author"..) 
-            int start = bibtex.indexOf(field);
-            for (int i = start; i < bibtex.length(); i++) {
-                if (bibtex.charAt(index) == '}') { // when there is no more data...
-                    break; // ...this field is ready
-                }
-                if (index == i) {
-                    data = data + bibtex.charAt(i);
-                    index++;
-                }
-                if ((bibtex.charAt(i) == '-') && (bibtex.charAt(i + 1) == '-')) { // next time start extracting data from this point
-                    index = i;
-                    index = index + 2;
-                }
-            }
-        }
-        return data;
-    }
-
-    /**
-     * This method handles finding ending page from BibTex data
-     *
-     * @param String
-     * @return
-     */
-    public static String findStartingPage(String bibtex, String kentta) {
-        String data = "";
-        int dataIndeksi = 0;
-        if (bibtex.contains(kentta)) { // includes the field ("author"..) 
-
-            int alku = bibtex.indexOf(kentta);
-            for (int i = alku; i < bibtex.length(); i++) {
-                if (bibtex.charAt(dataIndeksi) == '-') { // when there is no more data...
-                    break; // ...this field is ready
-                }
-                if (dataIndeksi == i) {
-                    data = data + bibtex.charAt(i);
-                    dataIndeksi++;
-                }
-                if (bibtex.charAt(i) == '{') { // next time start extracting data from this point
-                    dataIndeksi = i;
-                    dataIndeksi++;
-                }
-
-            }
-        }
-        return data;
-    }
+//    
+//    public static String searchField(String bibtex, String field) {
+//        String data = "";
+//        int index = 0;
+//        if (bibtex.contains(field)) { // includes the field ("author"..) 
+//
+//            int start = bibtex.indexOf(field);
+//            for (int i = start; i < bibtex.length(); i++) {
+//                if (bibtex.charAt(index) == '}') { // when there is no more data...
+//                    break; // ...this field is ready
+//                }
+//                if (index == i) {
+//                    data = data + bibtex.charAt(i);
+//                    index++;
+//                }
+//                if (bibtex.charAt(i) == '{') { // next time start extracting data from this point
+//                    index = i;
+//                    index++;
+//                }
+//
+//            }
+//        }
+//        return data;
+//    }
+//
+//    /**
+//     * This method handles finding starting page from BibTex data
+//     *
+//     * @param String
+//     * @return
+//     */
+//    public static String findEndingPage(String bibtex, String field) {
+//        String data = "";
+//        int index = 0;
+//        if (bibtex.contains(field)) { // includes the field ("author"..) 
+//            int start = bibtex.indexOf(field);
+//            for (int i = start; i < bibtex.length(); i++) {
+//                if (bibtex.charAt(index) == '}') { // when there is no more data...
+//                    break; // ...this field is ready
+//                }
+//                if (index == i) {
+//                    data = data + bibtex.charAt(i);
+//                    index++;
+//                }
+//                if ((bibtex.charAt(i) == '-') && (bibtex.charAt(i + 1) == '-')) { // next time start extracting data from this point
+//                    index = i;
+//                    index = index + 2;
+//                }
+//            }
+//        }
+//        return data;
+//    }
+//
+//    /**
+//     * This method handles finding ending page from BibTex data
+//     *
+//     * @param String
+//     * @return
+//     */
+//    public static String findStartingPage(String bibtex, String kentta) {
+//        String data = "";
+//        int dataIndeksi = 0;
+//        if (bibtex.contains(kentta)) { // includes the field ("author"..) 
+//
+//            int alku = bibtex.indexOf(kentta);
+//            for (int i = alku; i < bibtex.length(); i++) {
+//                if (bibtex.charAt(dataIndeksi) == '-') { // when there is no more data...
+//                    break; // ...this field is ready
+//                }
+//                if (dataIndeksi == i) {
+//                    data = data + bibtex.charAt(i);
+//                    dataIndeksi++;
+//                }
+//                if (bibtex.charAt(i) == '{') { // next time start extracting data from this point
+//                    dataIndeksi = i;
+//                    dataIndeksi++;
+//                }
+//
+//            }
+//        }
+//        return data;
+//    }
 
 }
