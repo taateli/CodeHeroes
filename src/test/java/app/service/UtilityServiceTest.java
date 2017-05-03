@@ -8,11 +8,18 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import static org.mockito.Mockito.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class UtilityServiceTest {
 
+    @Autowired
     UtilityService validator;
 
     @BeforeClass
@@ -23,23 +30,24 @@ public class UtilityServiceTest {
     public static void tearDownClass() {
     }
 
-    @Before
-    public void setUp() {
-        validator = new UtilityService();
-
-    }
+//    @Before
+//    public void setUp() {
+//        validator = new UtilityService();
+//
+//    }
 
     @Test
     public void splitTagsSplitsTwoTagsAndFirstTagIsRight() {
-        String tagString = "some and someOther";
+        String tagString = "some, someOther";
         assertEquals("some", validator.splitTags(tagString).get(0));
 
     }
     @Test
     public void splitTagsSplitsTwoTagsAndSecondTagIsRight() {
-        String tagString = "some and someOther";
+        String tagString = "some, someOther";
         assertEquals("someOther", validator.splitTags(tagString).get(1));
     }
+
 
     @Test
     public void splitTagsWorksWithOneTag() {
