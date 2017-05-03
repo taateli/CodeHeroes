@@ -36,6 +36,7 @@ public class FileService {
             content += checked + "\n";  //vaihdetaan kun bibtex-metodi toimii
             //content += = ref.toBibtex()+"\n";
 
+            content += checked +"\n";  
         }
         return new FileObject(content.getBytes(), fileName);
     }

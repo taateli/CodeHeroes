@@ -29,7 +29,13 @@ Scenario: user cannot add an article reference with pagenumbers incorrect order
     Given form article is selected
     When key "KW09" author "Whittington, Keith J." title "Title" year "2017" journal "J. Comput. Small Coll." publisher "publisher" volume "19" number "3" startingPage "9" endingPage "1" month "5" address "katuosoite" are inserted
     Then system will respond with "Ending page cannot be before starting page!"
-    
+   
+
+Scenario: user can add an article reference without a key
+    Given form article is selected
+    When key "" author "Whittington Keith J." title "Infusing active learning into introductory programming courses" year "2017" journal "J. Comput. Small Coll." publisher "publisher" volume "19" number "3" startingPage "3" endingPage "6" month "5" address "katuosoite" are inserted
+    Then system will respond with "WK2017"
+    And system will respond with "Reference added successfully!"
 
 # Pari pidempää versiota
 #     Scenario: user can add an article reference with mandatory fields filled
