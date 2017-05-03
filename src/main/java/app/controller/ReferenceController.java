@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-/*
-This class handles all requests related to Reference -classes
-
+/**
+ * This class handles all requests related to Reference -classes
+ *
  */
 @Controller
 public class ReferenceController {
@@ -48,7 +48,13 @@ public class ReferenceController {
         return "redirect:/";
     }
 
-    //This method handles get-request to home path and shows home.html file from folder resource/templates/ 
+    /**
+     * This method handles get-request to home path and shows home.html file
+     * from folder resource/templates/
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showReferenceTypes(Model model) {
         List<Reference> refs = refService.getReferences();
@@ -57,7 +63,13 @@ public class ReferenceController {
         return "home";
     }
 
-    //This method handles get-request to path /books and shows books.html file from folder resource/templates/ 
+    /**
+     * This method handles get-request to path /books and shows books.html file
+     * from folder resource/templates/
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/books", method = RequestMethod.GET)
     public String showBooksForm(Model model) {
         Book b = new Book();
@@ -65,7 +77,13 @@ public class ReferenceController {
         return "books";
     }
 
-    //This method handles get-request to path /inproceedings and shows inproceedings.html file from folder resource/templates/ 
+    /**
+     * This method handles get-request to path /inproceedings and shows
+     * inproceedings.html file from folder resource/templates/
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/inproceedings", method = RequestMethod.GET)
     public String showInpForm(Model model) {
         Inproceedings inp = new Inproceedings();
@@ -73,7 +91,13 @@ public class ReferenceController {
         return "inproceedings";
     }
 
-    //This method handles get-request to path /article and shows books.html file from folder resource/templates/ 
+    /**
+     * This method handles get-request to path /article and shows books.html
+     * file from folder resource/templates/
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/article", method = RequestMethod.GET)
     public String showArticleForm(Model model) {
         Article article = new Article();
@@ -82,9 +106,15 @@ public class ReferenceController {
         return "article";
     }
 
-    /*  This method handles post-request to path /inproceedings
-        and takes Inproceedings type parameter. It uses @ModelAttribute annotation to render
-        th:field tags from view   
+    /**
+     * This method handles post-request to path /inproceedings and takes
+     * Inproceedings type parameter. It uses @ModelAttribute annotation to
+     * render th:field tags from view
+     *
+     * @param inp
+     * @param bindingresult
+     * @param redirectAttrs
+     * @return
      */
     @RequestMapping(value = "/inproceedings", method = RequestMethod.POST)
     public String addInproceedings(@Valid @ModelAttribute Inproceedings inp, BindingResult bindingresult,
@@ -104,10 +134,15 @@ public class ReferenceController {
         return "redirect:/";
     }
 
-    /*  This method handles post-request to path /books
-        and takes Books type parameter. It uses @ModelAttribute annotation to render
-        th:field tags from view
-    
+    /**
+     * This method handles post-request to path /books and takes Books type
+     * parameter. It uses @ModelAttribute annotation to render th:field tags
+     * from view
+     *
+     * @param book
+     * @param bindingresult
+     * @param redirectAttrs
+     * @return
      */
     @RequestMapping(value = "/books", method = RequestMethod.POST)
     public String addBook(@Valid @ModelAttribute Book book, BindingResult bindingresult,
@@ -120,10 +155,15 @@ public class ReferenceController {
         return "redirect:/";
     }
 
-    /*  This method handles post-request to path /article
-        and takes Article type parameter. It uses @ModelAttribute annotation to render
-        th:field tags from view
-    
+    /**
+     * This method handles post-request to path /article and takes Article type
+     * parameter. It uses @ModelAttribute annotation to render th:field tags
+     * from view
+     *
+     * @param article
+     * @param bindingresult
+     * @param redirectAttrs
+     * @return
      */
     @RequestMapping(value = "/article", method = RequestMethod.POST)
     public String addArticle(@Valid @ModelAttribute Article article, BindingResult bindingresult,

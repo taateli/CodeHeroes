@@ -27,58 +27,61 @@ public class WebCrawler {
 
     @Autowired
     private ValidatorService validator;
-    
-    public Reference getReference(String URL){
+
+    public Reference getReference(String URL) {
         String acmId = extractId(URL);
-        if(acmId == null){
+        if (acmId == null) {
             return null;
         }
-        String referenceUrl = "http://dl.acm.org/exportformats.cfm?id=" + acmId +"&expformat=bibtex";
-       
-        try{
-            
+        String referenceUrl = "http://dl.acm.org/exportformats.cfm?id=" + acmId + "&expformat=bibtex";
+
+        try {
+
             Document document = Jsoup.connect(referenceUrl).userAgent("Mozilla").get();
             Element references = document.select("PRE").first();
             String reference = references.ownText();
             String[] test1 = reference.split("@");
             String[] test2 = test1[1].split("[{]");
             Reference acmRef = null;
-            if (test2[0].matches("book")){
-                acmRef =  bibtextToBook(reference);
-            } else if (test2[0].matches("inproceedings")){
+            if (test2[0].matches("book")) {
+                acmRef = bibtextToBook(reference);
+            } else if (test2[0].matches("inproceedings")) {
                 acmRef = bibtextToInproceedings(reference);
             } else if (test2[0].matches("article")) {
                 acmRef = bibtextToArticle(reference);
             }
-            
-          
+
             return acmRef;
-             
+
         } catch (IOException e) {
-             System.err.println("For '" + referenceUrl + "': " + e.getMessage());
-             return null;
+            System.err.println("For '" + referenceUrl + "': " + e.getMessage());
+            return null;
         }
-        
+
     }
-    
-    private String extractId(String url){
-        String [] urlParts = url.split("&");
-        if(urlParts.length > 1){
-            String[]idPart = urlParts[0].split("=");
-            if(idPart[1].contains(".")){
-                String [] id = idPart[1].split("[.]");
+
+    private String extractId(String url) {
+        String[] urlParts = url.split("&");
+        if (urlParts.length > 1) {
+            String[] idPart = urlParts[0].split("=");
+            if (idPart[1].contains(".")) {
+                String[] id = idPart[1].split("[.]");
                 return id[1];
-                
-            }else{
+
+            } else {
                 return idPart[1];
             }
-            
-            
+
         }
         return null;
     }
-    
-    
+
+    /**
+     * This method handles turning bibtext format to book
+     *
+     * @param String
+     * @return
+     */
     public Book bibtextToBook(String bibtext) {
         Book book = new Book();
 
@@ -91,13 +94,19 @@ public class WebCrawler {
         book.setMonth(searchField(bibtext, "month"));
         book.setSeries(searchField(bibtext, "series"));
         book.setTags(validator.splitTags(searchField(bibtext, "keywords")));
-        
+
         validator.getKey(book);
-        
+
         return book;
     }
-    
-        public Inproceedings bibtextToInproceedings(String bibtext) {
+
+    /**
+     * This method handles turning bibtext format to inproceedings
+     *
+     * @param String
+     * @return
+     */
+    public Inproceedings bibtextToInproceedings(String bibtext) {
         Inproceedings inp = new Inproceedings();
 
         inp.setAuthors(validator.splitAuthors(searchField(bibtext, "author")));
@@ -115,11 +124,17 @@ public class WebCrawler {
         inp.setBookTitle(searchField(bibtext, "booktitle"));
         inp.setVolume(searchField(bibtext, "volume"));
         validator.getKey(inp);
-        
+
         return inp;
     }
-        
-       public Article bibtextToArticle(String bibtext) {
+
+    /**
+     * This method handles turning bibtext format to article
+     *
+     * @param String
+     * @return
+     */
+    public Article bibtextToArticle(String bibtext) {
         Article art = new Article();
 
         art.setAuthors(validator.splitAuthors(searchField(bibtext, "author")));
@@ -134,20 +149,23 @@ public class WebCrawler {
         art.setJournal(searchField(bibtext, "journal"));
         art.setVolume(searchField(bibtext, "volume"));
         art.setNumber(searchField(bibtext, "number"));
-        
+
         validator.getKey(art);
-        
+
         return art;
     }
-    
-    
-    
-    
-public static String searchField(String bibtex, String field) {
+
+    /**
+     * This method helps finding the right field and data from bibtext
+     *
+     * @param String
+     * @return
+     */
+    public static String searchField(String bibtex, String field) {
         String data = "";
         int index = 0;
         if (bibtex.contains(field)) { // sisältää kentan ("author"..) 
-            
+
             int start = bibtex.indexOf(field);
             for (int i = start; i < bibtex.length(); i++) {
                 if (bibtex.charAt(index) == '}') { // data loppuu
@@ -155,11 +173,11 @@ public static String searchField(String bibtex, String field) {
                 }
                 if (index == i) {
                     data = data + bibtex.charAt(i);
-                    index ++;
+                    index++;
                 }
                 if (bibtex.charAt(i) == '{') { // aloita datan kerääminen seur.kerralla
                     index = i;
-                    index ++;
+                    index++;
                 }
 
             }
@@ -167,7 +185,13 @@ public static String searchField(String bibtex, String field) {
         return data;
     }
 
-public static String findEndingPage(String bibtex, String field) {
+    /**
+     * This method handles finding starting page form bibtext data
+     *
+     * @param String
+     * @return
+     */
+    public static String findEndingPage(String bibtex, String field) {
         String data = "";
         int index = 0;
         if (bibtex.contains(field)) { // sisältää kentan ("author"..) 
@@ -189,7 +213,13 @@ public static String findEndingPage(String bibtex, String field) {
         return data;
     }
 
-public static String findStartingPage(String bibtex, String kentta) {
+    /**
+     * This method handles finding ending page form bibtext data
+     *
+     * @param String
+     * @return
+     */
+    public static String findStartingPage(String bibtex, String kentta) {
         String data = "";
         int dataIndeksi = 0;
         if (bibtex.contains(kentta)) { // sisältää kentan ("author"..) 
@@ -214,4 +244,3 @@ public static String findStartingPage(String bibtex, String kentta) {
     }
 
 }
-
