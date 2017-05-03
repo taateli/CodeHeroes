@@ -4,6 +4,7 @@ import app.domain.Reference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ValidatorService {
+    
+    @Autowired
+    private ReferenceService refService;
 
     /**
      * This method checks if input string is empty
@@ -78,11 +82,29 @@ public class ValidatorService {
         } else {
             key = key + ref.getAuthors().get(0).charAt(0);
         }
-
         key = key + ref.getYear();
+       
+        key = findNumberForKey(key);
+        
         ref.setKey(key);
 
         return ref;
+    }
+
+    private String findNumberForKey(String key) {
+        if (refService.findByKey(key) != null) {
+            key = key + "-";
+            int counter = 1;
+            String temp = key + counter;
+            
+            while (refService.findByKey(temp) != null) {
+                counter++;
+                temp = key + counter;
+                
+            }
+            key = key + counter;
+        }
+        return key;
     }
 
 }
