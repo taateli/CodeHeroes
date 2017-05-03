@@ -2,16 +2,13 @@ package app.service;
 
 import org.springframework.stereotype.Service;
 
-/*
-Service that checks if a string contains Scandinavian letters and changes all
-Scandinavian letters to BibText format. 
+/**
+ * Service class that checks if a string contains Scandinavian letters and
+ * changes all Scandinavian letters to BibText format.
+ *
  */
 @Service
 public class LetterChecker {
-
-//    public LetterChecker() {
-//
-//    }
 
     /**
      * Method to check if a reference contains Scandinavian letters.

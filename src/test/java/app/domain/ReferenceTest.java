@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package app.domain;
 
 import java.util.ArrayList;
@@ -14,10 +9,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-/**
- *
- * @author Iisa
- */
+
 public class ReferenceTest {
 
     Reference instance;
@@ -50,7 +42,7 @@ public class ReferenceTest {
     @After
     public void tearDown() {
     }
-    
+
     /**
      * Test of authorsToString method, of class Reference. One author.
      */
@@ -60,7 +52,7 @@ public class ReferenceTest {
         String expResult = "author1";
         assertEquals(expResult, instance.authorsToString());
     }
-    
+
     /**
      * Test of authorsToString method, of class Reference. Two authors.
      */
@@ -74,7 +66,7 @@ public class ReferenceTest {
         String expResult = "author1 and author2";
         assertEquals(expResult, instance.authorsToString());
     }
-    
+
     /**
      * Test of authorsToString method, of class Reference. Three authors.
      */
@@ -89,7 +81,7 @@ public class ReferenceTest {
         String expResult = "author1, author2, and author3";
         assertEquals(expResult, instance.authorsToString());
     }
-    
+
     /**
      * Test of tagsToString method, of class Reference. One tag.
      */
@@ -99,7 +91,7 @@ public class ReferenceTest {
         String expResult = "tag1";
         assertEquals(expResult, instance.tagsToString());
     }
-    
+
     /**
      * Test of tagsToString method, of class Reference. Two tags.
      */
@@ -113,7 +105,7 @@ public class ReferenceTest {
         String expResult = "tag1,tag2";
         assertEquals(expResult, instance.tagsToString());
     }
-    
+
     /**
      * Test of tagsToString method, of class Reference. Three tags.
      */
@@ -128,7 +120,7 @@ public class ReferenceTest {
         String expResult = "tag1,tag2,tag3";
         assertEquals(expResult, instance.tagsToString());
     }
-    
+
     /**
      * Test of setKey method, of class Reference.
      */
@@ -139,7 +131,7 @@ public class ReferenceTest {
         instance.setKey("avain");
         assertEquals("avain", instance.getKey());
     }
-    
+
     /**
      * Test of getKey method, of class Reference.
      */
@@ -148,5 +140,5 @@ public class ReferenceTest {
         System.out.println("getKey");
         assertEquals("avain1", instance.getKey());
     }
-    
+
 }
