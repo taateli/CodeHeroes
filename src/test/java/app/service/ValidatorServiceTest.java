@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package app.service;
 
 import app.domain.Book;
@@ -43,7 +38,6 @@ public class ValidatorServiceTest {
 //        assertEquals("some", validator.splitTags(tagString).get(0));
 //
 //    }
-
 //    @Test
 //    public void splitTagsSplitsTwoTagsAndSecondTagIsRight() {
 //        String tagString = "some and someOther";
@@ -55,7 +49,6 @@ public class ValidatorServiceTest {
 //        String tagString = "some";
 //        assertEquals(1, validator.splitTags(tagString).size());
 //    }
-
     @Test
     public void getKeyWorksWhenNameHasWhiteSpace() {
         Book mockBook = mock(Book.class);

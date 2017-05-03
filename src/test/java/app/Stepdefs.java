@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package app;
 
 import cucumber.api.java.After;
@@ -96,8 +91,7 @@ public class Stepdefs {
 //        updateBook(key, author, title, year, publisher, address, series, edition, month, volume, tags);
 //        system_will_respond_with("Reference added successfully!");
 //    }
-
-    // searchingReference.feature uses:
+// searchingReference.feature uses:
     @Given("^a book reference with key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" publisher \"([^\"]*)\" is created successfully$")
     public void a_book_reference_with_key_author_title_year_publisher_is_created_successfully(String key, String author, String title, String year, String publisher) throws Throwable {
         form_book_is_selected();
