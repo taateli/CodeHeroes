@@ -97,11 +97,13 @@
                         <label>Search:</label>
                         <input type="text" name="search"/>
                         <input type="submit" class="btn btn-primary btn-sm" value="Search"/>
+                        <a th:href="@{/}" class="btn btn-primary btn-sm" name="listAll">List all</a>
                     </form>
+                    <!--
                     <form th:method="GET" th:action="@{/} ">
                         <input type="submit" name="listAll" class="btn btn-primary btn-sm" value="List all"/>
                     </form>
-
+                    -->
                     <form th:method="GET" th:action="@{/download} ">
                         <label>Name of the file:</label>
                         <input type="text" name="fileName"/>
