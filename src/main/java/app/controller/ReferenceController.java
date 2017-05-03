@@ -5,7 +5,7 @@ import app.domain.Book;
 import app.domain.Inproceedings;
 import app.domain.Reference;
 import app.service.ReferenceService;
-import app.service.ValidatorService;
+import app.service.UtilityService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
@@ -33,7 +33,7 @@ public class ReferenceController {
     private ReferenceService refService;
 
     @Autowired
-    private ValidatorService validator;
+    private UtilityService utilService;
 
     /**
      * This method handles get-request to /acm path
@@ -141,12 +141,11 @@ public class ReferenceController {
             return "inproceedings";
         }
 
-        if (validator.fieldNotEmpty(inp.getEndingPage()) && validator.fieldNotEmpty(inp.getStartingPage())) {
-            if (validator.endingPageBeforeStartingPage(inp.getEndingPage(), inp.getStartingPage())) {
-                bindingresult.addError(new FieldError("Inproceedings", "endingPage", "Ending page cannot be before starting page!"));
-                return "inproceedings";
-            }
+        if (!utilService.pageOrderOk(inp.getEndingPage(), inp.getStartingPage())) {
+            bindingresult.addError(new FieldError("Inproceedings", "endingPage", "Ending page cannot be before starting page!"));
+            return "inproceedings";
         }
+        
         addReference(inp, bindingresult, redirectAttrs);
         return "redirect:/";
     }
@@ -189,11 +188,9 @@ public class ReferenceController {
         if (bindingresult.hasErrors()) {
             return "article";
         }
-        if (validator.fieldNotEmpty(article.getEndingPage()) && validator.fieldNotEmpty(article.getStartingPage())) {
-            if (validator.endingPageBeforeStartingPage(article.getEndingPage(), article.getStartingPage())) {
-                bindingresult.addError(new FieldError("Article", "endingPage", "Ending page cannot be before starting page!"));
-                return "article";
-            }
+        if (!utilService.pageOrderOk(article.getEndingPage(), article.getStartingPage())) {
+            bindingresult.addError(new FieldError("Article", "endingPage", "Ending page cannot be before starting page!"));
+            return "article";
         }
         addReference(article, bindingresult, redirectAttrs);
         return "redirect:/";
@@ -226,11 +223,11 @@ public class ReferenceController {
             @ModelAttribute Reference reference, BindingResult bindingresult,
             RedirectAttributes redirectAttrs) {
 
-        reference.setAuthors(validator.splitAuthors(reference.getAuthors().get(0)));
+        reference.setAuthors(utilService.fixAuthors(reference.getAuthors()));
 
         Reference newReference = null;
-        if (!validator.fieldNotEmpty(reference.getKey())) {
-            newReference = refService.addReference(validator.getKey(reference));
+        if (!utilService.fieldNotEmpty(reference.getKey())) {
+            newReference = refService.addReference(utilService.getKey(reference));
         } else {
             newReference = refService.addReference(reference);
         }
@@ -274,7 +271,7 @@ public class ReferenceController {
 
         Book editedBook = (Book) refService.findById(id);
 
-        editedBook.setAuthors(validator.splitAuthors(editBookRef.getAuthors().get(0)));
+        editedBook.setAuthors(utilService.fixAuthors(editBookRef.getAuthors()));
         editedBook.setKey(editBookRef.getKey());
         editedBook.setTags(editBookRef.getTags());
         editedBook.setTitle(editBookRef.getTitle());
@@ -309,7 +306,7 @@ public class ReferenceController {
 
         Article editedArticle = (Article) refService.findById(id);
 
-        editedArticle.setAuthors(validator.splitAuthors(editArticleRef.getAuthors().get(0)));
+        editedArticle.setAuthors(utilService.fixAuthors(editArticleRef.getAuthors()));
         editedArticle.setKey(editArticleRef.getKey());
         editedArticle.setTags(editArticleRef.getTags());
         editedArticle.setTitle(editArticleRef.getTitle());
@@ -347,7 +344,7 @@ public class ReferenceController {
 
         Inproceedings editedInproceed = (Inproceedings) refService.findById(id);
 
-        editedInproceed.setAuthors(validator.splitAuthors(editInproceedingsRef.getAuthors().get(0)));
+        editedInproceed.setAuthors(utilService.fixAuthors(editInproceedingsRef.getAuthors()));
         editedInproceed.setKey(editInproceedingsRef.getKey());
         editedInproceed.setTags(editInproceedingsRef.getTags());
         editedInproceed.setTitle(editInproceedingsRef.getTitle());

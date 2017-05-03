@@ -11,8 +11,27 @@ import org.springframework.stereotype.Service;
  * This class is helper class for validating inputs and other helper methods
  */
 @Service
-public class ValidatorService {
-
+public class UtilityService {
+    
+    /**
+     * This method checks if input pagenumbers (String,String) are ok
+     *
+     * @param end
+     * @param start
+     * 
+     * @return
+     */
+    public boolean pageOrderOk(String end, String start){
+        if (fieldNotEmpty(end) && fieldNotEmpty(start)) {
+            if (endingPageBeforeStartingPage(end, start)) {
+                return false;
+            }
+            return true;
+        }
+        return true;
+    }
+    
+    
     /**
      * This method checks if input string is empty
      *
@@ -34,7 +53,34 @@ public class ValidatorService {
     public boolean endingPageBeforeStartingPage(String end, String start) {
         return Integer.parseInt(end) < Integer.parseInt(start);
     }
-
+    
+     /**
+     * This method is for fixing authors for database (List<String>) from an String
+     *
+     * @param authors
+     * @return
+     */
+    public List<String> fixAuthors(List<String> authors){
+        String authorString = authorsFromListToString(authors);
+        return splitAuthors(authorString);
+    }
+    
+    
+    /**
+     * This method is for creating author (String) from an ArrayList
+     *
+     * @param authors
+     * @return
+     */
+    public String authorsFromListToString(List<String> authors){
+        String authorString = "";
+        for (int i = 0; i < authors.size() - 1; i++) {
+            authorString = authorString + authors.get(i) + ", ";
+        }
+        authorString = authorString + authors.get(authors.size() - 1);
+        return authorString;
+    }
+    
     /**
      * This method is for splitting authors (String) to an ArrayList
      *

@@ -21,7 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class WebCrawler {
 
     @Autowired
-    private ValidatorService validator;
+    private UtilityService validator;
 
     /**
      * This method creates a Reference object from an ACM reference

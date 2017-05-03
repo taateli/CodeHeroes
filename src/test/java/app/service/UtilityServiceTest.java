@@ -11,9 +11,9 @@ import org.junit.Test;
 import static org.mockito.Mockito.*;
 
 
-public class ValidatorServiceTest {
+public class UtilityServiceTest {
 
-    ValidatorService validator;
+    UtilityService validator;
 
     @BeforeClass
     public static void setUpClass() {
@@ -25,7 +25,7 @@ public class ValidatorServiceTest {
 
     @Before
     public void setUp() {
-        validator = new ValidatorService();
+        validator = new UtilityService();
 
     }
 

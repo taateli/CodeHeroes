@@ -5,7 +5,7 @@ import app.domain.FileObject;
 import app.domain.Reference;
 import app.service.FileService;
 import app.service.ReferenceService;
-import app.service.ValidatorService;
+import app.service.UtilityService;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,7 +36,7 @@ public class FileController {
     private FileService fileService;
 
     @Autowired
-    private ValidatorService validator;
+    private UtilityService validator;
 
     /**
      * Method to download a BibTex file
