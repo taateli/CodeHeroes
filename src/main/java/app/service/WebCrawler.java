@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package app.service;
 
 import app.domain.Article;
@@ -19,8 +14,8 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
+ * Class that handles fetching references from ACM Digital Library
  *
- * @author villepaa
  */
 @Service
 public class WebCrawler {
@@ -28,6 +23,12 @@ public class WebCrawler {
     @Autowired
     private ValidatorService validator;
 
+    /**
+     * This method creates a Reference object from an ACM reference
+     *
+     * @param URL
+     * @return
+     */
     public Reference getReference(String URL) {
         String acmId = extractId(URL);
         if (acmId == null) {
@@ -60,6 +61,12 @@ public class WebCrawler {
 
     }
 
+    /**
+     * This method extracts the id of a reference in AMC library
+     *
+     * @param url
+     * @return
+     */
     private String extractId(String url) {
         String[] urlParts = url.split("&");
         if (urlParts.length > 1) {
@@ -77,7 +84,7 @@ public class WebCrawler {
     }
 
     /**
-     * This method handles turning bibtext format to book
+     * This method handles turning BibTex format into a Book reference
      *
      * @param String
      * @return
@@ -101,7 +108,7 @@ public class WebCrawler {
     }
 
     /**
-     * This method handles turning bibtext format to inproceedings
+     * This method handles turning BibTex format into an Inproceedings reference
      *
      * @param String
      * @return
@@ -129,7 +136,7 @@ public class WebCrawler {
     }
 
     /**
-     * This method handles turning bibtext format to article
+     * This method handles turning BibTex format into an Article reference
      *
      * @param String
      * @return
@@ -156,7 +163,7 @@ public class WebCrawler {
     }
 
     /**
-     * This method helps finding the right field and data from bibtext
+     * This method helps finding the right field and data from BibTex
      *
      * @param String
      * @return
@@ -164,18 +171,18 @@ public class WebCrawler {
     public static String searchField(String bibtex, String field) {
         String data = "";
         int index = 0;
-        if (bibtex.contains(field)) { // sisältää kentan ("author"..) 
+        if (bibtex.contains(field)) { // includes the field ("author"..) 
 
             int start = bibtex.indexOf(field);
             for (int i = start; i < bibtex.length(); i++) {
-                if (bibtex.charAt(index) == '}') { // data loppuu
-                    break; // valmis tämä kenttä
+                if (bibtex.charAt(index) == '}') { // when there is no more data...
+                    break; // ...this field is ready
                 }
                 if (index == i) {
                     data = data + bibtex.charAt(i);
                     index++;
                 }
-                if (bibtex.charAt(i) == '{') { // aloita datan kerääminen seur.kerralla
+                if (bibtex.charAt(i) == '{') { // next time start extracting data from this point
                     index = i;
                     index++;
                 }
@@ -186,7 +193,7 @@ public class WebCrawler {
     }
 
     /**
-     * This method handles finding starting page form bibtext data
+     * This method handles finding starting page from BibTex data
      *
      * @param String
      * @return
@@ -194,17 +201,17 @@ public class WebCrawler {
     public static String findEndingPage(String bibtex, String field) {
         String data = "";
         int index = 0;
-        if (bibtex.contains(field)) { // sisältää kentan ("author"..) 
+        if (bibtex.contains(field)) { // includes the field ("author"..) 
             int start = bibtex.indexOf(field);
             for (int i = start; i < bibtex.length(); i++) {
-                if (bibtex.charAt(index) == '}') { // data loppuu
-                    break; // valmis tämä kenttä
+                if (bibtex.charAt(index) == '}') { // when there is no more data...
+                    break; // ...this field is ready
                 }
                 if (index == i) {
                     data = data + bibtex.charAt(i);
                     index++;
                 }
-                if ((bibtex.charAt(i) == '-') && (bibtex.charAt(i + 1) == '-')) { // aloita datan kerääminen seur.kerralla
+                if ((bibtex.charAt(i) == '-') && (bibtex.charAt(i + 1) == '-')) { // next time start extracting data from this point
                     index = i;
                     index = index + 2;
                 }
@@ -214,7 +221,7 @@ public class WebCrawler {
     }
 
     /**
-     * This method handles finding ending page form bibtext data
+     * This method handles finding ending page from BibTex data
      *
      * @param String
      * @return
@@ -222,18 +229,18 @@ public class WebCrawler {
     public static String findStartingPage(String bibtex, String kentta) {
         String data = "";
         int dataIndeksi = 0;
-        if (bibtex.contains(kentta)) { // sisältää kentan ("author"..) 
+        if (bibtex.contains(kentta)) { // includes the field ("author"..) 
 
             int alku = bibtex.indexOf(kentta);
             for (int i = alku; i < bibtex.length(); i++) {
-                if (bibtex.charAt(dataIndeksi) == '-') { // data loppuu
-                    break; // valmis tämä kenttä
+                if (bibtex.charAt(dataIndeksi) == '-') { // when there is no more data...
+                    break; // ...this field is ready
                 }
                 if (dataIndeksi == i) {
                     data = data + bibtex.charAt(i);
                     dataIndeksi++;
                 }
-                if (bibtex.charAt(i) == '{') { // aloita datan kerääminen seur.kerralla
+                if (bibtex.charAt(i) == '{') { // next time start extracting data from this point
                     dataIndeksi = i;
                     dataIndeksi++;
                 }

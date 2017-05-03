@@ -35,16 +35,29 @@ public class ReferenceController {
     @Autowired
     private ValidatorService validator;
 
+    /**
+     * This method handles get-request to /acm path
+     * @param model
+     * @return 
+     */
     @RequestMapping(value = "/acm", method = RequestMethod.GET)
     public String showAcmForm(Model model) {
-
         return "acm";
     }
 
+    /**
+     * This method adds a reference from ACM to the database
+     * @param model
+     * @param url
+     * @param redirectAttrs
+     * @return
+     * @throws InterruptedException 
+     */
     @RequestMapping(value = "/acm", method = RequestMethod.POST)
-    public String getFromAcm(Model model, @RequestParam String url) throws InterruptedException {
-        refService.addReference(refService.getReferencesFromAcm(url));
-        
+    public String getFromAcm(Model model, @RequestParam String url, RedirectAttributes redirectAttrs) throws InterruptedException {
+        Reference newReference = refService.getReferencesFromAcm(url);
+        refService.addReference(refService.getReferencesFromAcm(url));  
+        redirectAttrs.addFlashAttribute("newReference", newReference);
         return "redirect:/";
     }
 
@@ -102,7 +115,6 @@ public class ReferenceController {
     public String showArticleForm(Model model) {
         Article article = new Article();
         model.addAttribute("article", article);
-
         return "article";
     }
 
