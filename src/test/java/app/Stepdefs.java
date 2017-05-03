@@ -240,13 +240,12 @@ public class Stepdefs {
         }
         Thread.sleep(2000);
     }
-
+    
     @Then("^the number is same$")
     public void the_number_is_same() throws Throwable {
         assertTrue(this.amount1 == this.amount2);
     }
 
-// tag-test
     @Then("^the number difference is at least \"([^\"]*)\" less than earlier$")
     public void the_number_difference_is_at_least_less_than_earlier(String ero) throws Throwable {
         assertTrue((this.amount1 - this.amount2) >= Integer.parseInt(ero));
