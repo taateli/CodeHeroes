@@ -56,6 +56,11 @@ public class ReferenceController {
     @RequestMapping(value = "/acm", method = RequestMethod.POST)
     public String getFromAcm(Model model, @RequestParam String url, RedirectAttributes redirectAttrs) throws InterruptedException {
         Reference newReference = refService.getReferencesFromAcm(url);
+        if(newReference == null){
+            model.addAttribute("url",url);
+            model.addAttribute("errormessage","Link you gave didn't return any references. Check your link!");
+            return "acm";
+        }
         refService.addReference(refService.getReferencesFromAcm(url));  
         redirectAttrs.addFlashAttribute("newReference", newReference);
         return "redirect:/";
