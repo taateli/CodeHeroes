@@ -7,6 +7,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+/**
+ * Class for setting up the database connection
+ * 
+ */
 @Configuration
 @Profile("production")
 public class DatabaseConfig {    

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 /**
  * This class creates a file object of all references
  *
- * @author kaisa
  */
 @Service
 public class FileService {
@@ -36,7 +35,7 @@ public class FileService {
             content += checked + "\n";  //vaihdetaan kun bibtex-metodi toimii
             //content += = ref.toBibtex()+"\n";
 
-            content += checked +"\n";  
+            content += checked + "\n";
         }
         return new FileObject(content.getBytes(), fileName);
     }

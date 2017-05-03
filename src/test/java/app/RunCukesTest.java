@@ -1,9 +1,5 @@
 package app;
 
-/**
- *
- * @author tatuhelander
- */
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 import org.junit.ClassRule;

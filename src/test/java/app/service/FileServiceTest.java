@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package app.service;
 
 import app.domain.Book;
@@ -22,15 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-/**
- * Test class of FileService class.
- * 
- * @author Iisa
- */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class FileServiceTest {
-    
+
     @Autowired
     FileService service;
     @Autowired
@@ -47,9 +37,8 @@ public class FileServiceTest {
     @Before
     public void setUp() {
 
-       
     }
-    
+
     @Test
     public void referenceCallesToBibtex() {
 
@@ -59,26 +48,24 @@ public class FileServiceTest {
         book3 = book3 + "year = {" + "2017" + "},\n";
         book3 = book3 + "publisher = {" + "Otava" + "},\n";
         book3 = book3 + "}";
-        
+
         String book4 = "@book{" + "K2017" + ",\n";
         book4 = book4 + "author = {" + "K{\\\"a}{\\\"a}p{\\\"a}" + "},\n";
         book4 = book4 + "title = {" + "Y{\\\"o}" + "},\n";
         book4 = book4 + "year = {" + "2017" + "},\n";
         book4 = book4 + "publisher = {" + "Otava" + "},\n";
         book4 = book4 + "}";
-        
-        
+
         List<Reference> lista = new ArrayList<Reference>();
         Book mockBook = mock(Book.class);
         lista.add(mockBook);
         when(mockBook.toBibTex()).thenReturn(book3);
-         
+
         String fileName = "nimi";
 
         service.createFile(lista, fileName);
-       
+
         verify(mockBook).toBibTex();
     }
-    
-}
 
+}

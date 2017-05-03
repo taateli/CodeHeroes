@@ -1,4 +1,4 @@
-Feature: User can list all references 
+Feature: User can list all references
 
   Scenario: user can list all references by pressing ListAll -button
     Given Front page is opened

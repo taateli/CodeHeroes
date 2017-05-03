@@ -10,10 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.mockito.Mockito.*;
 
-/**
- *
- * @author kaisa
- */
+
 public class ValidatorServiceTest {
 
     ValidatorService validator;

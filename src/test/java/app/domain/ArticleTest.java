@@ -11,10 +11,6 @@ import app.domain.Reference;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Iisa
- */
 public class ArticleTest {
 
     Article instance;

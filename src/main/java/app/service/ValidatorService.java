@@ -8,8 +8,7 @@ import org.springframework.stereotype.Service;
 
 /**
  *
- * @author villepaa This class is helper class for validating inputs and other
- * helper methods
+ * This class is helper class for validating inputs and other helper methods
  */
 @Service
 public class ValidatorService {

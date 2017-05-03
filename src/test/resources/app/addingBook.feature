@@ -10,7 +10,7 @@ Feature: User can add a book reference to reference database by filling mandator
     When key "MW34" author "Mika Waltari" title "" year "1934" publisher "Otava" are inserted
     Then system will respond with "Field can not be empty!"
 
-Scenario: user can add a book reference without a key
+  Scenario: user can add a book reference without a key
     Given form book is selected
     When key "" author "Mika Waltari" title "Sinuhe" year "1934" publisher "Otava" are inserted
     Then system will respond with "MW1934"
