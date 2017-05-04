@@ -73,14 +73,14 @@ public class Stepdefs {
     }
 
     @Given("^Edit is pressed for key \"([^\"]*)\"$")
-    public void edit_is_pressed_for_key(String key) throws Throwable {     
+    public void edit_is_pressed_for_key(String key) throws Throwable {
         // let's get all the <td> -elements from HTML
         List<WebElement> elementsInRow = driver.findElements(By.tagName("td"));
         int index = 0;
         for (int i = 0; i < elementsInRow.size(); i++) {
             WebElement element = elementsInRow.get(i);    // there are four columns: checkbox(0), key(1), author(2), title(3), year(3), tags(4), edit(5) 
             if (element.getText().contains(key)) {
-                index = elementsInRow.size()-1; // element + 2 -> get the edit -element 
+                index = elementsInRow.size() - 1; // element + 2 -> get the edit -element 
                 break;
             }
         }
@@ -138,8 +138,8 @@ public class Stepdefs {
     @Given("^an inproceedings reference with key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" booktitle \"([^\"]*)\" year \"([^\"]*)\" tags \"([^\"]*)\" is created successfully$")
     public void an_inproceedings_reference_with_key_author_title_booktitle_year_tags_is_created_successfully(String key, String author, String title, String booktitle, String year, String tags) throws Throwable {
         form_inproceedings_is_selected();
-        String publisher = "", editor = "", address = "", series = "", startingPage = "", endingPage = "", edition = "", month = "", organization = "";
-        updateInproceedings(key, author, title, year, publisher, editor, booktitle, address, series, startingPage, endingPage, month, organization, tags);
+        String publisher = "", editor = "", volume = "", address = "", series = "", startingPage = "", endingPage = "", edition = "", month = "", organization = "";
+        updateInproceedings(key, author, title, year, publisher, editor, volume, booktitle, address, series, startingPage, endingPage, month, organization, tags);
         system_will_respond_with("Reference added successfully!");
     }
 
@@ -177,15 +177,15 @@ public class Stepdefs {
     @When("^key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" pubisher \"([^\"]*)\" editor \"([^\"]*)\" booktitle \"([^\"]*)\" address \"([^\"]*)\" series \"([^\"]*)\" startingPage \"([^\"]*)\" endingPage \"([^\"]*)\" month \"([^\"]*)\" organization \"([^\"]*)\" are inserted$")
     public void key_author_title_year_pubisher_editor_booktitle_address_series_startingPage_endingPage_month_organization_are_inserted(
             String key, String author, String title, String year, String publisher, String editor, String booktitle, String address, String series, String startingPage, String endingPage, String month, String organization) throws Throwable {
-        String tags = "";
-        updateInproceedings(key, author, title, year, publisher, editor, booktitle, address, series, startingPage, endingPage, month, organization, tags);
+        String tags = "", volume = "";
+        updateInproceedings(key, author, title, year, publisher, editor, volume, booktitle, address, series, startingPage, endingPage, month, organization, tags);
     }
 
     @When("^Delete is pressed$")
     public void delete_() throws InterruptedException {
         // this will make the popup visible
         driver.findElement(By.xpath("/html/body/div/div/div/form[2]/input[2]")).click();
-       // driver.findElement(By.id("delete")).click();
+        // driver.findElement(By.id("delete")).click();
 
         Thread.sleep(2000); // If you wanna see the popup for 2 seconds
     }
@@ -221,8 +221,8 @@ public class Stepdefs {
     @When("^an inproceedings reference with key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" booktitle \"([^\"]*)\" year \"([^\"]*)\" tags \"([^\"]*)\" is updated$")
     public void an_inproceedings_reference_with_key_author_title_booktitle_year_tags_is_updated(String key, String author, String title, String booktitle, String year, String tags) throws Throwable {
         assertTrue(driver.getPageSource().contains("Edit an inproceedings reference"));
-        String publisher = "", editor = "", address = "", series = "", startingPage = "", endingPage = "", edition = "", month = "", organization = "";
-        updateInproceedings(key, author, title, year, publisher, editor, booktitle, address, series, startingPage, endingPage, month, organization, tags);
+        String publisher = "", editor = "", volume = "", address = "", series = "", startingPage = "", endingPage = "", edition = "", month = "", organization = "";
+        updateInproceedings(key, author, title, year, publisher, editor, volume, booktitle, address, series, startingPage, endingPage, month, organization, tags);
         driver.findElement(By.name("save")).submit();
     }
 
@@ -240,9 +240,9 @@ public class Stepdefs {
     public void link_tag_by_name_is_pressed(String tag) throws Throwable {
         //List<WebElement> lista = driver.findElements(By.tagName("span"));
         WebElement element = driver.findElement(By.partialLinkText(tag));
-        System.out.println("elementti löydetty:" +element.getText());
+        System.out.println("elementti löydetty:" + element.getText());
         Thread.sleep(1000);
-        element.click(); 
+        element.click();
         Thread.sleep(2000);
     }
 
@@ -259,7 +259,6 @@ public class Stepdefs {
     @Then("^file is created by name \"([^\"]*)\"$")
     public void file_is_created_by_name(String fileName) throws Throwable {
         assertTrue(driver.getPageSource().contains("fileName"));
-
     }
 
     @Then("^system will not respond with \"([^\"]*)\"$")
@@ -379,7 +378,7 @@ public class Stepdefs {
         driver.findElement(By.name("save")).submit();
     }
 
-    public void updateInproceedings(String key, String author, String title, String year, String publisher, String editor, String booktitle, String address, String series, String startingPage, String endingPage, String month, String organization, String tags) {
+    public void updateInproceedings(String key, String author, String title, String year, String publisher, String editor, String volume, String booktitle, String address, String series, String startingPage, String endingPage, String month, String organization, String tags) {
         WebElement element = driver.findElement(By.name("key"));
         updateField(element, key);
         element = driver.findElement(By.name("authors"));
@@ -392,6 +391,8 @@ public class Stepdefs {
         updateField(element, publisher);
         element = driver.findElement(By.name("editor"));
         updateField(element, editor);
+        element = driver.findElement(By.name("volume"));
+        updateField(element, volume);
         element = driver.findElement(By.name("bookTitle"));
         updateField(element, booktitle);
         element = driver.findElement(By.name("address"));
