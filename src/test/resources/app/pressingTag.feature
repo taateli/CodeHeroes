@@ -6,7 +6,7 @@ Feature: User can list all refererences which include the same tag
     And number of displayed references is calculated
     When link tag by name "tagi1" is pressed
     And number of displayed references is calculated again
-    Then the number difference is at least "4" less than earlier
+    Then the number difference is at least "7" less than earlier
     And book reference with data "tagi1" is displayd in the list
 
   Scenario: user can list all references including the tag (two tags in reference)
@@ -15,5 +15,5 @@ Feature: User can list all refererences which include the same tag
     And number of displayed references is calculated
     When link tag by name "tagi3" is pressed
     And number of displayed references is calculated again
-    Then the number difference is at least "4" less than earlier
+    Then the number difference is at least "7" less than earlier
     And book reference with data "tagi3" is displayd in the list

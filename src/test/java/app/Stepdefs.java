@@ -243,12 +243,11 @@ public class Stepdefs {
 
     @When("^link tag by name \"([^\"]*)\" is pressed$")
     public void link_tag_by_name_is_pressed(String tag) throws Throwable {
-        List<WebElement> lista = driver.findElements(By.tagName("span"));
-        for (WebElement element : lista) {
-            if (element.getText().contains(tag)) {
-                element.click();
-            }
-        }
+        //List<WebElement> lista = driver.findElements(By.tagName("span"));
+        WebElement element = driver.findElement(By.partialLinkText(tag));
+        System.out.println("elementti löydetty:" +element.getText());
+        Thread.sleep(1000);
+        element.click(); 
         Thread.sleep(2000);
     }
     
