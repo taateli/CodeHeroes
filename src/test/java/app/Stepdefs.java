@@ -84,9 +84,11 @@ public class Stepdefs {
                 break;
             }
         }
-             
+        Thread.sleep(2000);
         if (index > 0) {            // let's press the founded EDIT button (submit doesn't work)
-            elementsInRow.get(index).click();
+            WebElement clickElement = elementsInRow.get(index);
+            Thread.sleep(2000);
+            clickElement.click();
         }
         Thread.sleep(2000);
     }
