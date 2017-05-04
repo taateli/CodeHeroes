@@ -73,19 +73,7 @@ public class Stepdefs {
     }
 
     @Given("^Edit is pressed for key \"([^\"]*)\"$")
-    public void edit_is_pressed_for_key(String key) throws Throwable {
-        
-//        //Kaisan yritys korjata testejä indeksiriippumattomiksi
-//        List<WebElement> headerList = driver.findElements(By.tagName("th"));
-//        int column = 0;
-//        for (int i = 0; i < headerList.size(); i++) {
-//            WebElement element = headerList.get(i);    // there are four columns: checkbox(0), key(1), author(2), title(3), year(3), tags(4), edit(5) 
-//            if (element.getText().contains("key")) {
-//                column = i;  
-//                break;
-//            }
-//        }
-        
+    public void edit_is_pressed_for_key(String key) throws Throwable {     
         // let's get all the <td> -elements from HTML
         List<WebElement> elementsInRow = driver.findElements(By.tagName("td"));
         int index = 0;
@@ -96,22 +84,13 @@ public class Stepdefs {
                 break;
             }
         }
-        
-       
-        
+             
         if (index > 0) {            // let's press the founded EDIT button (submit doesn't work)
             elementsInRow.get(index).click();
         }
         Thread.sleep(2000);
     }
 
-//    @Given("^a book reference with key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" publisher \"([^\"]*)\" is created$")
-//    public void a_book_reference_with_key_author_title_year_publisher_is_created(String key, String author, String title, String year, String publisher) throws Throwable {
-//        form_book_is_selected();
-//        String address = "", series = "", edition = "", month = "", volume = "", tags = "";
-//        updateBook(key, author, title, year, publisher, address, series, edition, month, volume, tags);
-//        system_will_respond_with("Reference added successfully!");
-//    }
 // searchingReference.feature uses:
     @Given("^a book reference with key \"([^\"]*)\" author \"([^\"]*)\" title \"([^\"]*)\" year \"([^\"]*)\" publisher \"([^\"]*)\" is created successfully$")
     public void a_book_reference_with_key_author_title_year_publisher_is_created_successfully(String key, String author, String title, String year, String publisher) throws Throwable {
