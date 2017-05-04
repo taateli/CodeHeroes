@@ -49,13 +49,6 @@ public class FileServiceTest {
         book3 = book3 + "publisher = {" + "Otava" + "},\n";
         book3 = book3 + "}";
 
-        String book4 = "@book{" + "K2017" + ",\n";
-        book4 = book4 + "author = {" + "K{\\\"a}{\\\"a}p{\\\"a}" + "},\n";
-        book4 = book4 + "title = {" + "Y{\\\"o}" + "},\n";
-        book4 = book4 + "year = {" + "2017" + "},\n";
-        book4 = book4 + "publisher = {" + "Otava" + "},\n";
-        book4 = book4 + "}";
-
         List<Reference> lista = new ArrayList<Reference>();
         Book mockBook = mock(Book.class);
         lista.add(mockBook);
