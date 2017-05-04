@@ -59,6 +59,12 @@ public class Stepdefs {
         pageHasContent("Add article reference");
     }
 
+    @Given("^form acm is selected$")
+    public void form_acm_is_selected() throws Throwable {
+        driver.get(baseUrl + "/acm");
+        pageHasContent("Get a reference from ACM Digital Library");
+    }
+
     @Given("^Front page is opened$")
     public void front_page_is_opened() throws Throwable {
         driver.get(baseUrl);
@@ -68,18 +74,33 @@ public class Stepdefs {
 
     @Given("^Edit is pressed for key \"([^\"]*)\"$")
     public void edit_is_pressed_for_key(String key) throws Throwable {
+        
+//        //Kaisan yritys korjata testejä indeksiriippumattomiksi
+//        List<WebElement> headerList = driver.findElements(By.tagName("th"));
+//        int column = 0;
+//        for (int i = 0; i < headerList.size(); i++) {
+//            WebElement element = headerList.get(i);    // there are four columns: checkbox(0), key(1), author(2), title(3), year(3), tags(4), edit(5) 
+//            if (element.getText().contains("key")) {
+//                column = i;  
+//                break;
+//            }
+//        }
+        
         // let's get all the <td> -elements from HTML
-        List<WebElement> lista = driver.findElements(By.tagName("td"));
-        int indeksi = 0;
-        for (int i = 0; i < lista.size(); i++) {
-            WebElement element = lista.get(i);    // there are four columns: checkbox, reference, tags, edit 
+        List<WebElement> elementsInRow = driver.findElements(By.tagName("td"));
+        int index = 0;
+        for (int i = 0; i < elementsInRow.size(); i++) {
+            WebElement element = elementsInRow.get(i);    // there are four columns: checkbox(0), key(1), author(2), title(3), year(3), tags(4), edit(5) 
             if (element.getText().contains(key)) {
-                indeksi = i + 2; // element + 2 -> get the edit -element 
+                index = elementsInRow.size()-1; // element + 2 -> get the edit -element 
                 break;
             }
         }
-        if (indeksi > 0) {            // let's press the founded EDIT button (submit doesn't work)
-            lista.get(indeksi).click();
+        
+       
+        
+        if (index > 0) {            // let's press the founded EDIT button (submit doesn't work)
+            elementsInRow.get(index).click();
         }
         Thread.sleep(2000);
     }
@@ -141,6 +162,13 @@ public class Stepdefs {
         system_will_respond_with("Reference added successfully!");
     }
 
+    @When("^url \"([^\"]*)\" is inserted$")
+    public void url_is_inserted(String url) throws Throwable {
+        WebElement element = driver.findElement(By.name("url"));
+        element.sendKeys(url);
+        driver.findElement(By.name("send")).submit();
+    }
+
     @When("^printFile button is pressed$")
     public void printfile_button_is_pressed() throws Throwable {
         driver.findElement(By.name("fileName")).click();
@@ -175,6 +203,8 @@ public class Stepdefs {
     public void delete_() throws InterruptedException {
         // this will make the popup visible
         driver.findElement(By.xpath("/html/body/div/div/div/form[2]/input[2]")).click();
+       // driver.findElement(By.id("delete")).click();
+
         Thread.sleep(2000); // If you wanna see the popup for 2 seconds
     }
 
@@ -226,15 +256,14 @@ public class Stepdefs {
 
     @When("^link tag by name \"([^\"]*)\" is pressed$")
     public void link_tag_by_name_is_pressed(String tag) throws Throwable {
-        List<WebElement> lista = driver.findElements(By.tagName("span"));
-        for (WebElement element : lista) {
-            if (element.getText().contains(tag)) {
-                element.click();
-            }
-        }
+        //List<WebElement> lista = driver.findElements(By.tagName("span"));
+        WebElement element = driver.findElement(By.partialLinkText(tag));
+        System.out.println("elementti löydetty:" +element.getText());
+        Thread.sleep(1000);
+        element.click(); 
         Thread.sleep(2000);
     }
-    
+
     @Then("^the number is same$")
     public void the_number_is_same() throws Throwable {
         assertTrue(this.amount1 == this.amount2);
