@@ -59,6 +59,12 @@ public class Stepdefs {
         pageHasContent("Add article reference");
     }
 
+    @Given("^form acm is selected$")
+    public void form_acm_is_selected() throws Throwable {
+        driver.get(baseUrl + "/acm");
+        pageHasContent("Get a reference from ACM Digital Library");
+    }
+
     @Given("^Front page is opened$")
     public void front_page_is_opened() throws Throwable {
         driver.get(baseUrl);
@@ -139,6 +145,13 @@ public class Stepdefs {
         String publisher = "", editor = "", address = "", series = "", startingPage = "", endingPage = "", edition = "", month = "", organization = "";
         updateInproceedings(key, author, title, year, publisher, editor, booktitle, address, series, startingPage, endingPage, month, organization, tags);
         system_will_respond_with("Reference added successfully!");
+    }
+
+    @When("^url \"([^\"]*)\" is inserted$")
+    public void url_is_inserted(String url) throws Throwable {
+        WebElement element = driver.findElement(By.name("url"));
+        element.sendKeys(url);
+        driver.findElement(By.name("send")).submit();
     }
 
     @When("^printFile button is pressed$")
@@ -234,7 +247,7 @@ public class Stepdefs {
         }
         Thread.sleep(2000);
     }
-    
+
     @Then("^the number is same$")
     public void the_number_is_same() throws Throwable {
         assertTrue(this.amount1 == this.amount2);
