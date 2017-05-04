@@ -32,9 +32,6 @@ public class FileService {
         for (Reference ref : references) {
             checked = ref.toBibTex();
             checked = letterChecker.changeScandisToBibTextForm(checked);
-            content += checked + "\n";  //vaihdetaan kun bibtex-metodi toimii
-            //content += = ref.toBibtex()+"\n";
-
             content += checked + "\n";
         }
         return new FileObject(content.getBytes(), fileName);

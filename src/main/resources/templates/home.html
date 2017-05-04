@@ -100,19 +100,12 @@
                         <input type="submit" class="btn btn-primary btn-sm" value="Search"/>
                         <a th:href="@{/}" class="btn btn-primary btn-sm" name="listAll">List all</a>
                     </form>
-                    <!--
-                    <form th:method="GET" th:action="@{/} ">
-                        <input type="submit" name="listAll" class="btn btn-primary btn-sm" value="List all"/>
-                    </form>
-                    -->
+
                     <form th:method="GET" th:action="@{/download} ">
                         <label>Name of the file:</label>
                         <input type="text" name="fileName"/>
                         <input type="submit" class="btn btn-primary btn-sm" value="Download.bib"/>
-                        <!--                
-                                        </form>
-                         <form action="#" th:method="POST" th:action="@{/download2}" th:object="${refs}">    
-                        -->
+
                         <table class="table table-striped table-bordered" id="referenceTable">
                             <thead>
                                 <tr>
@@ -137,21 +130,12 @@
                                     <td><span th:each="tag : ${reference.tags}"><a th:text="${tag} + ' '" th:href="@{'/search?search={search}'(search=${tag})}"></a></span></td>
                                     <td><a class="btn btn-primary" th:href="@{/references/{id} (id=${reference.id})}">EDIT</a></td>
 
-                                    <!--
-                                    <th><form th:method="DELETE" th:id="'deleteForm' + ${reference.id}" th:action="@{/references/{id} (id=${reference.id})} "><input type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm" value="Delete" form="'deleteForm' + ${reference.id}"/></form></th>
-                                    -->
                                 </tr>
 
 
                             </tbody>
                         </table>
                     </form>
-
-
-
-
-
-
 
                 </div>
             </div>    
