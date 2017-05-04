@@ -117,7 +117,10 @@
                             <thead>
                                 <tr>
                                     <th><label><input  type="checkbox" id="selectAllBox" name="selectAllBox" />Select all</label></th>
-                                    <th>Reference</th>
+                                    <th>Key</th>
+                                    <th>Authors</th>
+                                    <th>Title</th>
+                                    <th>Year</th>
                                     <th>Tags</th>
 
                                 </tr>
@@ -127,9 +130,11 @@
 
                                 <tr th:each="reference : ${references}">
                                     <td><input type="checkbox"  name="refs" th:value="${reference.id}"></input></td>
-                                    <td><a th:text="${reference}"></a></td>
-                                    <td><span th:each="tag : ${reference.tags}"><a
-                                                th:text="${tag} + ' '" th:href="@{'/search?search={search}'(search=${tag})}"></a></span></td>
+                                    <td><span th:text="${reference.key}"/></td>
+                                    <td><span th:each="author : ${reference.authors}"><a th:text="${author} + ' '"></a></span></td>
+                                    <td><span th:text="${reference.title}"/></td>
+                                    <td><span th:text="${reference.year}"/></td>
+                                    <td><span th:each="tag : ${reference.tags}"><a th:text="${tag} + ' '" th:href="@{'/search?search={search}'(search=${tag})}"></a></span></td>
                                     <td><a class="btn btn-primary" th:href="@{/references/{id} (id=${reference.id})}">EDIT</a></td>
 
                                     <!--
@@ -137,22 +142,19 @@
                                     -->
                                 </tr>
 
+
                             </tbody>
                         </table>
-                        <!--
-                                           <label>Name of the file:</label>
-                                           <input type="text" name="fileName"/>
-                                           <input type="submit" class="btn btn-primary btn-sm" value="Download.bib"/>
-                        -->          
                     </form>
 
 
 
 
 
-                </div>
-            </div>
-        </div>    
 
+
+                </div>
+            </div>    
+        </div>
     </body>    
 </html>
