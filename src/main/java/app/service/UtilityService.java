@@ -126,6 +126,7 @@ public class UtilityService {
             }
 
         } else {
+            
             key = key + ref.getAuthors().get(0).charAt(0);
         }
         key = key + ref.getYear();

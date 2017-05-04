@@ -100,9 +100,10 @@ public class WebCrawler {
         book.setEdition(searchField(bibtext, "edition", '{', '}'));
         book.setMonth(searchField(bibtext, "month", '{', '}'));
         book.setSeries(searchField(bibtext, "series", '{', '}'));
+        book.setKey(searchField(bibtext, "book", '{', ','));
         book.setTags(validator.splitTags(searchField(bibtext, "keywords", '{', '}')));
 
-        validator.getKey(book);
+        
 
         return book;
     }
@@ -124,13 +125,16 @@ public class WebCrawler {
         inp.setEditor(searchField(bibtext, "editor", '{', '}'));
 //        inp.setMonth(searchField(bibtext, "month", '{', '}'));  data is: month = nov, no {}
         inp.setSeries(searchField(bibtext, "series", '{', '}'));
+        inp.setMonth("");
         inp.setTags(validator.splitTags(searchField(bibtext, "keywords", '{', '}')));
-        inp.setEndingPage(searchField(bibtext, "pages", '-', '}'));
-        inp.setStartingPage(searchField(bibtext, "pages", '{', '-'));
+        inp.setEndingPage("");
+        inp.setStartingPage("");
+//      inp.setEndingPage(searchField(bibtext, "pages", '-', '}'));
+//      inp.setStartingPage(searchField(bibtext, "pages", '{', '-'));
         inp.setOrganization(searchField(bibtext, "organization", '{', '}'));
         inp.setBookTitle(searchField(bibtext, "booktitle", '{', '}'));
         inp.setVolume(searchField(bibtext, "volume", '{', '}'));
-        validator.getKey(inp);
+        inp.setKey(searchField(bibtext, "proceedings", '{', ','));
 
         return inp;
     }
@@ -152,13 +156,15 @@ public class WebCrawler {
         art.setAddress(searchField(bibtext, "address", '{', '}'));
         art.setMonth(searchField(bibtext, "month", '{', '}'));
         art.setTags(validator.splitTags(searchField(bibtext, "keywords", '{', '}')));
-        art.setEndingPage(searchField(bibtext, "pages", '{', '-'));
-        art.setStartingPage(searchField(bibtext, "pages", '-', '}'));
+        art.setStartingPage("");
+        art.setEndingPage("");
+//        art.setEndingPage(searchField(bibtext, "pages", '{', '-'));
+//        art.setStartingPage(searchField(bibtext, "pages", '-', '}'));
         art.setJournal(searchField(bibtext, "journal", '{', '}'));
         art.setVolume(searchField(bibtext, "volume", '{', '}'));
         art.setNumber(searchField(bibtext, "number", '{', '}'));
 
-        validator.getKey(art);
+        art.setKey(searchField(bibtext, "article", '{', ','));
 
         return art;
     }
@@ -187,7 +193,8 @@ public class WebCrawler {
                     data = data + bibtex.charAt(i);
                     dataIndex ++;
                 }
-                if (bibtex.charAt(i) == start) { // begin to collect data              dataIndex = i;
+                if (bibtex.charAt(i) == start) { // begin to collect data              
+                    dataIndex = i;
                     dataIndex ++;
                 }
 
