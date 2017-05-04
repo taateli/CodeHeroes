@@ -146,6 +146,7 @@ public class Stepdefs {
         WebElement element = driver.findElement(By.name("url"));
         element.sendKeys(url);
         driver.findElement(By.name("send")).submit();
+        Thread.sleep(2000);
     }
 
     @When("^printFile button is pressed$")
