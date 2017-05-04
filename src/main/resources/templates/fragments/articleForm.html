@@ -92,7 +92,7 @@
                     </div>
             
                      <div class="form-group">
-                         <label for="tags">Tag(s) <span>(separate multiple tags with 'and')</span></label>
+                         <label for="tags">Tag(s) <span>(separate multiple tags with ',')</span></label>
                         <input type="text" th:field="*{tags}"  class="form-control"  name="tags"/>
                         <p class="alert-danger" th:if="${#fields.hasErrors('tags')}" th:errors="*{tags}">Virheviesti</p>
                     </div>
