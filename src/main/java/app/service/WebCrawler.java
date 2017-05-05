@@ -26,8 +26,8 @@ public class WebCrawler {
     /**
      * This method creates a Reference object from an ACM reference
      *
-     * @param URL
-     * @return
+     * @param URL String url of an ACM reference
+     * @return Reference from ACM
      */
     public Reference getReference(String URL) {
         String acmId = extractId(URL);
@@ -64,29 +64,29 @@ public class WebCrawler {
     /**
      * This method extracts the id of a reference in AMC library
      *
-     * @param url
-     * @return
+     * @param url String url with an id
+     * @return part of the url with an id
      */
     private String extractId(String url) {
         String[] urlParts = url.split("&");
         String[] idPart = urlParts[0].split("=");
-            if(idPart.length > 1){
-                if (idPart[1].contains(".")) {
-                    String[] id = idPart[1].split("[.]");
-                    return id[1];
+        if (idPart.length > 1) {
+            if (idPart[1].contains(".")) {
+                String[] id = idPart[1].split("[.]");
+                return id[1];
 
-                } else {
-                    return idPart[1];
-                }
-            }    
-            return null;
+            } else {
+                return idPart[1];
+            }
+        }
+        return null;
     }
 
     /**
      * This method handles turning BibTex format into a Book reference
      *
-     * @param String
-     * @return
+     * @param bibtext a book's information from ACM
+     * @return new Book object
      */
     public Book bibtextToBook(String bibtext) {
         Book book = new Book();
@@ -102,16 +102,14 @@ public class WebCrawler {
         book.setKey(searchField(bibtext, "book", '{', ','));
         book.setTags(validator.splitTags(searchField(bibtext, "keywords", '{', '}')));
 
-        
-
         return book;
     }
 
     /**
      * This method handles turning BibTex format into an Inproceedings reference
      *
-     * @param bibtext
-     * @return
+     * @param bibtext an inproceedings' information from ACM
+     * @return new Inproceedings object
      */
     public Inproceedings bibtextToInproceedings(String bibtext) {
         Inproceedings inp = new Inproceedings();
@@ -141,9 +139,8 @@ public class WebCrawler {
     /**
      * This method handles turning BibTex format into an Article reference
      *
-     * @param bibtext
-     * @param String
-     * @return
+     * @param bibtext an article's information from ACM
+     * @return new Article object
      */
     public Article bibtextToArticle(String bibtext) {
         Article art = new Article();
@@ -172,35 +169,35 @@ public class WebCrawler {
      * This method helps finding the right field and data from BibTex
      *
      * @param bibtex - formalized data called bibtex
-     * @param field - the field header we are looking for like "title" -> title = {title of the publication}
-     * @param start  - data begins after this starting character 
+     * @param field - the field header we are looking for like "title", so title
+     * = {title of the publication}
+     * @param start - data begins after this starting character
      * @param end - data ends before this ending character
-     * @return String - the data value 
+     * @return String - the data value
      */
-    
-     public static String searchField(String bibtex, String field, Character start, Character end){
-         String data = "";
-         bibtex = ' ' + bibtex; // just in case the field from index 0
+    public static String searchField(String bibtex, String field, Character start, Character end) {
+        String data = "";
+        bibtex = ' ' + bibtex; // just in case the field from index 0
         int dataIndex = 0;
         if (bibtex.contains(field)) { // includes the header field ("author"..) 
             int fieldBeginIndex = bibtex.indexOf(field);
             for (int i = fieldBeginIndex; i < bibtex.length(); i++) {
                 if (bibtex.charAt(i) == end) { // data ends
-                    break; 
+                    break;
                 }
                 if (dataIndex == i) { // this char is included the data
                     data = data + bibtex.charAt(i);
-                    dataIndex ++;
+                    dataIndex++;
                 }
                 if (bibtex.charAt(i) == start) { // begin to collect data              
                     dataIndex = i;
-                    dataIndex ++;
+                    dataIndex++;
                 }
 
             }
         }
         return data;
-    
+
     }
 
 }

@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
  * This class handles all requests regarding to downloading references as a .bib
  * file.
  *
- * @author kaisa
  */
 @Controller
 public class FileController {
@@ -42,7 +41,7 @@ public class FileController {
      * Method to download a BibTex file
      * @param fileName, String, name of the file
      * @param refs, Long [], contains ids of the references to download
-     * @return 
+     * @return ResponseEntity object
      */
     @RequestMapping(value = "/download", method = RequestMethod.GET)
     public ResponseEntity<byte[]> viewFile(@RequestParam String fileName, @RequestParam(name = "refs", required = false) Long[] refs) {

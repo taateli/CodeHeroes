@@ -36,9 +36,10 @@ public class ReferenceController {
     private UtilityService utilService;
 
     /**
-     * This method handles get-request to /acm path
-     * @param model
-     * @return 
+     * This method handles get-request to path /acm
+     *
+     * @param model Model object
+     * @return path acm
      */
     @RequestMapping(value = "/acm", method = RequestMethod.GET)
     public String showAcmForm(Model model) {
@@ -47,21 +48,22 @@ public class ReferenceController {
 
     /**
      * This method adds a reference from ACM to the database
-     * @param model
-     * @param url
-     * @param redirectAttrs
-     * @return
-     * @throws InterruptedException 
+     *
+     * @param model Model object
+     * @param url String url of a reference from ACM
+     * @param redirectAttrs RedirectAttributes
+     * @return path redirect
+     * @throws InterruptedException if interrupted
      */
     @RequestMapping(value = "/acm", method = RequestMethod.POST)
     public String getFromAcm(Model model, @RequestParam String url, RedirectAttributes redirectAttrs) throws InterruptedException {
         Reference newReference = refService.getReferencesFromAcm(url);
-        if(newReference == null){
-            model.addAttribute("url",url);
-            model.addAttribute("errormessage","Link you gave didn't return any references. Check your link!");
+        if (newReference == null) {
+            model.addAttribute("url", url);
+            model.addAttribute("errormessage", "Link you gave didn't return any references. Check your link!");
             return "acm";
         }
-        refService.addReference(refService.getReferencesFromAcm(url));  
+        refService.addReference(refService.getReferencesFromAcm(url));
         redirectAttrs.addFlashAttribute("newReference", newReference);
         return "redirect:/";
     }
@@ -70,8 +72,8 @@ public class ReferenceController {
      * This method handles get-request to home path and shows home.html file
      * from folder resource/templates/
      *
-     * @param model
-     * @return
+     * @param model Model object
+     * @return path home
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showReferenceTypes(Model model) {
@@ -85,8 +87,8 @@ public class ReferenceController {
      * This method handles get-request to path /books and shows books.html file
      * from folder resource/templates/
      *
-     * @param model
-     * @return
+     * @param model Model object
+     * @return path books
      */
     @RequestMapping(value = "/books", method = RequestMethod.GET)
     public String showBooksForm(Model model) {
@@ -99,8 +101,8 @@ public class ReferenceController {
      * This method handles get-request to path /inproceedings and shows
      * inproceedings.html file from folder resource/templates/
      *
-     * @param model
-     * @return
+     * @param model Model object
+     * @return path inproceedings
      */
     @RequestMapping(value = "/inproceedings", method = RequestMethod.GET)
     public String showInpForm(Model model) {
@@ -113,8 +115,8 @@ public class ReferenceController {
      * This method handles get-request to path /article and shows books.html
      * file from folder resource/templates/
      *
-     * @param model
-     * @return
+     * @param model Model object
+     * @return path article
      */
     @RequestMapping(value = "/article", method = RequestMethod.GET)
     public String showArticleForm(Model model) {
@@ -128,10 +130,11 @@ public class ReferenceController {
      * Inproceedings type parameter. It uses @ModelAttribute annotation to
      * render th:field tags from view
      *
-     * @param inp
-     * @param bindingresult
-     * @param redirectAttrs
-     * @return
+     * @param inp Inproceedings object
+     * @param bindingresult BindingResult
+     * @param redirectAttrs RedirectAttributes
+     * @return either path inproceedings or redirect to the home page if no
+     * errors
      */
     @RequestMapping(value = "/inproceedings", method = RequestMethod.POST)
     public String addInproceedings(@Valid @ModelAttribute Inproceedings inp, BindingResult bindingresult,
@@ -145,7 +148,7 @@ public class ReferenceController {
             bindingresult.addError(new FieldError("Inproceedings", "endingPage", "Ending page cannot be before starting page!"));
             return "inproceedings";
         }
-        
+
         addReference(inp, bindingresult, redirectAttrs);
         return "redirect:/";
     }
@@ -155,10 +158,10 @@ public class ReferenceController {
      * parameter. It uses @ModelAttribute annotation to render th:field tags
      * from view
      *
-     * @param book
-     * @param bindingresult
-     * @param redirectAttrs
-     * @return
+     * @param book Book object being added
+     * @param bindingresult BindingResult
+     * @param redirectAttrs RedirectAttributes
+     * @return either path books or redirect to the home page if no errors
      */
     @RequestMapping(value = "/books", method = RequestMethod.POST)
     public String addBook(@Valid @ModelAttribute Book book, BindingResult bindingresult,
@@ -176,10 +179,10 @@ public class ReferenceController {
      * parameter. It uses @ModelAttribute annotation to render th:field tags
      * from view
      *
-     * @param article
-     * @param bindingresult
-     * @param redirectAttrs
-     * @return
+     * @param article Article object being added
+     * @param bindingresult BindingResult
+     * @param redirectAttrs RedirectAttributes
+     * @return either path article or redirect to the home page if no errors
      */
     @RequestMapping(value = "/article", method = RequestMethod.POST)
     public String addArticle(@Valid @ModelAttribute Article article, BindingResult bindingresult,
@@ -200,9 +203,9 @@ public class ReferenceController {
      * This method takes search -String to compare it on all references toString
      * -methods and return all references including the String
      *
-     * @param model
+     * @param model Model object
      * @param search - field for any string to search from references
-     * @return
+     * @return path home
      */
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String searchReference(Model model, @RequestParam String search) {
@@ -215,9 +218,9 @@ public class ReferenceController {
     /**
      * A method to help with adding a reference into the database
      *
-     * @param reference
-     * @param bindingresult
-     * @param redirectAttrs
+     * @param reference Reference being added
+     * @param bindingresult BindingResult
+     * @param redirectAttrs RedirectAttributes
      */
     private void addReference(@Valid
             @ModelAttribute Reference reference, BindingResult bindingresult,
@@ -239,8 +242,8 @@ public class ReferenceController {
      *
      * @param id, Long, received as a parameter, id of the reference being
      * deleted
-     * @param redirectAttrs
-     * @return
+     * @param redirectAttrs RedirectAttributes
+     * @return redirect to the home page
      */
     @RequestMapping(value = "/references/{id}", method = RequestMethod.DELETE)
     public String deleteReference(@PathVariable Long id, RedirectAttributes redirectAttrs) {
@@ -256,9 +259,9 @@ public class ReferenceController {
      * Method for updating a Book type reference
      *
      * @param editBookRef, Book object containing updated information
-     * @param bindingresult
+     * @param bindingresult BindingResult
      * @param id, Long, id of the Book reference being updated
-     * @param redirectAttrs
+     * @param redirectAttrs RedirectAttributes
      * @return redirect to the main page
      */
     @RequestMapping(value = "/editBook/{id}", method = RequestMethod.POST)
@@ -291,9 +294,9 @@ public class ReferenceController {
      * Method for updating an Article type reference
      *
      * @param editArticleRef, Article object containing updated information
-     * @param bindingresult
+     * @param bindingresult BindingResult
      * @param id, Long, id of the Article reference being updated
-     * @param redirectAttrs
+     * @param redirectAttrs RedirectAttributes
      * @return redirect to the main page
      */
     @RequestMapping(value = "/editArticle/{id}", method = RequestMethod.POST)
@@ -329,9 +332,9 @@ public class ReferenceController {
      *
      * @param editInproceedingsRef, Inproceedings object containing updated
      * information
-     * @param bindingresult
+     * @param bindingresult BindingResult
      * @param id, Long, id of the Inproceedings reference being updated
-     * @param redirectAttrs
+     * @param redirectAttrs RedirectAttributes
      * @return redirect to the main page
      */
     @RequestMapping(value = "/editInpro/{id}", method = RequestMethod.POST)
@@ -367,7 +370,7 @@ public class ReferenceController {
     /**
      * Method for editing Reference objects
      *
-     * @param model
+     * @param model Model object
      * @param id, Long, id of the reference being edited
      * @return a specific editing page according to the type of the reference
      */

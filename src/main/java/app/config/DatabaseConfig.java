@@ -1,4 +1,3 @@
-
 package app.config;
 
 import java.net.URISyntaxException;
@@ -9,12 +8,18 @@ import org.springframework.context.annotation.Profile;
 
 /**
  * Class for setting up the database connection
- * 
+ *
  */
 @Configuration
 @Profile("production")
-public class DatabaseConfig {    
+public class DatabaseConfig {
 
+    /**
+     * Method for handling database connection
+     *
+     * @return BasicDataSource object
+     * @throws URISyntaxException if syntax wrong
+     */
     @Bean
     public BasicDataSource dataSource() throws URISyntaxException {
         String dbUrl = System.getenv("JDBC_DATABASE_URL");

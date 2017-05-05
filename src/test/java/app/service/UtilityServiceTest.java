@@ -30,12 +30,6 @@ public class UtilityServiceTest {
     public static void tearDownClass() {
     }
 
-//    @Before
-//    public void setUp() {
-//        validator = new UtilityService();
-//
-//    }
-
     @Test
     public void splitTagsSplitsTwoTagsAndFirstTagIsRight() {
         String tagString = "some, someOther";

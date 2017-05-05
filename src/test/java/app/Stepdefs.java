@@ -96,7 +96,7 @@ public class Stepdefs {
             }
         }
         Thread.sleep(2000);
-        if (index > 0) {            // let's press the founded EDIT button (submit doesn't work)
+        if (index > 0) {            // let's press the found EDIT button (submit doesn't work)
             WebElement clickElement = elementsInRow.get(index);
             Thread.sleep(2000);
             clickElement.click();
