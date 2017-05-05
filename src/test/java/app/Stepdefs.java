@@ -41,6 +41,17 @@ public class Stepdefs {
 
     }
 
+     @When("^connection is shut down$")
+    public void connection_is_shut_down() throws Throwable {
+        driver.quit();
+    }
+
+    @Then("^new connection is established$")
+    public void new_connection_is_established() throws Throwable {
+       this.driver = new FirefoxDriver();
+    }
+    
+    
     @Given("^form book is selected$")
     public void form_book_is_selected() throws Throwable {
         driver.get(baseUrl + "/books");

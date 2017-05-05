@@ -1,5 +1,9 @@
 Feature: User can delete a reference by clicking "Delete" button
 
+ Scenario: old connection is shut down and new established
+     When connection is shut down
+    Then new connection is established
+
   Scenario: user can delete a book reference
     Given a book reference with key "MW34A" author "Mika Waltari" title "Sinuhe" year "1934" publisher "Otava" is created successfully
     And Edit is pressed for key "MW34A"

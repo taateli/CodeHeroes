@@ -1,5 +1,6 @@
 Feature: User can search references according to a string
 
+ 
   Scenario: user can search all reference data for given string
     Given a book reference with key "MW341" author "Mika Waltari" title "Sinuhe" year "1934" publisher "Otava" is created successfully
     And a book reference with key "MW342" author "Kaisa Waltari" title "Sinuhe" year "1934" publisher "Otava" is created successfully
