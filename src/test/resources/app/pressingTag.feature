@@ -1,5 +1,9 @@
 Feature: User can list all refererences which include the same tag
 
+  Scenario: old connection is shut down and new established
+    When connection is shut down
+    Then new connection is established
+
   Scenario: user can list all references including the tag (one tag in reference)
     Given book reference with key "key1" author "Mika" title "Sinuhe" year "1934" publisher "Otava" tags "tagi1"is created successfully
     And book reference with key "key2" author "Mika" title "Sinuhe" year "1934" publisher "Otava" tags "tagi2"is created successfully
