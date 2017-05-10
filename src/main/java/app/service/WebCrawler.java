@@ -5,7 +5,9 @@ import app.domain.Book;
 import app.domain.Inproceedings;
 import app.domain.Reference;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -20,6 +22,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Service
 public class WebCrawler {
 
+    Map<String, Integer> monthToInt = new HashMap<>();
+
+    public WebCrawler() {
+        // Initialize mont table 
+        monthToInt.put(" jan", 1);
+        monthToInt.put(" feb", 2);
+        monthToInt.put(" mar", 3);
+        monthToInt.put(" apr", 4);
+        monthToInt.put(" may", 5);
+        monthToInt.put(" jun", 6);
+        monthToInt.put(" jul", 7);
+        monthToInt.put(" aug", 8);
+        monthToInt.put(" sep", 9);
+        monthToInt.put(" oct", 10);
+        monthToInt.put(" nov", 11);
+        monthToInt.put(" dec", 12);
+        monthToInt.put("", 0);
+    }
+
+    
     @Autowired
     private UtilityService validator;
 
@@ -97,7 +119,11 @@ public class WebCrawler {
         book.setPublisher(searchField(bibtext, "publisher", '{', '}'));
         book.setAddress(searchField(bibtext, "address", '{', '}'));
         book.setEdition(searchField(bibtext, "edition", '{', '}'));
-        book.setMonth(searchField(bibtext, "month", '{', '}'));
+          book.setMonth("");
+        int month = monthToInt.get(searchField(bibtext, "month", '=', ','));
+        if (month > 0) {
+            book.setMonth("" + month);
+        }
         book.setSeries(searchField(bibtext, "series", '{', '}'));
         book.setKey(searchField(bibtext, "book", '{', ','));
         book.setTags(validator.splitTags(searchField(bibtext, "keywords", '{', '}')));
@@ -120,14 +146,17 @@ public class WebCrawler {
         inp.setPublisher(searchField(bibtext, "publisher", '{', '}'));
         inp.setAddress(searchField(bibtext, "address", '{', '}'));
         inp.setEditor(searchField(bibtext, "editor", '{', '}'));
-//        inp.setMonth(searchField(bibtext, "month", '{', '}'));  data is: month = nov, no {}
         inp.setSeries(searchField(bibtext, "series", '{', '}'));
-        inp.setMonth("");
+                 inp.setMonth("");
+        int month = monthToInt.get(searchField(bibtext, "month", '=', ','));
+        if (month > 0) {
+            inp.setMonth("" + month);
+        }
         inp.setTags(validator.splitTags(searchField(bibtext, "keywords", '{', '}')));
         inp.setEndingPage("");
         inp.setStartingPage("");
-//      inp.setEndingPage(searchField(bibtext, "pages", '-', '}'));
-//      inp.setStartingPage(searchField(bibtext, "pages", '{', '-'));
+        inp.setEndingPage(searchField(bibtext, "pages", '-', '}'));
+        inp.setStartingPage(searchField(bibtext, "pages", '{', '-'));
         inp.setOrganization(searchField(bibtext, "organization", '{', '}'));
         inp.setBookTitle(searchField(bibtext, "booktitle", '{', '}'));
         inp.setVolume(searchField(bibtext, "volume", '{', '}'));
@@ -150,12 +179,16 @@ public class WebCrawler {
         art.setYear(searchField(bibtext, "year", '{', '}'));
         art.setPublisher(searchField(bibtext, "publisher", '{', '}'));
         art.setAddress(searchField(bibtext, "address", '{', '}'));
-        art.setMonth(searchField(bibtext, "month", '{', '}'));
+         art.setMonth("");
+        int month = monthToInt.get(searchField(bibtext, "month", '=', ','));
+        if (month > 0) {
+            art.setMonth("" + month);
+        }
         art.setTags(validator.splitTags(searchField(bibtext, "keywords", '{', '}')));
         art.setStartingPage("");
         art.setEndingPage("");
-//        art.setEndingPage(searchField(bibtext, "pages", '{', '-'));
-//        art.setStartingPage(searchField(bibtext, "pages", '-', '}'));
+        art.setEndingPage(searchField(bibtext, "pages", '-', '}'));
+        art.setStartingPage(searchField(bibtext, "pages", '{', '-'));
         art.setJournal(searchField(bibtext, "journal", '{', '}'));
         art.setVolume(searchField(bibtext, "volume", '{', '}'));
         art.setNumber(searchField(bibtext, "number", '{', '}'));
@@ -192,6 +225,10 @@ public class WebCrawler {
                 if (bibtex.charAt(i) == start) { // begin to collect data              
                     dataIndex = i;
                     dataIndex++;
+                     if (start == '-') { // ending page data '--345}' -> 345
+                        dataIndex++;
+                        i ++;
+                    }
                 }
 
             }

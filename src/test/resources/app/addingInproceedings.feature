@@ -1,5 +1,9 @@
 Feature: User can add an inproceedings reference to database by filling mandatory fields
 
+  Scenario: old connection is shut down and new established
+    When connection is shut down
+    Then new connection is established
+
   Scenario: user can add an inproceedings reference with mandatory fields filled
     Given form inproceedings is selected
     When key "MC07" author "Caspersen, Michael E. and Bennedsen, Jens" title "Instructional design of a programming course: a learning theoretic approach" year "2017" pubisher "publisher " editor "Elina" booktitle "ICER '07: Proceedings of the third international workshop on Computing education research" address "osoite" series "3" startingPage "3" endingPage "6" month "4" organization "organisaatio" are inserted

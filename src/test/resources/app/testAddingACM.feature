@@ -1,9 +1,8 @@
 Feature: User can add a reference from ACM Digital Library
 
   Scenario: old connection is shut down and new established
-     When connection is shut down
+    When connection is shut down
     Then new connection is established
- 
 
   Scenario: user can add an article reference from ACM Digital Library
     Given form acm is selected
@@ -24,8 +23,3 @@ Feature: User can add a reference from ACM Digital Library
     Given form acm is selected
     When url "" is inserted
     Then system will respond with "Check your link!"
-
-
-
-#
-#
