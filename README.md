@@ -7,5 +7,5 @@ Application running at: https://codeheroes.herokuapp.com/
 
 Product backlog and other working documents here: https://drive.google.com/drive/folders/0B09S9_VaR4-OVGVrdjgwRk1WT1k?usp=sharing
 
-Project report: https://drive.google.com/drive/folders/0B09S9_VaR4-OVGVrdjgwRk1WT1k
+Project report: https://drive.google.com/open?id=0BzkrtV_vxFt4TDFWbzJzOHJOYVE
 
